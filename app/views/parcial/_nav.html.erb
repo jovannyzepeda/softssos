@@ -1,0 +1,20 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">		
+ 	<div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">SOS Software</a>
+                <ul data-role="listview" data-inset="true" data-shadow="false" data-theme="b" class="menu_small">
+				  	<li data-role="collapsible" data-iconpos="right" data-inset="false">
+				    	<h2>SOS Software</h2>
+				    	<ul data-role="listview">
+					    	<%= render "parcial/menu"%>
+				    	</ul>
+				  	</li>
+				</ul> 	
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <%= render "parcial/menu"%>
+            </ul>
+        </div>
+    </div>
+</nav>

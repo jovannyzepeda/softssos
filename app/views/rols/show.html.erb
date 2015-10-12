@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @rol.nombre %>
+</p>
+
+<p>
+  <strong>Precio hora:</strong>
+  <%= @rol.precio_hora %>
+</p>
+
+<%= link_to 'Editar', edit_rol_path(@rol), "data-role" => "button", "data-inline" => "true", "data-theme" => "b" %> 
+<%= link_to 'Regresar', rols_path , "data-role" => "button", "data-inline" => "true", "data-theme" => "b" %>

@@ -1,0 +1,67 @@
+<%if @data.blank?%>
+  <input data-type="search" id="searchForCollapsibleSetChildren">
+  <div data-role="collapsible-set" data-filter="true" data-children="> div, > div div ul button" data-inset="true" id="collapsiblesetForFilterChildren" data-input="#searchForCollapsibleSetChildren">
+    <%@padre.each do |padre|%>
+      <% @productos = Producto.where("producto_padre_id = ?", padre.id) %>
+      <div data-role="collapsible" data-filtertext="<%=padre.nombre%> <%@productos.each do |name|%> <%=name.nombre%> <%end%>">
+          <h3><%=padre.nombre%></h3>
+          <ul data-role="listview" data-inset="false">
+            <%@productos.each do |name|%> 
+              <button data-filtertext="<%=padre.nombre%> <%=name.nombre%>" data-theme="b" onclick="enviar('<%=name.id%>', '<%=name.nombre%>')"><%=name.nombre%></button>
+            <%end%> 
+          </ul>
+      </div>
+    <%end%>
+  </div>
+  productos seleccionados
+
+  <%= form_tag({:controller => "eventos", :action => "index"}, :method => "get", "id"=>"index") do %>
+  	<div id="elements"></div>
+     <%= submit_tag "Enviar" %>
+  <% end %>
+<%end%>
+<%if @data.present?%>
+  <div class="col-md-8">
+    <p class="center">Descargar documento de Estimación con los siguientes elementos:</p>
+    <table class="table table-bordered ui-responsive" data-role="table">
+      <thead>
+        <tr>
+          <th>Producto/servicio</th>
+          <th>Precio</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%@x = 0%>
+        <%@object.each do |x| %>
+          <%@x = @x + x[0].precio%>
+          <tr>
+            <td><%=x[0].nombre%></td>
+            <td><%=x[0].precio%></td>
+          </tr>
+        <% end %>
+         <tr>
+            <td>Total</td>
+            <td><%=@x%></td>
+          </tr>
+      </tbody>
+    </table>
+
+    <%= link_to ' Descargar',  eventos_path(request.parameters.merge({:format => :xlsx})), :onclick => "$('#index').submit()","data-role" => "button", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
+  </div>
+  <div class="col-md-4">
+    <%= image_tag("sos") %>
+  </div>
+  
+<%end%>
+<script type="text/javascript">
+  function enviar(id , nombre){
+    $('#elements').append( '<input type="text"  id="'+id+'" name="data[]" value="'+nombre+'" class="alert alert-success" style="width:95%" readondly><button class="red float_right" onclick="eliminar('+id+')" id="'+id+'">x</button> ' );
+
+  }
+  function eliminar(id){
+        $("input#"+id).remove();
+        $("button#"+id).remove();
+  }
+
+</script>

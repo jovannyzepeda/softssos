@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="alert alert-success" >Lista de Categorias</h1>
+
+<table class="table table-bordered ui-responsive" data-role="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Descripcion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @producto_padres.each do |producto_padre| %>
+      <tr>
+        <td><%= producto_padre.nombre %></td>
+        <td><%= producto_padre.descripcion %></td>
+        <td><%= link_to 'Ver', producto_padre %></td>
+        <td><%= link_to 'Editar', edit_producto_padre_path(producto_padre) %></td>
+        <td><%= link_to 'Eliminar', producto_padre, method: :delete, data: { confirm: 'Estas seguro?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nueva Categoria', new_producto_padre_path, "data-role" => "button", "data-inline" => "true", "data-theme" => "b"  %>

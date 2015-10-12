@@ -1,0 +1,22 @@
+
+<li><%= link_to 'Productos', productos_path, "class" => "page-scroll" %></li>
+<li><%= link_to 'categoria', producto_padres_path, "class" => "page-scroll" %></li>
+<li><%= link_to "eventos", eventos_path, "class" => "page-scroll"%></li>
+<li><%= link_to "Puestos de trabajo", rols_path, "class" => "page-scroll"%></li>
+<%unless  @first_user.present?%>
+	<%= link_to "Registrar", new_admin_path, class: "green page-scroll"%>
+<%end%>
+<% if user_signed_in? %>
+	<%if current_user.is_admin?%>
+		<li>
+			<%= link_to "Registrar", admins_path, class: " page-scroll "%>
+		</li>
+	<%end%>
+	<li >
+		<%= link_to "Salir", destroy_user_session_path, method: :delete, class: "page-scroll"%>
+	</li>
+<%else%>
+	<li>
+			<%= link_to('Login', new_user_session_path, class: "page-scroll")  %>  
+		</li>
+<%end%>

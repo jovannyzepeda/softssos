@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @producto_padre.nombre %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @producto_padre.descripcion %>
+</p>
+
+<%= link_to 'Editar', edit_producto_padre_path(@producto_padre) , "data-role" => "button", "data-inline" => "true", "data-theme" => "b" %>
+<%= link_to 'Regresar', producto_padres_path, "data-role" => "button", "data-inline" => "true", "data-theme" => "b"  %>

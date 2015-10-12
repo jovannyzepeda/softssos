@@ -1,0 +1,90 @@
+wb = xlsx_package.workbook
+styles = wb.styles
+border = styles.add_style :border => { :style => :thin, :color => "00" }, :sz => 12, :bg_color => "e8e9e9"
+
+style_shout = styles.add_style :fg_color=> "00", :b => true, :bg_color => "96d6f5", :sz => 14, :alignment => { :horizontal => :center, :vertical => :center , :wrap_text => true}
+
+costo = styles.add_style :b => true, :bg_color => "bfc2c3", :sz => 14, :border => {:style => :thin, :color => "00"}
+
+wb.add_worksheet(name: "Resumen") do |sheet|
+	sheet.add_row ['Administración de costos del proyecto "nombre de proyecto"' ,'Administrador de proyecto:   Fecha: '], :style => style_shout
+	sheet.add_row ['',''], :style => border
+	sheet.add_row ['Costo por etapas de proyecto','=Etapas_proyecto.B1'], :style => costo
+	sheet.add_row ['',''], :style => border
+	sheet.add_row ['Costo Servicios/productos', '=servicios.B1'], :style => costo
+	sheet.add_row ['',''], :style => border
+	sheet.add_row ['Total', '=SUM(B3:B5)'], :style => style_shout
+
+end
+
+@rols.each do |x| 
+	case x.nombre
+		when 'Líder de Ventas' then
+			 @lider_ventas = x.precio_hora
+		when 'Vendedor' then
+			 @vendedor = x.precio_hora
+		when 'Administración' then
+			 @administracion = x.precio_hora
+		when 'Líder de Desarrollo' then
+			 @lider_desarrollo = x.precio_hora
+		when 'Ejecutivo de Soporte' then
+		 	 @soporte = x.precio_hora
+		when 'Calidad' then
+		 	 @calidad = x.precio_hora
+	end
+end
+
+wb.add_worksheet(name: "Etapas_proyecto") do |sheet|
+	sheet.add_row ['Total','=SUM(D:D)'], :style => costo
+	sheet.add_row ['Etapa de proyecto' ,'Costo por hora', 'Horas de esfuerzo requerido', 'Costo estimado de esfuerzo', 'Observaciones', 'Complejidad'], :style => style_shout
+	sheet.add_row ['Ventas','','','','',''], :style => costo
+	sheet.add_row ['Identificación y análisis requerimientos',@vendedor,0,'=SUM(B4)*SUM(C4)','',''], :style => border
+	sheet.add_row ['Generación estimación',@lider_ventas,0,'=SUM(B5)*SUM(C5)','',''], :style => border
+	sheet.add_row ['Cotización proveedor',@administracion,0,'=SUM(B6)*SUM(C6)','',''], :style => border
+	sheet.add_row ['Capturar productos/servicios requeridos',@vendedor,0,'=SUM(B7)*SUM(C7)','',''], :style => border
+	sheet.add_row ['Generación de  cotización',@vendedor,0,'=SUM(B8)*SUM(C8)','',''], :style => border
+	sheet.add_row ['Enviar cotización al cliente',@vendedor,0,'=SUM(B9)*SUM(C9)','',''], :style => border
+	sheet.add_row ['Verificación de pago',@vendedor,0,'=SUM(B10)*SUM(C10)','',''], :style => border
+
+
+	sheet.add_row ['Planeacion','','','','',''], :style => costo
+	sheet.add_row ['Elaboración plan de proyecto',@lider_ventas,0,'=SUM(B12)*SUM(C12)','',''], :style => border
+	sheet.add_row ['Generar calendario',@lider_ventas,0,'=SUM(B13)*SUM(C13)','',''], :style => border
+	sheet.add_row ['Autorización de Proyecto','',0,'=SUM(B14)*SUM(C14)','',''], :style => border
+	sheet.add_row ['Generación de Compromiso',@lider_ventas,0,'=SUM(B15)*SUM(C15)','',''], :style => border
+
+	sheet.add_row ['Implementación','','','','',''], :style => costo
+	sheet.add_row ['Confirmar cita y descarga',@vendedor,0,'=SUM(B17)*SUM(C17)','',''], :style => border
+	sheet.add_row ['Realizar implementación y cierre de tarea',@soporte,0,'=SUM(B18)*SUM(C18)','',''], :style => border
+
+	sheet.add_row ['Cierre','','','','',''], :style => costo
+	sheet.add_row ['Validación de implementación',@soporte,0,'=SUM(B20)*SUM(C20)','',''], :style => border
+	sheet.add_row ['Envió de carta de aceptación',@vendedor,0,'=SUM(B21)*SUM(C21)','',''], :style => border
+
+	sheet.add_row ['Garantía','','','','',''], :style => costo
+	sheet.add_row ['Recibir solicitud, Crear tarea y asignar responsable',@vendedor,0,'=SUM(B23)*SUM(C23)','',''], :style => border
+	sheet.add_row ['Resolver solicitud, validar con cliente y cerrar tarea',@soporte,0,'=SUM(B24)*SUM(C24)','',''], :style => border
+
+	sheet.add_row ['Soporte','','','','',''], :style => costo
+	sheet.add_row ['Medición y Monitoreo',@calidad,0,'=SUM(B26)*SUM(C26)','',''], :style => border
+	sheet.add_row ['Metricas',@calidad,0,'=SUM(B27)*SUM(C27)','',''], :style => border
+	sheet.add_row ['Calidad',@calidad,0,'=SUM(B28)*SUM(C28)','',''], :style => border
+end
+
+@total = 0
+wb.add_worksheet(name: "servicios") do |sheet|
+	sheet.add_row ['Monto total de servicios','=SUM(B2:B100)'], :style => costo
+	sheet.add_row ['Servicios/productos solicitados', ''], :style => style_shout
+	@object.each do |x| 
+	  sheet.add_row [x[0].nombre,x[0].precio], :style => border
+	  @total = @total + x[0].precio
+	end
+end
+
+wb.add_worksheet(name: "Roles") do |sheet|
+	sheet.add_row ['Costo por hora de empleados a partir de puesto'], :style => style_shout
+	sheet.add_row ['Rol','Precio por hora'], :style => border
+	@rols.each do |x| 
+		sheet.add_row [x.nombre,x.precio_hora], :style => border
+	end
+end
