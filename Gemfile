@@ -29,8 +29,10 @@ gem 'coffee-script-source', '1.8.0'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
-gem 'rails_12factor', group: :production
-gem 'pg', group: :production
+group :production do 
+	gem 'pg'
+	gem 'rails_12factor'
+end
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'axlsx_rails'
