@@ -9,24 +9,25 @@
   <%= csrf_meta_tags %>
 </head>
 <body id="page-top">
-<div data-role="page">
-	<div data-role="header" class="header">
-	<%= render "parcial/nav"%>
+	<div>
+		<div data-role="header" class="header">
+		<%= render "parcial/nav"%>
+		</div>
+		<div class="col-md-2 small">
+			<p class="notice alert"><%= notice %></p>
+	       	<p class="alert"><%= alert %></p>
+		</div>
+		<div class="col-md-8 col-md-offset-2 contenido" >
+			<%= yield %>
+		</div>
+		<div class="col-md-2 big"> 
+			<p class="notice alert"><%= notice %></p>
+	       	<p class="alert"><%= alert %></p>
+	    </div>
+		<div data-role="footer">
+			
+		</div>
 	</div>
-	<div class="col-md-2 small">
-		<p class="notice alert"><%= notice %></p>
-       	<p class="alert"><%= alert %></p>
-	</div>
-	<div data-role="content" class="col-md-8 col-md-offset-2 contenido" >
-		<%= yield %>
-	</div>
-	<div class="col-md-2 big"> 
-		<p class="notice alert"><%= notice %></p>
-       	<p class="alert"><%= alert %></p>
-    </div>
-	<div data-role="footer">
-		
-	</div>
-</div>
+	
 </body>
 </html>

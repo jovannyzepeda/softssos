@@ -50,7 +50,7 @@ class AdminsController < ApplicationController
   def update
     respond_to do |format|
       if @admin.update(admin_params)
-        format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
+        format.html { redirect_to admins_path, notice: 'Admin was successfully updated.' }
         format.json { render :show, status: :ok, location: @admin }
       else
         format.html { render :edit }
@@ -65,7 +65,7 @@ class AdminsController < ApplicationController
     user = User.find_by(id: params[:id])
     user.destroy
     respond_to do |format|
-      format.html { redirect_to admins_url, notice: 'Usuario destruido exitosamente' }
+      format.html { redirect_to admins_path, notice: 'Usuario destruido exitosamente' }
       format.json { head :no_content }
     end
   end

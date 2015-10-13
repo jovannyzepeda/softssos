@@ -24,10 +24,10 @@
               <%end%>
             </td>
             <td>
-              <%= link_to "Eliminar", admin_destroy_path(user), method: :delete, data: { confirm: "El usuario sera eliminado?" }%>
+              <%= link_to "Eliminar", admin_destroy_path(user), method: :delete, data: { confirm: "El usuario sera eliminado?" }, "data-ajax"=>"false"%>
             </td>
             <td>
-              <%= link_to "Editar", admin_edit_path(user), method: :edit%>
+              <%= link_to "Editar", admin_edit_path(user), method: :edit, "data-ajax"=>"false"%>
             </td>
           </tr>
         <% end %>
