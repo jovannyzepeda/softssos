@@ -7,12 +7,16 @@
           <h3><%=padre.nombre%></h3>
           <ul data-role="listview" data-inset="false">
             <%@productos.each do |name|%> 
-              <button data-filtertext="<%=padre.nombre%> <%=name.nombre%>" data-theme="b" onclick="enviar('<%=name.id%>', '<%=name.nombre%>')"><%=name.nombre%></button>
+              <button data-filtertext="<%=name.clave%> <%=name.nombre%>" data-theme="b" onclick="enviar(<%=name.id%>, '<%=name.nombre%>')"><%=name.nombre%></button>
             <%end%> 
           </ul>
       </div>
     <%end%>
   </div>
+ 
+
+
+  <%= render "adicional"%>
   productos seleccionados
 
   <%= form_tag({:controller => "eventos", :action => "index"}, :method => "get", "id"=>"index") do %>
@@ -48,20 +52,9 @@
     </table>
 
     <%= link_to ' Descargar',  eventos_path(request.parameters.merge({:format => :xlsx})), :onclick => "$('#index').submit()","data-role" => "button", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
+    <%= link_to "Regresar", eventos_path, "data-role" => "button","data-inline"=>"true","data-theme" =>"b", "onclick"=>"cargar()"%>
   </div>
   <div class="col-md-4">
     <%= image_tag("sos") %>
   </div>
-  
 <%end%>
-<script type="text/javascript">
-  function enviar(id , nombre){
-    $('#elements').append( '<input type="text"  id="'+id+'" name="data[]" value="'+nombre+'" class="alert alert-success" style="width:95%" readondly><button class="red float_right" onclick="eliminar('+id+')" id="'+id+'">x</button> ' );
-
-  }
-  function eliminar(id){
-        $("input#"+id).remove();
-        $("button#"+id).remove();
-  }
-
-</script>

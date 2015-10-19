@@ -1,0 +1,1 @@
+function enviar(id , nombre){$('#elements').append( '<input type="text"  id="'+id+'" name="data[]" value="'+nombre+'" class="alert alert-success" style="width:95%" readondly><button class="red float_right" onclick="eliminar('+id+')" id="'+id+'">x</button> ' );  }function eliminar(id){$("input#"+id).remove();$("button#"+id).remove();}function cargar(){$('#elements').empty();}
