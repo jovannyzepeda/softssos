@@ -1,8 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <h1 class="alert alert-success" >Lista de productos</h1>
+<%= link_to 'Producto nuevo', new_producto_path, "data-role" => "button", "data-inline" => "true", "data-theme" => "b" , "class" => "float_right"  %>
+<form class="col-md-12">
+    <input id="filterTable-input" data-type="search">
+</form>
 
-<table class="table table-bordered ui-responsive" data-role="table">
+
+<table class="table table-bordered ui-responsive" data-role="table" data-filter="true" data-input="#filterTable-input">
   <thead>
     <tr>
       <th>Nombre</th>
@@ -32,4 +37,4 @@
 
 <br>
 
-<%= link_to 'Producto nuevo', new_producto_path, "data-role" => "button", "data-inline" => "true", "data-theme" => "b"  %>
+

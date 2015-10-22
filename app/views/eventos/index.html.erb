@@ -7,15 +7,17 @@
           <h3><%=padre.nombre%></h3>
           <ul data-role="listview" data-inset="false">
             <%@productos.each do |name|%> 
-              <button data-filtertext="<%=padre.nombre%> <%=name.nombre%>" data-theme="b" onclick="enviar('<%=name.id%>', '<%=name.nombre%>')"><%=name.nombre%></button>
+              <button data-filtertext="<%=name.clave%> <%=name.nombre%>" data-theme="b" onclick="enviar(<%=name.id%>, '<%=name.nombre%>')"><%=name.nombre%></button>
             <%end%> 
           </ul>
       </div>
     <%end%>
   </div>
-  productos seleccionados
-
+  <%= render "adicional"%>
   <%= form_tag({:controller => "eventos", :action => "index"}, :method => "get", "id"=>"index") do %>
+     <h4 class="alert alert-danger clear">Nombre de cliente</h4>
+      <input type="text" name="cliente" placeholder="Juan Miguel Lopez Sanchez">  
+      <h4 class="alert alert-info clear">Productos Seleccionados</h4>
   	<div id="elements"></div>
      <%= submit_tag "Enviar" %>
   <% end %>
@@ -28,40 +30,35 @@
         <tr>
           <th>Producto/servicio</th>
           <th>Precio</th>
+          <th>Cantidad</th>
         </tr>
       </thead>
 
       <tbody>
         <%@x = 0%>
+        <%i = 0%>
         <%@object.each do |x| %>
-          <%@x = @x + x[0].precio%>
+          <%@x = @x + (x[0].precio * @cant[i].to_i)%>
           <tr>
             <td><%=x[0].nombre%></td>
             <td><%=x[0].precio%></td>
+            <td><%=@cant[i]%></td>
           </tr>
+          <%i = i + 1%>
         <% end %>
          <tr>
             <td>Total</td>
+            <td></td>
             <td><%=@x%></td>
           </tr>
       </tbody>
     </table>
 
-    <%= link_to ' Descargar',  eventos_path(request.parameters.merge({:format => :xlsx})), :onclick => "$('#index').submit()","data-role" => "button", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
+    <%= link_to ' Descargar Estimación',  eventos_path(request.parameters.merge({:format => :xlsx})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
+    <%= link_to ' Descargar Cotización',  eventos_path(request.parameters.merge({:format => :pdf})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
+    <%= link_to "Regresar", eventos_path, "data-role" => "button","data-inline"=>"true","data-theme" =>"b", "onclick"=>"cargar()"%>
   </div>
   <div class="col-md-4">
     <%= image_tag("sos") %>
   </div>
-  
 <%end%>
-<script type="text/javascript">
-  function enviar(id , nombre){
-    $('#elements').append( '<input type="text"  id="'+id+'" name="data[]" value="'+nombre+'" class="alert alert-success" style="width:95%" readondly><button class="red float_right" onclick="eliminar('+id+')" id="'+id+'">x</button> ' );
-
-  }
-  function eliminar(id){
-        $("input#"+id).remove();
-        $("button#"+id).remove();
-  }
-
-</script>

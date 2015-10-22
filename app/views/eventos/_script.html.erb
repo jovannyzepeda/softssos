@@ -1,0 +1,75 @@
+
+
+
+ <script type="text/javascript">
+ function aceptado(a){
+ 	switch(a) {
+ 	case 1:
+ 		$("#primero").remove();
+        $("#cuest").append( '<div id="primero"><h5 class="center">¿Cuentas por pagar?</h5><center><button onclick="aceptado(2)" class="ui-btn ui-btn-inline ui-shadow ui-corner-all">si</button><button onclick="rechazado(2)" class="ui-btn ui-btn-inline ui-shadow ui-corner-all">no</button></center></div>' );
+        break;
+    case 2:
+   		$("#segundo").remove();		 	
+        $("#primero").append( "<div id='segundo'><h5 class='center'>Selecciona un producto</h5><% @producto = Producto.where("clave = 'ERA'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%><% @producto = Producto.where("clave = 'COM'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%><% @producto = Producto.where("clave = 'SAE'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%></div>" );
+        break;
+      case 3:
+        $("#segundo").remove();
+        $("#primero").append( '<div id="segundo"><h5 class="center">¿RFC?</h5><center><button onclick="aceptado(4)" class="ui-btn ui-btn-inline ui-shadow ui-corner-all">UNO</button><button onclick="rechazado(4)" class="ui-btn ui-btn-inline ui-shadow ui-corner-all">Multiple</button></center></div>' );
+        break;
+      case 4:
+      $("#tercero").remove();
+        $("#segundo").append( "<div id='tercero'><h5 class='center'>Selecciona un producto</h5><% @producto = Producto.where("clave = 'EINVOICE'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%><% @producto = Producto.where("clave = 'CFCEMO'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%><% @producto = Producto.where("clave = 'FACTURE MOVIL'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%></div>" );
+        break;
+      case 5:
+      $("#tercero").remove();
+        $("#segundo").append( "<div id='tercero'><h5 class='center'>Selecciona un producto</h5><% @producto = Producto.where("clave = 'CFDI+'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%></div>" );
+        break;
+
+        //contables
+        case 6:
+        $("#primero").remove();
+        $("#contable").append( "<div id='primero'><h5 class='center'>Selecciona un producto</h5><% @producto = Producto.where("clave = 'BAN'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%><% @producto = Producto.where("clave = 'ASPEL BANCOS'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%></div>" );
+        break;
+
+        //nominas
+      case 7:
+        $("#primero").remove();
+        $("#nomina").append( "<div id='primero'><h5 class='center'>Selecciona un producto</h5><% @producto = Producto.where("clave = 'CFDI NÓMINAS'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")'><%= @producto.first.nombre%></button><%end%><h5 class='center'>¿REQUIERE RELOJ CHECADOR?</h5><center><button onclick='aceptado(8)' class='ui-btn ui-btn-inline ui-shadow ui-corner-all'>si</button><button class='ui-btn ui-btn-inline ui-shadow ui-corner-all' data-dismiss='modal'>no</button></center></div>" );
+        break;
+      case 8:
+        $("#segundo").remove();
+        $("#primero").append( "<div id='segundo'><h5 class='center'>Selecciona un producto</h5><% @producto = Producto.where("clave = 'TIMEWORK'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%></div>" );
+        break;
+    }
+ }
+ function rechazado(a){
+ 	switch(a) {
+ 	case 1:
+ 		$("#primero").remove();
+        $("#cuest").append( '<div id="primero"><h5 class="center">¿Cuentas por cobrar?</h5><center><button onclick="aceptado(3)" class="ui-btn ui-btn-inline ui-shadow ui-corner-all">si</button><button onclick="rechazado(3)" class="ui-btn ui-btn-inline ui-shadow ui-corner-all">no</button></center></div>' );
+        break;
+    case 2:
+    	$("#segundo").remove();
+        $("#primero").append( "<div id='segundo'><h5 class='center'>Selecciona un producto</h5><% @producto = Producto.where("clave = 'EPOS'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%><% @producto = Producto.where("clave = 'PDV'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%><% @producto = Producto.where("clave = 'ASPEL CAJA'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%></div>" );
+        break;
+    case 3:
+        $("#segundo").remove();
+        $("#primero").append( '<div id="segundo"><h5 class="center">¿RFC?</h5><center><button onclick="aceptado(5)" class="ui-btn ui-btn-inline ui-shadow ui-corner-all">UNO</button><button onclick="rechazado(4)" class="ui-btn ui-btn-inline ui-shadow ui-corner-all">Multiple</button></center></div>' );
+        break;
+    case 4:
+      $("#tercero").remove();
+        $("#segundo").append( "<div id='tercero'><h5 class='center'>Selecciona un producto</h5><% @producto = Producto.where("clave = 'CFCEMU'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%><% @producto = Producto.where("clave = 'FACTURE'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%></div>" );
+        break;
+    //contables
+    case 6:
+        $("#primero").remove();
+        $("#contable").append( "<div id='primero'><h5 class='center'>Selecciona un producto</h5><% @producto = Producto.where("clave = 'CON'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%><% @producto = Producto.where("clave = 'COI'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")' data-dismiss='modal'><%= @producto.first.nombre%></button><%end%></div>" );
+        break;
+    //nominas
+    case 7:
+        $("#primero").remove();
+        $("#nomina").append( "<div id='primero'><h5 class='center'>Selecciona un producto</h5><% @producto = Producto.where("clave = 'CONTPAQ I NÓMINAS'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")'><%= @producto.first.nombre%></button><%end%><% @producto = Producto.where("clave = 'NOI'") %><%if @producto.present?%><button class='ui-btn ui-btn-b ui-shadow ui-corner-all' onclick='enviar(<%=@producto.first.id%>, "+'"<%= @producto.first.nombre%>"'+")'><%= @producto.first.nombre%></button><%end%></div>" );
+        break;
+ 	}
+ }
+ </script>
