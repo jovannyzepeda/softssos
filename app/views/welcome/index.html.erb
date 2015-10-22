@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <h1 class="alert alert-danger" ><%=image_tag "sos", class: "img_Small"%> SOS Software </h1>
 
 <div class="flexslider" id="flexslider" rel="external">
@@ -33,57 +32,4 @@
         maxItems: 1
       });
     });
-</script>
-<script type='text/javascript'>
-
-(function()
-{
-  if( window.localStorage )
-  {
-    if( !localStorage.getItem( 'firstLoad' ) )
-    {
-      localStorage[ 'firstLoad' ] = true;
-      window.location.reload();
-    }  
-    else
-      localStorage.removeItem( 'firstLoad' );
-  }
-})();
-
-=======
-<h1 class="alert alert-danger" ><%=image_tag "sos", class: "img_Small"%> SOS Software </h1>
-
-<div class="flexslider" id="flexslider" rel="external">
-  <ul class="slides">
-    <li>
-    	<%=image_tag "easy"%>
-    </li>
-    <li>
-    	<%=image_tag "join"%>
-    </li>
-    <li>
-    	<%=image_tag "cont"%>
-    </li>
-    <li>
-    	<%=image_tag "aspel"%>
-    </li>
-    <li>
-    	<%=image_tag "atime"%>
-    </li>
-  </ul>
-</div>
-
-<script type="text/javascript">
-
-    $(window).load(function() {
-      $('#flexslider').flexslider({
-        animation: "slide",
-        animationLoop: false,
-        itemWidth: 100,
-        itemMargin: 5,
-        minItems: 1,
-        maxItems: 1
-      });
-    });
->>>>>>> 446fa1b40d5623d46ab12475a442a4799f003979
 </script>
