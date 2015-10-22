@@ -17,8 +17,11 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'flexslider', :git => 'https://github.com/constantm/Flexslider-2-Rails-Gem.git'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem 'rails_12factor', group: :production  
-gem 'pg', group: :production  
+ 
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
