@@ -13,13 +13,11 @@
       </div>
     <%end%>
   </div>
- 
-
-
   <%= render "adicional"%>
-  productos seleccionados
-
   <%= form_tag({:controller => "eventos", :action => "index"}, :method => "get", "id"=>"index") do %>
+     <h4 class="alert alert-danger clear">Nombre de cliente</h4>
+      <input type="text" name="cliente" placeholder="Juan Miguel Lopez Sanchez">  
+      <h4 class="alert alert-info clear">Productos Seleccionados</h4>
   	<div id="elements"></div>
      <%= submit_tag "Enviar" %>
   <% end %>
@@ -32,26 +30,32 @@
         <tr>
           <th>Producto/servicio</th>
           <th>Precio</th>
+          <th>Cantidad</th>
         </tr>
       </thead>
 
       <tbody>
         <%@x = 0%>
+        <%i = 0%>
         <%@object.each do |x| %>
-          <%@x = @x + x[0].precio%>
+          <%@x = @x + (x[0].precio * @cant[i].to_i)%>
           <tr>
             <td><%=x[0].nombre%></td>
             <td><%=x[0].precio%></td>
+            <td><%=@cant[i]%></td>
           </tr>
+          <%i = i + 1%>
         <% end %>
          <tr>
             <td>Total</td>
+            <td></td>
             <td><%=@x%></td>
           </tr>
       </tbody>
     </table>
 
-    <%= link_to ' Descargar',  eventos_path(request.parameters.merge({:format => :xlsx})), :onclick => "$('#index').submit()","data-role" => "button", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
+    <%= link_to ' Descargar Estimación',  eventos_path(request.parameters.merge({:format => :xlsx})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
+    <%= link_to ' Descargar Cotización',  eventos_path(request.parameters.merge({:format => :pdf})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
     <%= link_to "Regresar", eventos_path, "data-role" => "button","data-inline"=>"true","data-theme" =>"b", "onclick"=>"cargar()"%>
   </div>
   <div class="col-md-4">

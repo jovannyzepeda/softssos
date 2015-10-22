@@ -36,7 +36,7 @@ end
 
 wb.add_worksheet(name: "Etapas_proyecto") do |sheet|
 	sheet.add_row ['Total','=SUM(E:E)'], :style => costo
-	sheet.add_comment(ref: 'A1', text: 'HELLO', author: 'me', visible: true)
+
 
 	sheet.add_row ['Etapa de proyecto' ,'Responsable','Costo por hora', 'Horas de esfuerzo requerido', 'Costo estimado de esfuerzo', 'Observaciones', 'Complejidad'], :style => style_shout
 	sheet.add_row ['Ventas','','','','','',''], :style => costo
@@ -84,11 +84,16 @@ wb.add_worksheet(name: "Etapas_proyecto") do |sheet|
 end
 
 wb.add_worksheet(name: "servicios") do |sheet|
-	sheet.add_row ['Monto total de servicios','=SUM(B2:B100)'], :style => costo
-	sheet.add_row ['Servicios/productos solicitados', ''], :style => style_shout
+	sheet.add_row ['Monto total de servicios','=SUM(D2:D100)+(SUM(D2:D100)*.16)'], :style => costo
+	sheet.add_row ['Servicios/productos solicitados', 'Cantidad', 'Precio', 'Total'], :style => style_shout
+	i = -1
 	@object.each do |x| 
-	  sheet.add_row [x[0].nombre,x[0].precio], :style => border
+		i = i + 1
+		precio = @cant[i].to_i * x[0].precio
+	  sheet.add_row [x[0].nombre,@cant[i],x[0].precio,precio], :style => border
 	end
+	sheet.add_row ['']
+	sheet.add_row ['El precio incluye 16% de IVA'], :style => border
 end
 
 wb.add_worksheet(name: "Roles") do |sheet|
