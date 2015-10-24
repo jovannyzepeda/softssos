@@ -13,15 +13,19 @@
 
   <div class="field">
     <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
+    <%= f.text_field :nombre , "required"=>"required"%>
   </div>
   <div class="field">
     <%= f.label :clave %><br>
-    <%= f.text_field :clave %>
+    <%= f.text_field :clave , "required"=>"required"%>
   </div>
   <div class="field">
     <%= f.label :precio %><br>
-    <%= f.text_field :precio %>
+    <%= f.text_field :precio, "required"=>"required" %>
+  </div>
+   <div class="field">
+    <%= f.label :venta %><br>
+    <%= f.text_field :venta, "required"=>"required" %>
   </div>
   <div class="field">
     <%= f.label :descripcion %><br>

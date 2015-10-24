@@ -35,8 +35,8 @@ class EventosController < ApplicationController
 	          		table_data = [['#', 'Artículo / Descripción', 'Cant', 'Unidades', 'Precio unitario', 'Impuesto', 'Total']] + 
 	          			@object.map do |product|
 	          				i = i + 1
-	          				total = total + (product[0].precio * @cant[i].to_i)
-      						[product[0].id, product[0].nombre, @cant[i], "",product[0].precio,"16%",product[0].precio*@cant[i].to_i]
+	          				total = total + (product[0].venta * @cant[i].to_i)
+      						[product[0].id, product[0].nombre, @cant[i], "",product[0].venta,"16%",product[0].venta*@cant[i].to_i]
       						
       						
   						end

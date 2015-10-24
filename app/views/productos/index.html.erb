@@ -12,7 +12,8 @@
     <tr>
       <th>Nombre</th>
       <th>Clave</th>
-      <th>Precio</th>
+      <th>Costo</th>
+      <th>Venta</th>
       <th>Descripcion</th>
       <th>Producto padre</th>
       <th colspan="3"></th>
@@ -25,6 +26,7 @@
         <td><%= producto.nombre %></td>
         <td><%= producto.clave %></td>
         <td><%= producto.precio %></td>
+        <td><%= producto.venta %></td>
         <td><%= producto.descripcion %></td>
         <td><%= producto.producto_padre.nombre %></td>
         <td><%= link_to 'Ver', producto %></td>

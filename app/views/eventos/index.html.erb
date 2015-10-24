@@ -16,7 +16,7 @@
   <%= render "adicional"%>
   <%= form_tag({:controller => "eventos", :action => "index"}, :method => "get", "id"=>"index") do %>
      <h4 class="alert alert-danger clear">Nombre de cliente</h4>
-      <input type="text" name="cliente" placeholder="Juan Miguel Lopez Sanchez">  
+      <input type="text" name="cliente" placeholder="Juan Miguel Lopez Sanchez" required>  
       <h4 class="alert alert-info clear">Productos Seleccionados</h4>
   	<div id="elements"></div>
      <%= submit_tag "Enviar" %>
@@ -38,10 +38,10 @@
         <%@x = 0%>
         <%i = 0%>
         <%@object.each do |x| %>
-          <%@x = @x + (x[0].precio * @cant[i].to_i)%>
+          <%@x = @x + (x[0].venta * @cant[i].to_i)%>
           <tr>
             <td><%=x[0].nombre%></td>
-            <td><%=x[0].precio%></td>
+            <td><%=x[0].venta%></td>
             <td><%=@cant[i]%></td>
           </tr>
           <%i = i + 1%>
