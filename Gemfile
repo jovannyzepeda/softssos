@@ -31,7 +31,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'coffee-script-source', '1.8.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+gem 'prawn'
+gem 'prawn-table'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
