@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
 
+  get 'xls/subir_archivos'
+  post 'xls/subir_archivos'
+
   resources :admins, :controller => "admins"
   match 'admins/:id' => 'admins#destroy', :via => [:get, :post], :as => :admin_destroy
   match 'admins/:id' => 'admins#edit', :via => [:get, :post], :as => :admin_edit
