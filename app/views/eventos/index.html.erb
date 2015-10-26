@@ -1,0 +1,64 @@
+<%if @data.blank?%>
+  <input data-type="search" id="searchForCollapsibleSetChildren">
+  <div data-role="collapsible-set" data-filter="true" data-children="> div, > div div ul button" data-inset="true" id="collapsiblesetForFilterChildren" data-input="#searchForCollapsibleSetChildren">
+    <%@padre.each do |padre|%>
+      <% @productos = Producto.where("producto_padre_id = ?", padre.id) %>
+      <div data-role="collapsible" data-filtertext="<%=padre.nombre%> <%@productos.each do |name|%> <%=name.nombre%> <%end%>">
+          <h3><%=padre.nombre%></h3>
+          <ul data-role="listview" data-inset="false">
+            <%@productos.each do |name|%> 
+              <button data-filtertext="<%=name.clave%> <%=name.nombre%>" data-theme="b" onclick="enviar(<%=name.id%>, '<%=name.nombre%>')"><%=name.nombre%></button>
+            <%end%> 
+          </ul>
+      </div>
+    <%end%>
+  </div>
+  <%= render "adicional"%>
+  <%= form_tag({:controller => "eventos", :action => "index"}, :method => "get", "id"=>"index") do %>
+     <h4 class="alert alert-danger clear">Nombre de cliente</h4>
+      <input type="text" name="cliente" placeholder="Juan Miguel Lopez Sanchez" required>  
+      <h4 class="alert alert-info clear">Productos Seleccionados</h4>
+  	<div id="elements"></div>
+     <%= submit_tag "Enviar" %>
+  <% end %>
+<%end%>
+<%if @data.present?%>
+  <div class="col-md-8">
+    <p class="center">Descargar documento de Estimación con los siguientes elementos:</p>
+    <table class="table table-bordered ui-responsive" data-role="table">
+      <thead>
+        <tr>
+          <th>Producto/servicio</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%@x = 0%>
+        <%i = 0%>
+        <%@object.each do |x| %>
+          <%@x = @x + (x[0].venta * @cant[i].to_i)%>
+          <tr>
+            <td><%=x[0].nombre%></td>
+            <td><%=x[0].venta%></td>
+            <td><%=@cant[i]%></td>
+          </tr>
+          <%i = i + 1%>
+        <% end %>
+         <tr>
+            <td>Total</td>
+            <td></td>
+            <td><%=@x%></td>
+          </tr>
+      </tbody>
+    </table>
+
+    <%= link_to ' Descargar Estimación',  eventos_path(request.parameters.merge({:format => :xlsx})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
+    <%= link_to ' Descargar Cotización',  eventos_path(request.parameters.merge({:format => :pdf})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
+    <%= link_to "Regresar", eventos_path, "data-role" => "button","data-inline"=>"true","data-theme" =>"b", "onclick"=>"cargar()"%>
+  </div>
+  <div class="col-md-4">
+    <%= image_tag("sos") %>
+  </div>
+<%end%>

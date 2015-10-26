@@ -1,0 +1,5 @@
+<h2 class="alert alert-info center">Carga un Documento XLS</h2>	
+<%= form_tag({:controller => "xls", :action => "subir_archivos"}, :method => "post","data-ajax"=>"false", :multipart => true) do %>
+   <%= file_field_tag "archivo", :required => "required" %>
+   <%= submit_tag "Subir archivo"%>
+<% end %>

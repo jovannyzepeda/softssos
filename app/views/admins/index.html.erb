@@ -1,0 +1,38 @@
+
+  <h2 class="alert alert-info">
+    <strong>Administracion de Usuarios</strong> 
+  </h2>
+  <%= link_to ' Crear usuario', new_admin_path,  "data-role" => "button", "data-theme" => "b", "data-inline"=>"true" %>
+  <div class="table-responsive">
+    <table class="table table-bordered ui-responsive" data-role="table">
+    <thead>
+      <tr>
+        <th>Correo de usuario</th>
+        <th>Privilegio</th>
+      </tr>
+    </thead>
+      <tbody>
+
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.email %></td>
+            <td> 
+              <% if user.privilegio == 2 %>
+                Administrador
+              <%else%>
+                Normal
+              <%end%>
+            </td>
+            <td>
+              <%= link_to "Eliminar", admin_destroy_path(user), method: :delete, data: { confirm: "El usuario sera eliminado?" }%>
+            </td>
+            <td>
+              <%= link_to "Editar", admin_edit_path(user), method: :edit%>
+            </td>
+          </tr>
+        <% end %>
+
+      </tbody>
+    </table>
+
+  <%= link_to ' Regresar', root_path, "data-role" => "button", "data-theme" => "b", "data-inline"=>"true", "class" => "float_right"%>
