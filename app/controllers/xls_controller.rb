@@ -22,6 +22,7 @@ class XlsController < ApplicationController
 			  guardar.venta = row[3]
 			  guardar.instalacion = row[5]
 			  guardar.instalacionpreencial = row[6]
+			  guardar.descripcion = row[7]
 			  guardar.producto_padre_id = padre.first.id
 			  guardar.save
 			end
