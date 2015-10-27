@@ -32,6 +32,14 @@
     <%= f.text_area :descripcion %>
   </div>
   <div class="field">
+    <%= f.label :instalacion ,"Tiempo de instalacion en minutos remotamente"%><br>
+    <%= f.text_area :instalacion %>
+  </div>
+  <div class="field">
+    <%= f.label :instalacionpreencial ,"Tiempo de instalacion Presencial"%><br>
+    <%= f.text_area :instalacionpreencial %>
+  </div>
+  <div class="field">
     <%= f.label :producto_padre_id %><br>
     <%= f.select(:producto_padre_id) do %>
       <% @padre.each do |valor|%>

@@ -19,6 +19,16 @@
       <input type="text" name="cliente" placeholder="Juan Miguel Lopez Sanchez" required>  
       <h4 class="alert alert-info clear">Productos Seleccionados</h4>
   	<div id="elements"></div>
+    <fieldset>
+  <div data-role="fieldcontain">
+    <label for="select-based-flipswitch">Requiere Instalacion remota:</label>
+    <select id="select-based-flipswitch" name="instalacion" >
+      <option value="No">No</option>
+      <option value="Remotamente">Remotamente</option>
+      <option value="Presencialmente">Presencialmente</option>
+    </select>
+  </div>
+</fieldset>
      <%= submit_tag "Enviar" %>
   <% end %>
 <%end%>
@@ -46,6 +56,14 @@
           </tr>
           <%i = i + 1%>
         <% end %>
+        <%if @tiempo_instalar.present?%>
+          <tr>
+            <td>Costo instalacion</td>
+            <td><%=@costo_instalar%></td>
+            <td><%=@tiempo_instalar%>hrs.</td>
+          </tr>
+          <%@x = @x + @costo_instalar.to_i%>
+        <%end%>
          <tr>
             <td>Total</td>
             <td></td>

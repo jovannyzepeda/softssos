@@ -8,11 +8,32 @@ class EventosController < ApplicationController
   		@rols = Rol.all
   		@object = []
   		@cant = []
-  	 	@data.each do |d|
-  	 		info = Producto.where("nombre=?", d["nombre"])
-  		 	@object.push info
-  		 	@cant.push d["cantidad"]
-  		end
+      horas = 0
+      @activacion = params[:instalacion]
+      if @activacion != "No"
+    	 	@data.each do |d|
+    	 		info = Producto.where("nombre=?", d["nombre"])
+          if info.first.instalacion
+            horas= horas + (info.first.instalacion * d["cantidad"].to_i)
+          end
+    		 	@object.push info
+    		 	@cant.push d["cantidad"]
+    		end
+        @tiempo_instalar = (horas.to_f/60).round(2)
+        if @activacion == "Presencialmente"
+          @costo_instalar = @tiempo_instalar * 650
+        elsif @activacion == "Remotamente"
+          @costo_instalar = @tiempo_instalar * 550
+        end
+          
+      else
+        @data.each do |d|
+          info = Producto.where("nombre=?", d["nombre"])
+          @object.push info
+          @cant.push d["cantidad"]
+        end
+      end
+
 		  respond_to do |format|
           format.html
           format.xlsx
@@ -32,14 +53,23 @@ class EventosController < ApplicationController
     				total = 0
     				i = -1
     				pdf.text "Girada el: #{t.strftime('%d/%m/%Y')}\n\n\n\n\n ", :align => :right , :inline_format => true
-	          		table_data = [['#', 'Artículo / Descripción', 'Cant', 'Unidades', 'Precio unitario', 'Impuesto', 'Total']] + 
-	          			@object.map do |product|
+	          		
+                table_data = [['#', 'Artículo / Descripción', 'Cant', 'Unidades', 'Precio unitario', 'Impuesto', 'Total']] + 
+
+                  
+                  @object.map do |product|
 	          				i = i + 1
 	          				total = total + (product[0].venta * @cant[i].to_i)
-      						[i+1, product[0].nombre, @cant[i], "",product[0].venta,"16%",product[0].venta*@cant[i].to_i]
-      						
-      						
-  						end
+      						  [i+1, product[0].nombre, @cant[i], "",product[0].venta,"16%",product[0].venta*@cant[i].to_i]
+    						  end
+            
+                if @activacion == "Presencialmente"
+                  table_data += [[i+2, 'Instalacion de Servicios Presencialmente', '1', '', @costo_instalar, '16%', @costo_instalar]]
+                  total = total + @costo_instalar
+                elsif @activacion == "Remotamente"
+                  table_data += [[i+2, 'Instalacion de Servicios Remotamente', '1', '', @costo_instalar, '16%', @costo_instalar]]
+                  total = total + @costo_instalar
+                end
       				pdf.table(table_data,:width => 540)
       				iva = total * 0.16
       				pdf.text "\nSub total: #{total}\n Impuesto de ventas (16%): #{iva.round(2)}\n <b>Total: #{iva+total}</b>", :align => :right , :inline_format => true

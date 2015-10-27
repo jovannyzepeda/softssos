@@ -90,10 +90,13 @@ wb.add_worksheet(name: "servicios") do |sheet|
 	@object.each do |x| 
 		i = i + 1
 		precio = @cant[i].to_i * x[0].precio
-	  sheet.add_row [x[0].nombre,@cant[i],x[0].precio,precio], :style => border
+	  	sheet.add_row [x[0].nombre,@cant[i],x[0].precio,precio], :style => border
 	end
+	if @activacion != "No"
+      sheet.add_row ["Instalacion",1,@costo_instalar,@costo_instalar], :style => border
+    end
 	sheet.add_row ['']
-	sheet.add_row ['El precio incluye 16% de IVA'], :style => border
+
 end
 
 wb.add_worksheet(name: "Roles") do |sheet|
