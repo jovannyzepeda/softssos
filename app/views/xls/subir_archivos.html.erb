@@ -1,4 +1,4 @@
-<h2 class="alert alert-info center">Carga un Documento XLS</h2>	
+<h2 class="alert alert-danger center">Carga un Documento XLS</h2>	
 <p>Es de suma importancia recordar que el xls debe tener la siguiente estructura:<br>
 1- clave  2 - nombre  3 - precio compra  4 - precio de venta  5 - producto padre(ejemplo Aspel)  6 - tiempo de instalacion remotamente en minutos  7 - tiempo de instalacion presencial en minutos</p>
 <%= form_tag({:controller => "xls", :action => "subir_archivos"}, :method => "post","data-ajax"=>"false", :multipart => true) do %>

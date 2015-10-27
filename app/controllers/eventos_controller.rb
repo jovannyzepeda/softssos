@@ -4,6 +4,7 @@ class EventosController < ApplicationController
   	@padre = ProductoPadre.all
   	@data = params[:data]
   	@cliente = params[:cliente]
+   
   	unless @data.blank?
   		@rols = Rol.all
   		@object = []
