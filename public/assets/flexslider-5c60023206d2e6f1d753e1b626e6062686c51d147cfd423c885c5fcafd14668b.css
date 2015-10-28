@@ -1,0 +1,339 @@
+/*
+ * jQuery FlexSlider v2.2.0
+ * http://www.woothemes.com/flexslider/
+ *
+ * Copyright 2012 WooThemes
+ * Free to use under the GPLv2 license.
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * Contributing author: Tyler Smith (@mbmufffin)
+ */
+/* Browser Resets
+*********************************/
+/* line 19, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-container a:active,
+.flexslider a:active,
+.flex-container a:focus,
+.flexslider a:focus {
+  outline: none;
+}
+
+/* line 23, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.slides,
+.flex-control-nav,
+.flex-direction-nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Icon Fonts
+*********************************/
+/* Font-face Icons */
+@font-face {
+  font-family: 'flexslider-icon';
+  src: url(/assets/flexslider-icon-427c549989d40688b2f96bf38cd63568b61c412fe0a60bdb642da5fa7af51954.eot);
+  src: url(/assets/flexslider-icon-427c549989d40688b2f96bf38cd63568b61c412fe0a60bdb642da5fa7af51954.eot?#iefix) format("embedded-opentype"), url(/assets/flexslider-icon-333fe8266952f16c8b686f3edd78293da28e6eaef314dca86bc4eeaa23f290e8.woff) format("woff"), url(/assets/flexslider-icon-2aeb879c4ab410ac821f9a708fa0c5625d0c7a2038ba4efd93aa78d7371444e2.ttf) format("truetype"), url(/assets/flexslider-icon-5d2b29884d32f6a2b081915401d41846e2e9a16d639c270df5e5266d869a7aa9.svg#flexslider-icon) format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* FlexSlider Necessary Styles
+*********************************/
+/* line 43, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flexslider {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 44, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flexslider .slides > li {
+  display: none;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Hide the slides before the JS is loaded. Avoids image jumping */
+/* line 45, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flexslider .slides img {
+  width: 100%;
+  display: block;
+}
+
+/* line 46, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-pauseplay span {
+  text-transform: capitalize;
+}
+
+/* Clearfix for the .slides element */
+/* line 49, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.slides:after {
+  content: "\0020";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+
+/* line 50, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+html[xmlns] .slides {
+  display: block;
+}
+
+/* line 51, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+* html .slides {
+  height: 1%;
+}
+
+/* No JavaScript Fallback */
+/* If you are not using another script, such as Modernizr, make sure you
+ * include js that eliminates this class on page load */
+/* line 56, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.no-js .slides > li:first-child {
+  display: block;
+}
+
+/* FlexSlider Default Theme
+*********************************/
+/* line 60, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flexslider {
+  margin: 0 0 60px;
+  background: #fff;
+  border: 4px solid #fff;
+  position: relative;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  zoom: 1;
+}
+
+/* line 61, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-viewport {
+  max-height: 2000px;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+/* line 62, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.loading .flex-viewport {
+  max-height: 300px;
+}
+
+/* line 63, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flexslider .slides {
+  zoom: 1;
+}
+
+/* line 64, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.carousel li {
+  margin-right: 5px;
+}
+
+/* Direction Nav */
+/* line 67, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-direction-nav {
+  *height: 0;
+}
+
+/* line 68, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-direction-nav a {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0;
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  overflow: hidden;
+  opacity: 0;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.8);
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+/* line 69, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-direction-nav .flex-prev {
+  left: -50px;
+}
+
+/* line 70, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-direction-nav .flex-next {
+  right: -50px;
+  text-align: right;
+}
+
+/* line 71, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flexslider:hover .flex-prev {
+  opacity: 0.7;
+  left: 10px;
+}
+
+/* line 72, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flexslider:hover .flex-next {
+  opacity: 0.7;
+  right: 10px;
+}
+
+/* line 73, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flexslider:hover .flex-next:hover, .flexslider:hover .flex-prev:hover {
+  opacity: 1;
+}
+
+/* line 74, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-direction-nav .flex-disabled {
+  opacity: 0 !important;
+  filter: alpha(opacity=0);
+  cursor: default;
+}
+
+/* line 75, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-direction-nav a:before {
+  font-family: "flexslider-icon";
+  font-size: 40px;
+  display: inline-block;
+  content: '\f001';
+}
+
+/* line 76, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-direction-nav a.flex-next:before {
+  content: '\f002';
+}
+
+/* Pause/Play */
+/* line 79, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-pauseplay a {
+  display: block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  opacity: 0.8;
+  z-index: 10;
+  overflow: hidden;
+  cursor: pointer;
+  color: #000;
+}
+
+/* line 80, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-pauseplay a:before {
+  font-family: "flexslider-icon";
+  font-size: 20px;
+  display: inline-block;
+  content: '\f004';
+}
+
+/* line 81, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-pauseplay a:hover {
+  opacity: 1;
+}
+
+/* line 82, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-pauseplay a.flex-play:before {
+  content: '\f003';
+}
+
+/* Control Nav */
+/* line 85, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-control-nav {
+  width: 100%;
+  position: absolute;
+  bottom: -40px;
+  text-align: center;
+}
+
+/* line 86, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-control-nav li {
+  margin: 0 6px;
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+}
+
+/* line 87, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-control-paging li a {
+  width: 11px;
+  height: 11px;
+  display: block;
+  background: #666;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  text-indent: -9999px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -o-border-radius: 20px;
+  border-radius: 20px;
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+  -o-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+/* line 88, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-control-paging li a:hover {
+  background: #333;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* line 89, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-control-paging li a.flex-active {
+  background: #000;
+  background: rgba(0, 0, 0, 0.9);
+  cursor: default;
+}
+
+/* line 91, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-control-thumbs {
+  margin: 5px 0 0;
+  position: static;
+  overflow: hidden;
+}
+
+/* line 92, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-control-thumbs li {
+  width: 25%;
+  float: left;
+  margin: 0;
+}
+
+/* line 93, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-control-thumbs img {
+  width: 100%;
+  display: block;
+  opacity: .7;
+  cursor: pointer;
+}
+
+/* line 94, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-control-thumbs img:hover {
+  opacity: 1;
+}
+
+/* line 95, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+.flex-control-thumbs .flex-active {
+  opacity: 1;
+  cursor: default;
+}
+
+@media screen and (max-width: 860px) {
+  /* line 98, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+  .flex-direction-nav .flex-prev {
+    opacity: 1;
+    left: 10px;
+  }
+
+  /* line 99, /home/zepeda/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/bundler/gems/Flexslider-2-Rails-Gem-3a87fd2250bc/vendor/assets/stylesheets/flexslider.css.scss */
+  .flex-direction-nav .flex-next {
+    opacity: 1;
+    right: 10px;
+  }
+}
