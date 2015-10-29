@@ -93,7 +93,7 @@ wb.add_worksheet(name: "servicios") do |sheet|
 	  	sheet.add_row [x[0].nombre,@cant[i],x[0].precio,precio], :style => border
 	end
 	if @activacion != "No"
-      sheet.add_row ["Instalacion",1,@costo_instalar,@costo_instalar], :style => border
+      sheet.add_row ["instalación",1,@costo_instalar,@costo_instalar], :style => border
     end
 	sheet.add_row ['']
 
