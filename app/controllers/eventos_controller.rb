@@ -65,10 +65,10 @@ class EventosController < ApplicationController
     						  end
             
                 if @activacion == "Presencialmente"
-                  table_data += [[i+2, 'Instalacion de Servicios Presencialmente', '1', '', @costo_instalar, '16%', @costo_instalar]]
+                  table_data += [[i+2, 'Instalación de Servicios Presencialmente', '1', '', @costo_instalar, '16%', @costo_instalar]]
                   total = total + @costo_instalar
                 elsif @activacion == "Remotamente"
-                  table_data += [[i+2, 'Instalacion de Servicios Remotamente', '1', '', @costo_instalar, '16%', @costo_instalar]]
+                  table_data += [[i+2, 'Instalación de Servicios Remotamente', '1', '', @costo_instalar, '16%', @costo_instalar]]
                   total = total + @costo_instalar
                 end
       				pdf.table(table_data,:width => 540)
@@ -98,13 +98,18 @@ class EventosController < ApplicationController
             pdf.text "Estimado/a #{@cliente}\n\nPor medio de este documento se solicita amablemente indicar si el servicio otorgado por SOS Software fue el necesario para cumplir la resolución del inconveniente presentado de una forma adecuada y a su vez generada en un tiempo correspondiente a la dificultad de la solicitud requerida.", :inline_format => true
           
             
-            pdf.text "\n\nPara poder envíar su factura es necesario envíar la siguiente información como contenido de mensaje a la dirección info@sos-soft.com y con el asunto Carta de aceptación", :inline_format => true, :align => :center
+            pdf.text "\n\nPara poder emitir su factura es necesario enviar la siguiente información como contenido de mensaje a la dirección info@sos-soft.com y con el asunto Carta de aceptación", :inline_format => true, :align => :center
             
+            pdf.text "________________________________________________________________________________"
             pdf.text "\n\nYo #{@cliente} confirmo que se me dio entrega de los siguientes Productos/servicios:\n\n", :inline_format => true   
             @object.map do |product|
-              pdf.text " #{product[0].nombre}"
+              pdf.text " * #{product[0].nombre}"
             end
-            pdf.text "\n\nA su vez apruebo que dicha carta sea utilizada por SOS Software para la mejora continua en sus servicios.", :inline_format => true  
+            pdf.text "\n\nA su vez apruebo que esta aceptación sea utilizada por SOS Software para la mejora continua en sus servicios.", :inline_format => true  
+            pdf.text "________________________________________________________________________________"
+            pdf.text "\n\nMuchas gracis por tu tiempo y recuerda que nuestra misión es ayudarte a administrary controlar mejor tu negocio de una manera automatizada.", :inline_format => true , :align => :center
+            pdf.text "\n\nSOS Software SA de CV", :inline_format => :true, :align =>:center 
+            pdf.text "\nDesarrollamos tus ideas", :inline_format => :true, :align =>:center 
               
               send_data pdf.render, filename: 'Carta aceptacion.pdf', type: 'application/pdf'
               
