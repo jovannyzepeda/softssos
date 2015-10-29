@@ -3,7 +3,7 @@
   <div data-role="collapsible-set" data-filter="true" data-children="> div, > div div ul button" data-inset="true" id="collapsiblesetForFilterChildren" data-input="#searchForCollapsibleSetChildren">
     <%@padre.each do |padre|%>
       <% @productos = Producto.where("producto_padre_id = ?", padre.id) %>
-      <div data-role="collapsible" data-filtertext="<%=padre.nombre%> <%@productos.each do |name|%> <%=name.nombre%> <%end%>">
+      <div data-role="collapsible" data-filtertext="<%=padre.nombre%> <%@productos.each do |name|%> <%=name.nombre%> <%=name.clave%> <%end%>">
           <h3><%=padre.nombre%></h3>
           <ul data-role="listview" data-inset="false">
             <%@productos.each do |name|%> 
@@ -71,7 +71,7 @@
         <%end%>
          <tr>
             <td>Total</td>
-            <td></td>
+            <td>Sin iva</td>
             <td><%=@x%></td>
           </tr>
       </tbody>
@@ -79,6 +79,7 @@
 
     <%= link_to ' Descargar Estimación',  eventos_path(request.parameters.merge({:format => :xlsx})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
     <%= link_to ' Descargar Cotización',  eventos_path(request.parameters.merge({:format => :pdf})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
+    <%= link_to ' Descargar carta de aceptacion',  eventos_path(request.parameters.merge({:format => :adicional})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
     <%= link_to "Regresar", eventos_path, "data-role" => "button","data-inline"=>"true","data-theme" =>"b", "onclick"=>"cargar()"%>
   </div>
   <div class="col-md-4">
