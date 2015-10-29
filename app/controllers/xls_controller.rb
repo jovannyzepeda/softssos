@@ -15,16 +15,23 @@ class XlsController < ApplicationController
 			  row = @worksheet.row(index)
 			  data = "%"<<row[4].to_s<<"%"
 			  padre = ProductoPadre.where('nombre like ?',data)
-			  guardar = Producto.new
-			  guardar.clave = row[0]
-			  guardar.nombre = row[1]
-			  guardar.precio = row[2]
-			  guardar.venta = row[3]
-			  guardar.instalacion = row[5]
-			  guardar.instalacionpreencial = row[6]
-			  guardar.descripcion = row[7]
-			  guardar.producto_padre_id = padre.first.id
-			  guardar.save
+			  actualizar = ''
+			  actualizar = Producto.find_by(clave: row[0]);
+			  if actualizar.present?
+					actualizar.update(nombre: row[1], precio: row[2], venta: row[3], instalacion: row[5], instalacionpreencial: row[6], descripcion: row[7], producto_padre_id: padre.first.id)
+			  	else
+			  		guardar = Producto.new
+					guardar.clave = row[0]
+					guardar.nombre = row[1]
+					guardar.precio = row[2]
+					guardar.venta = row[3]
+					guardar.instalacion = row[5]
+					guardar.instalacionpreencial = row[6]
+					guardar.descripcion = row[7]
+					guardar.producto_padre_id = padre.first.id
+					guardar.save
+			  end
+			  
 			end
 			if File.exist?(path)
 			    resultado = File.delete(path);
