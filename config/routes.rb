@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :admins, :controller => "admins"
   match 'admins/:id' => 'admins#destroy', :via => [:get, :post], :as => :admin_destroy
-  match 'admins/:id' => 'admins#edit', :via => [:get, :post], :as => :admin_edit
+  match 'admins/:id/edit' => 'admins#edit', :via => [:get, :post], :as => :admin_edit
 
 
   devise_for :users
