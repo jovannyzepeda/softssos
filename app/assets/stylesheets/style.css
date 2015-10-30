@@ -6,5 +6,5 @@
 ul.nav > li > a:hover {    color: gold!important;}ul.nav > li > a:active {    color: gold!important;}.logo{width: 50px;}form{max-width: 1000px;}
 @media(min-width: 1000px){.col-md-8{width: 80%!important;margin-right: 10%!important; margin-left: 10%!important;}.col-md-offset-2{margin: 0px;} }
 @media(min-width: 1400px){
-	.maximo{max-width: 1200px;}
+	.maximo{max-width: 1200px;margin: 0 auto!important;}
 }
