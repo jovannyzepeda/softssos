@@ -15,7 +15,8 @@
       <th>Costo</th>
       <th>Venta</th>
       <th>Tiempo de instalacion</th>
-      <th>Producto padre</th>
+      <th>Proveedor</th>
+      <th>Clave Proveedor</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -29,6 +30,7 @@
         <td><%= producto.venta %></td>
         <td><%= producto.instalacion %>min</td>
         <td><%= producto.producto_padre.nombre %></td>
+        <td><%= producto.producto_padre.clave %></td>
         <td><%= link_to 'Ver', producto %></td>
         <td><%= link_to 'Editar', edit_producto_path(producto) %></td>
         <td><%= link_to 'Destruir', producto, method: :delete, data: { confirm: 'Estas Seguro?' } %></td>
