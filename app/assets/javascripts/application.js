@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.flexslider
-//= require jquery.mobile
+
 //= require turbolinks
 //= require_tree .
