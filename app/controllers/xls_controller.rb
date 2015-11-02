@@ -13,8 +13,8 @@ class XlsController < ApplicationController
 			@worksheet = @workbook.worksheet(0)
 			0.upto @worksheet.last_row_index do |index|
 			  row = @worksheet.row(index)
-			  data = "%"<<row[0].to_s<<"%"
-			  padre = ProductoPadre.where('nombre like ?',data)
+			  data = "%"<<row[1].to_s<<"%"
+			  padre = ProductoPadre.where('clave like ?',data)
 			  if padre.present?
 				  actualizar = ''
 				  actualizar = Producto.find_by(clave: row[2]);
