@@ -2,7 +2,7 @@ class XlsController < ApplicationController
 	Ruta_directorio_archivos = "public/";
   def subir_archivos
   	if request.post?
-
+ 
 		   archivo = params[:archivo];
 		   nombre = archivo.original_filename
 		   directorio = Ruta_directorio_archivos;
