@@ -79,9 +79,50 @@ class EventosController < ApplicationController
   										BANCO BANORTE: No. Cuenta: 0239431716; CLABE: 072320002394317160\n\n
   									    RFC: SOF1406233F5\n\n\n", :inline_format => true
 
-  					   sos = "#{Rails.root}/public/images/pdf/soporte.png" 
+  					  sos = "#{Rails.root}/public/images/pdf/soporte.png" 
       				pdf.image sos, :position => :center, :width => 600   
-  				    send_data pdf.render, filename: 'Cotización.pdf', type: 'application/pdf'	
+              pdf.text "\n\n\n\nRequerimientos necesarios para el uso de servicios SOS.\n\n", :inline_format => true
+  				    sos = "#{Rails.root}/public/images/pdf/1.jpg" 
+              pdf.image sos, :position => :center, :width => 550  
+              sos = "#{Rails.root}/public/images/pdf/2.jpg" 
+              pdf.image sos, :position => :center, :width => 550 
+              sos = "#{Rails.root}/public/images/pdf/3.jpg" 
+              pdf.image sos, :position => :center, :width => 550 
+              sos = "#{Rails.root}/public/images/pdf/4.jpg" 
+              pdf.image sos, :position => :center, :width => 550  
+              sos = "#{Rails.root}/public/images/pdf/5.jpg" 
+              pdf.image sos, :position => :center, :width => 550 
+              sos = "#{Rails.root}/public/images/pdf/6.jpg" 
+              pdf.image sos, :position => :center, :width => 550    
+              sos = "#{Rails.root}/public/images/pdf/7.jpg" 
+              pdf.image sos, :position => :center, :width => 550  
+              sos = "#{Rails.root}/public/images/pdf/8.jpg" 
+              pdf.image sos, :position => :center, :width => 550 
+              sos = "#{Rails.root}/public/images/pdf/9.jpg" 
+              pdf.image sos, :position => :center, :width => 550 
+              sos = "#{Rails.root}/public/images/pdf/10.jpg" 
+              pdf.image sos, :position => :center, :width => 550  
+              sos = "#{Rails.root}/public/images/pdf/11.jpg" 
+              pdf.image sos, :position => :center, :width => 550 
+              sos = "#{Rails.root}/public/images/pdf/12.jpg" 
+              pdf.image sos, :position => :center, :width => 550 
+              sos = "#{Rails.root}/public/images/pdf/13.jpg" 
+              pdf.image sos, :position => :center, :width => 550  
+              sos = "#{Rails.root}/public/images/pdf/14.jpg" 
+              pdf.image sos, :position => :center, :width => 550 
+              sos = "#{Rails.root}/public/images/pdf/15.jpg" 
+              pdf.image sos, :position => :center, :width => 550
+              sos = "#{Rails.root}/public/images/pdf/16.jpg" 
+              pdf.image sos, :position => :center, :width => 550  
+              sos = "#{Rails.root}/public/images/pdf/17.jpg" 
+              pdf.image sos, :position => :center, :width => 550 
+              sos = "#{Rails.root}/public/images/pdf/18.jpg" 
+              pdf.image sos, :position => :center, :width => 550 
+              sos = "#{Rails.root}/public/images/pdf/19.jpg" 
+              pdf.image sos, :position => :center, :width => 550 
+
+
+              send_data pdf.render, filename: 'Cotización.pdf', type: 'application/pdf'	
           end
           format.adicional do
        

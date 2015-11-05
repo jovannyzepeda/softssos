@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <h1 class="alert alert-danger center" >Lista de productos</h1>
+<%if current_user.is_admin?%>
 <%= link_to 'Producto nuevo', new_producto_path, "data-role" => "button", "data-inline" => "true", "data-theme" => "b"  %>
+<%end%>
 <form class="col-md-12">
     <input id="filterTable-input" data-type="search">
 </form>
@@ -13,12 +15,14 @@
       <th>Nombre</th>
       <th>Clave</th>
       <th>Costo</th>
-      <th>Venta</th>
+      <th>Venta S/IVA</th>
       <th>Tiempo instalacion remota</th>
       <th>Tiempo instalacion presencial</th>
-      <th>Proveedor</th>
+      <th>Producto</th>
       <th>Clave Proveedor</th>
+      <%if current_user.is_admin?%>
       <th colspan="3"></th>
+      <%end%>
     </tr>
   </thead>
 
@@ -33,9 +37,11 @@
         <td><%= producto.instalacionpreencial %>min</td>
         <td><%= producto.producto_padre.nombre %></td>
         <td><%= producto.producto_padre.clave %></td>
+        <%if current_user.is_admin?%>
         <td><%= link_to 'Ver', producto %></td>
         <td><%= link_to 'Editar', edit_producto_path(producto) %></td>
         <td><%= link_to 'Destruir', producto, method: :delete, data: { confirm: 'Estas Seguro?' } %></td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
