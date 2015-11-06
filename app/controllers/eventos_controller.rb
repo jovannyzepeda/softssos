@@ -79,47 +79,11 @@ class EventosController < ApplicationController
   										BANCO BANORTE: No. Cuenta: 0239431716; CLABE: 072320002394317160\n\n
   									    RFC: SOF1406233F5\n\n\n", :inline_format => true
 
-  					  sos = "#{Rails.root}/public/images/pdf/soporte.png" 
-      				pdf.image sos, :position => :center, :width => 600   
-              pdf.text "\n\n\n\nRequerimientos necesarios para el uso de servicios SOS.\n\n", :inline_format => true
-  				    sos = "#{Rails.root}/public/images/pdf/1.jpg" 
-              pdf.image sos, :position => :center, :width => 550  
-              sos = "#{Rails.root}/public/images/pdf/2.jpg" 
-              pdf.image sos, :position => :center, :width => 550 
-              sos = "#{Rails.root}/public/images/pdf/3.jpg" 
-              pdf.image sos, :position => :center, :width => 550 
-              sos = "#{Rails.root}/public/images/pdf/4.jpg" 
-              pdf.image sos, :position => :center, :width => 550  
-              sos = "#{Rails.root}/public/images/pdf/5.jpg" 
-              pdf.image sos, :position => :center, :width => 550 
-              sos = "#{Rails.root}/public/images/pdf/6.jpg" 
-              pdf.image sos, :position => :center, :width => 550    
-              sos = "#{Rails.root}/public/images/pdf/7.jpg" 
-              pdf.image sos, :position => :center, :width => 550  
-              sos = "#{Rails.root}/public/images/pdf/8.jpg" 
-              pdf.image sos, :position => :center, :width => 550 
-              sos = "#{Rails.root}/public/images/pdf/9.jpg" 
-              pdf.image sos, :position => :center, :width => 550 
-              sos = "#{Rails.root}/public/images/pdf/10.jpg" 
-              pdf.image sos, :position => :center, :width => 550  
-              sos = "#{Rails.root}/public/images/pdf/11.jpg" 
-              pdf.image sos, :position => :center, :width => 550 
-              sos = "#{Rails.root}/public/images/pdf/12.jpg" 
-              pdf.image sos, :position => :center, :width => 550 
-              sos = "#{Rails.root}/public/images/pdf/13.jpg" 
-              pdf.image sos, :position => :center, :width => 550  
-              sos = "#{Rails.root}/public/images/pdf/14.jpg" 
-              pdf.image sos, :position => :center, :width => 550 
-              sos = "#{Rails.root}/public/images/pdf/15.jpg" 
-              pdf.image sos, :position => :center, :width => 550
-              sos = "#{Rails.root}/public/images/pdf/16.jpg" 
-              pdf.image sos, :position => :center, :width => 550  
-              sos = "#{Rails.root}/public/images/pdf/17.jpg" 
-              pdf.image sos, :position => :center, :width => 550 
-              sos = "#{Rails.root}/public/images/pdf/18.jpg" 
-              pdf.image sos, :position => :center, :width => 550 
-              sos = "#{Rails.root}/public/images/pdf/19.jpg" 
-              pdf.image sos, :position => :center, :width => 550 
+  					  
+              pdf.text "\n\n\n\nEstimado cliente, es muy importante validar que cuentas con el suficiente equipo para generar la instalación de nuestros productos o servicios, para ello se recomienda consultar nustro detalle de requerimientos mínimos en el enlace: http://sos-soft.com/wp-content/uploads/2015/11/requerimientos.pdf\n\nTe invitamos a consultar los terminos y condiciones de nuestro servicio en el siguiente enlace http://sos-soft.com/wp-content/uploads/2015/11/Pol--ticas-de-Devolucion-de-productos.pdf", :inline_format => true
+             
+
+             
 
 
               send_data pdf.render, filename: 'Cotización.pdf', type: 'application/pdf'	

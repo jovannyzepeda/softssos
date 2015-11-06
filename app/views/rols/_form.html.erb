@@ -13,11 +13,11 @@
 
   <div class="field">
     <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
+    <%= f.text_field :nombre ,"required" => "required"%>
   </div>
   <div class="field">
     <%= f.label :precio_hora %><br>
-    <%= f.text_field :precio_hora %>
+    <%= f.number_field :precio_hora ,"required" => "required", "step"=>"any"%>
   </div>
   <div class="actions">
     <%= f.submit "Guardar"%>
