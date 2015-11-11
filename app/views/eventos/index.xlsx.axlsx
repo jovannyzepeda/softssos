@@ -15,7 +15,7 @@ wb.add_worksheet(name: "Resumen") do |sheet|
 	sheet.add_row ['',''], :style => border
 	sheet.add_row ['Total', '=SUM(B3:B5)'], :style => style_shout
 
-end
+end 
 
 @rols.each do |x| 
 	case x.nombre
@@ -54,9 +54,15 @@ wb.add_worksheet(name: "Etapas_proyecto") do |sheet|
 	sheet.add_row ['Generar calendario','Líder de Ventas',@lider_ventas,0,'=SUM(C13)*SUM(D13)','',''], :style => border
 	sheet.add_row ['Generación de Compromiso','Líder de ventas',@lider_ventas,0,'=SUM(C14)*SUM(D14)','',''], :style => border
 
-	sheet.add_row ['Implementación','','','','',''], :style => costo
+	if @activacion == "Presencialmente"
+      @costo_i = 650
+    elsif @activacion == "Remotamente"
+      @costo_i =  550
+    end
+
+	sheet.add_row ['Implementación','', '' ,'','',''], :style => costo
 	sheet.add_row ['Confirmar cita y descarga','Vendedor',@vendedor,0,'=SUM(C16)*SUM(D16)','',''], :style => border
-	sheet.add_row ['Realizar implementación y cierre de tarea','Soporte',@soporte,0,'=SUM(C17)*SUM(D17)','',''], :style => border
+	sheet.add_row ['Realizar implementación y cierre de tarea','Soporte',@soporte,@tiempo_instalar,'=SUM(C17)*SUM(D17)','',''], :style => border
 
 	sheet.add_row ['Cierre','','','','',''], :style => costo
 	sheet.add_row ['Validación de implementación','Soporte',@soporte,0,'=SUM(C19)*SUM(D19)','',''], :style => border
@@ -68,14 +74,14 @@ wb.add_worksheet(name: "Etapas_proyecto") do |sheet|
 	sheet.add_row ['Resolver solicitud, validar con cliente y cerrar tarea','Soporte',@soporte,0,'=SUM(C24)*SUM(D24)','',''], :style => border
 
 	sheet.add_row ['Calidad','','','','','',''], :style => costo
-	sheet.add_row ['Ejecutar auditoría y notificar no conformidades','Calidad',@calidad,0,'=SUM(C26)*SUM(D26)','',''], :style => border
-	sheet.add_row ['Resolver no conformidades','Líder de proyecto',@lider_ventas,0,'=SUM(C27)*SUM(D27)','',''], :style => border
-	sheet.add_row ['Dar seguimiento y cerrar no conformidades','Calidad',@calidad,0,'=SUM(C28)*SUM(D28)','',''], :style => border
+	sheet.add_row ['Ejecutar auditoría y notificar no conformidades','Calidad',@calidad,1,'=SUM(C26)*SUM(D26)','',''], :style => border
+	sheet.add_row ['Resolver no conformidades','Líder de proyecto',@lider_ventas,0.5,'=SUM(C27)*SUM(D27)','',''], :style => border
+	sheet.add_row ['Dar seguimiento y cerrar no conformidades','Calidad',@calidad,0.5,'=SUM(C28)*SUM(D28)','',''], :style => border
 
 	sheet.add_row ['Métricas y Monitoreo','','','','','',''], :style => costo
-	sheet.add_row ['Recolectar Métricas','Administración',@administracion,0,'=SUM(C30)*SUM(D30)','',''], :style => border
-	sheet.add_row ['Generar Reporte de Monitoreo','Calidad',@calidad,0,'=SUM(C31)*SUM(D31)','',''], :style => border
-	sheet.add_row ['Presentar y analizar reporte de monitoreo','Calidad',@calidad,0,'=SUM(C32)*SUM(D32)','',''], :style => border
+	sheet.add_row ['Recolectar Métricas','Administración',@administracion,0.26,'=SUM(C30)*SUM(D30)','Se planean 8 horas quincenales',''], :style => border
+	sheet.add_row ['Generar Reporte de Monitoreo','Calidad',@calidad,0.07,'=SUM(C31)*SUM(D31)','Estimadas 2 horas quincenales',''], :style => border
+	sheet.add_row ['Presentar y analizar reporte de monitoreo','Calidad',@calidad,0.03,'=SUM(C32)*SUM(D32)','Estimada 1 hora quincenal basado en 30 proyectos',''], :style => border
 
 	sheet.add_row ['Control de cambios','','','','','',''], :style => costo
 	sheet.add_row ['Recibir y Generar solicitud de cambios','Vendedor',@vendedor,0,'=SUM(C34)*SUM(D34)','',''], :style => border

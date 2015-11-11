@@ -1,12 +1,12 @@
 
-<li><%= link_to "Ventas", eventos_path, "class" => "page-scroll", "onclick"=>"cargar()"%></li>
 <%unless  @first_user.present?%>
 	<%= link_to "Registrar", new_admin_path, class: "green page-scroll"%>
 <%end%>
 <% if user_signed_in? %>
+	<li><%= link_to "Ventas", eventos_path, "class" => "page-scroll"%></li>
+	<li><%= link_to 'Productos', productos_path, "class" => "page-scroll" %></li>
 	<%if current_user.is_admin?%>
-		<li><%= link_to 'Productos', productos_path, "class" => "page-scroll" %></li>
-		<li><%= link_to 'categoria', producto_padres_path, "class" => "page-scroll" %></li>
+		<li><%= link_to 'Productos Padre', producto_padres_path, "class" => "page-scroll" %></li>
 		<li><%= link_to "Puestos de trabajo", rols_path, "class" => "page-scroll"%></li>
 		<li><a href="/xls/subir_archivos" class="page-scroll">Subir productos</a></li>
 		<li>

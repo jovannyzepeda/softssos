@@ -1,5 +1,6 @@
 class ProductosController < ApplicationController
   before_action :auth
+  before_action :autenticacion_admin!, only: [:show, :edit, :update, :destroy,:create]
   before_action :set_producto, only: [:show, :edit, :update, :destroy]
   before_action :set_padre
 

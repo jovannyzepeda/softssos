@@ -8,3 +8,18 @@ ul.nav > li > a:hover {    color: gold!important;}ul.nav > li > a:active {    co
 @media(min-width: 1400px){
 	.maximo{max-width: 1200px;margin: 0 auto!important;}
 }
+label{
+	margin-top: 20px!important;
+	margin-bottom: 0px!important;
+}
+input,div.ui-input-text{
+	margin-top: 0px!important;
+}
+.ui-btn{
+	    white-space: inherit!important;
+}
+button.active{
+	-webkit-box-shadow: 0px 0px 10px 2px rgba(252,0,0,1);
+	-moz-box-shadow: 0px 0px 10px 2px rgba(252,0,0,1);
+	box-shadow: 0px 0px 10px 2px rgba(252,0,0,1);
+}

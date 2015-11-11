@@ -42,6 +42,7 @@
   <div class="field">
     <%= f.label :producto_padre_id %><br>
     <%= f.select(:producto_padre_id) do %>
+      <%= content_tag(:option, "Selecciona un Producto padre", value: "") %>
       <% @padre.each do |valor|%>
         <%= content_tag(:option, valor.nombre, value: valor.id) %>
       <%end%>

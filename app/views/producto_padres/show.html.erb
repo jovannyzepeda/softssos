@@ -1,14 +1,54 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @producto_padre.nombre %>
-</p>
-
-<p>
-  <strong>Descripcion:</strong>
-  <%= @producto_padre.descripcion %>
-</p>
+<h1 class="alert alert-danger center" >Detalle de productos <%= @producto_padre.nombre %></h1>
 
 <%= link_to 'Editar', edit_producto_padre_path(@producto_padre) , "data-role" => "button", "data-inline" => "true", "data-theme" => "b" %>
 <%= link_to 'Regresar', producto_padres_path, "data-role" => "button", "data-inline" => "true", "data-theme" => "b"  %>
+
+
+<form class="col-md-12">
+    <input id="filterTable-input" data-type="search">
+</form>
+
+
+<table class="table table-bordered ui-responsive" data-role="table" data-filter="true" data-input="#filterTable-input">
+  <thead>
+    <tr>
+      <th>Clave Proveedor</th>
+      <th>Clave</th>
+      <th>Nombre</th>
+      <%if current_user.is_admin?%>
+      <th>Costo S/IVA</th>
+      <%end%>
+      <th>Venta S/IVA</th>
+      <th>Tiempo instalacion remota</th>
+      <th>Tiempo instalacion presencial</th>
+      <%if current_user.is_admin?%>
+      <th colspan="3"></th>
+      <%end%>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @productos.each do |producto| %>
+      <tr>
+        <td><%= @producto_padre.clave %></td>
+        <td><%= producto.clave %></td>
+        <td><%= producto.nombre %></td>
+        <%if current_user.is_admin?%>
+        <td><%= producto.precio %></td>
+        <%end%>
+        <td><%= producto.venta %></td>
+        <td><%= producto.instalacion %>min</td>
+        <td><%= producto.instalacionpreencial %>min</td>
+        
+        <%if current_user.is_admin?%>
+        <td><%= link_to 'Ver', producto %></td>
+        <td><%= link_to 'Editar', edit_producto_path(producto) %></td>
+        <td><%= link_to 'Destruir', producto, method: :delete, data: { confirm: 'Estas Seguro?' } %></td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

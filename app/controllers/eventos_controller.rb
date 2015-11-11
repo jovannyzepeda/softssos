@@ -21,6 +21,7 @@ class EventosController < ApplicationController
     		 	@object.push info
     		 	@cant.push d["cantidad"]
     		end
+        
         @tiempo_instalar = (horas.to_f/60).round(2)
         if @activacion == "Presencialmente"
           @costo_instalar = @tiempo_instalar * 650
@@ -79,9 +80,14 @@ class EventosController < ApplicationController
   										BANCO BANORTE: No. Cuenta: 0239431716; CLABE: 072320002394317160\n\n
   									    RFC: SOF1406233F5\n\n\n", :inline_format => true
 
-  					   sos = "#{Rails.root}/public/images/pdf/soporte.png" 
-      				pdf.image sos, :position => :center, :width => 600   
-  				    send_data pdf.render, filename: 'Cotización.pdf', type: 'application/pdf'	
+  					  
+              pdf.text "\n\nEstimado cliente, es muy importante validar que cuentas con el suficiente equipo para generar la instalación de nuestros productos o servicios, para ello se recomienda consultar nustro detalle de requerimientos mínimos en el enlace: \nhttp://sos-soft.com/wp-content/uploads/2015/11/requerimientos.pdf\n\nTe invitamos a consultar los terminos y condiciones de nuestro servicio en el siguiente enlace \nhttp://sos-soft.com/wp-content/uploads/2015/11/Pol--ticas-de-Devolucion-de-productos.pdf", :inline_format => true
+             
+
+             
+
+
+              send_data pdf.render, filename: 'Cotización.pdf', type: 'application/pdf'	
           end
           format.adicional do
        
@@ -98,7 +104,7 @@ class EventosController < ApplicationController
             pdf.text "Estimado/a #{@cliente}\n\nPor medio de este documento se solicita amablemente indicar si el servicio otorgado por SOS Software fue el necesario para cumplir la resolución del inconveniente presentado de una forma adecuada y a su vez generada en un tiempo correspondiente a la dificultad de la solicitud requerida.", :inline_format => true
           
             
-            pdf.text "\n\nPara poder emitir su factura es necesario enviar la siguiente información como contenido de mensaje a la dirección info@sos-soft.com y con el asunto Carta de aceptación", :inline_format => true, :align => :center
+            pdf.text "\n\nPara poder emitir su factura es necesario responder este mensaje y enviar la siguiente información como contenido de mensaje y con el asunto Carta de aceptación", :inline_format => true, :align => :center
             
             pdf.text "________________________________________________________________________________"
             pdf.text "\n\nYo #{@cliente} confirmo que se me dio entrega de los siguientes Productos/servicios:\n\n", :inline_format => true   

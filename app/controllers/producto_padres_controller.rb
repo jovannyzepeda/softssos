@@ -11,6 +11,7 @@ class ProductoPadresController < ApplicationController
   # GET /producto_padres/1
   # GET /producto_padres/1.json
   def show
+    @productos = Producto.where("producto_padre_id = ?",@producto_padre.id);
   end
 
   # GET /producto_padres/new
