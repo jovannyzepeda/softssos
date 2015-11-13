@@ -14,52 +14,53 @@
 ActiveRecord::Schema.define(version: 20151102172821) do
 
   create_table "producto_padres", force: :cascade do |t|
-    t.string   "nombre"
-    t.text     "descripcion"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "clave"
+    t.string   "nombre",      limit: 255
+    t.text     "descripcion", limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "clave",       limit: 255
   end
 
   create_table "productos", force: :cascade do |t|
-    t.string   "nombre"
-    t.string   "clave"
-    t.float    "precio"
-    t.text     "descripcion"
-    t.integer  "producto_padre_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.float    "venta"
-    t.integer  "instalacion"
-    t.integer  "instalacionpreencial"
+    t.string   "nombre",               limit: 255
+    t.string   "clave",                limit: 255
+    t.float    "precio",               limit: 24
+    t.text     "descripcion",          limit: 65535
+    t.integer  "producto_padre_id",    limit: 4
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.float    "venta",                limit: 24
+    t.integer  "instalacion",          limit: 4
+    t.integer  "instalacionpreencial", limit: 4
   end
 
-  add_index "productos", ["producto_padre_id"], name: "index_productos_on_producto_padre_id"
+  add_index "productos", ["producto_padre_id"], name: "index_productos_on_producto_padre_id", using: :btree
 
   create_table "rols", force: :cascade do |t|
-    t.string   "nombre"
-    t.string   "precio_hora"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "nombre",      limit: 255
+    t.string   "precio_hora", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.integer  "privilegio"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.integer  "privilegio",             limit: 4
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "productos", "producto_padres"
 end
