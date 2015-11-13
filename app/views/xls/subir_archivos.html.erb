@@ -1,7 +1,18 @@
 <h2 class="alert alert-danger center">Carga un Documento XLS</h2>	
 <p>Es de suma importancia recordar que el xls debe tener la siguiente estructura:<br>
-A - proveedor B - clave proveedor C - clave producto D - Nombre de producto  E - Precio proveedor F - Precio S/IVA al publico G - tiempo de instalacion remotamente en minutos  H - tiempo de instalacion presencial en minutos  I - Descripcion de producto(opcional)  </p>
+A - proveedor * B - clave proveedor * C - clave producto * D - Nombre de producto *  E - Precio proveedor * F - Precio S/IVA al publico * G - tiempo de instalacion remotamente en minutos*  H - tiempo de instalacion presencial en minutos *  I - Descripcion de producto(opcional)  </p>
+
+<a href="/ejemplo.xls" download data-role="button" data-inline="true" data-ajax="false">
+	Descarga un ejemplo <i class="fa fa-download"></i>
+</a>
+
 <%= form_tag({:controller => "xls", :action => "subir_archivos"}, :method => "post","data-ajax"=>"false", :multipart => true) do %>
    <%= file_field_tag "archivo", :required => "required" %>
    <%= submit_tag "Subir archivo"%>
 <% end %>
+
+<%if @error.present? %>
+	<p class="alert alert-danger">
+		<%=@error%>
+	</p>
+<%end%>

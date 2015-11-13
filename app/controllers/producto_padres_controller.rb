@@ -30,7 +30,7 @@ class ProductoPadresController < ApplicationController
 
     respond_to do |format|
       if @producto_padre.save
-        format.html { redirect_to producto_padres_path, notice: 'Producto padre was successfully created.' }
+        format.html { redirect_to producto_padres_path, notice: 'Producto padre creado.' }
         format.json { render :show, status: :created, location: @producto_padre }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class ProductoPadresController < ApplicationController
   def update
     respond_to do |format|
       if @producto_padre.update(producto_padre_params)
-        format.html { redirect_to @producto_padre, notice: 'Producto padre was successfully updated.' }
+        format.html { redirect_to @producto_padre, notice: 'Producto padre actualizado' }
         format.json { render :show, status: :ok, location: @producto_padre }
       else
         format.html { render :edit }
@@ -56,9 +56,13 @@ class ProductoPadresController < ApplicationController
   # DELETE /producto_padres/1
   # DELETE /producto_padres/1.json
   def destroy
+    hijo = Producto.where("producto_padre_id = ?",@producto_padre.id);
+    hijo.each do |x|
+      x.destroy
+    end
     @producto_padre.destroy
     respond_to do |format|
-      format.html { redirect_to producto_padres_url, notice: 'Producto padre was successfully destroyed.' }
+      format.html { redirect_to producto_padres_url, notice: 'Producto padre e hijos eliminados' }
       format.json { head :no_content }
     end
   end

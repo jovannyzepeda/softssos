@@ -1,3 +1,4 @@
+<div class="col-md-8 col-md-offset-2">
 <%= form_for(@producto_padre) do |f| %>
   <% if @producto_padre.errors.any? %>
     <div id="error_explanation">
@@ -12,11 +13,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :nombre %><br>
+    <%= f.label :nombre, "Nombre Proveedor*" %><br>
     <%= f.text_field :nombre , "required"=>"required"%>
   </div>
   <div class="field">
-    <%= f.label :clave, "Clave de proveedor" %><br>
+    <%= f.label :clave, "Clave de proveedor *" %><br>
     <%= f.text_field :clave , "required"=>"required"%>
   </div>
   <div class="field">
@@ -27,3 +28,4 @@
     <%= f.submit "Guardar",  "data-role" => "button", "data-inline" => "true", "data-theme" => "b"  %>
   </div>
 <% end %>
+</div>

@@ -1,27 +1,27 @@
 <%= form_for(@user, :url => { :action => "create" } ) do |f| %>
-    <div class="field">
-      <%= f.label :email , "Correo electronico"%><br>
-      <%= f.email_field :email, autofocus: true ,class: "form-control"%>
-    </div>
-    <div class="field">
-      <%= f.label :privilegio , "Confirmacion de password"%><br>
-      <%= f.select :privilegio, class: "form-control" do%>
-        <%= content_tag(:option, "Usuario Normal", value: 1) %>
-        <%= content_tag(:option, "Administrador", value: 2) %>
-      <%end%>
-    </div>
-    <div class="field">
-      <%= f.label :password %>
-      <% if @minimum_password_length %>
-      <em>(Minimo <%= @minimum_password_length %> caracteres)</em>
-      <% end %><br>
-      <%= f.password_field :password, autocomplete: "off",class: "form-control" %>
-    </div>
-    <div class="field">
-      <%= f.label :password_confirmation , "Confirmacion de password"%><br>
-      <%= f.password_field :password_confirmation, autocomplete: "off" ,class: "form-control"%>
-    </div>
-    <div class="actions">
-      <%= f.submit  "Registrar usuario" %>
-    </div>
-  <% end %>
+  <div class="field">
+    <%= f.label :email , "Correo electronico *"%><br>
+    <%= f.email_field :email, autofocus: true ,class: "form-control"%>
+  </div>
+  <div class="field">
+    <%= f.label :privilegio , "Rol de usuario *"%><br>
+    <%= f.select :privilegio, class: "form-control" do%>
+      <%= content_tag(:option, "Usuario Normal", value: 1) %>
+      <%= content_tag(:option, "Administrador", value: 2) %>
+    <%end%>
+  </div>
+  <div class="field">
+    <%= f.label :password , "Password *"%>
+    <% if @minimum_password_length %>
+    <em>(Minimo <%= @minimum_password_length %> caracteres)</em>
+    <% end %><br>
+    <%= f.password_field :password, autocomplete: "off",class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation , "Confirma el Password*"%><br>
+    <%= f.password_field :password_confirmation, autocomplete: "off" ,class: "form-control"%>
+  </div>
+  <div class="actions">
+    <%= f.submit  "Guardar Datos de usuario" %>
+  </div>
+<% end %>

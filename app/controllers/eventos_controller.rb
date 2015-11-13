@@ -13,11 +13,12 @@ class EventosController < ApplicationController
       horas = 0
       @activacion = params[:instalacion]
       if @activacion != "No"
+        horas = params[:tiempoinstalar]
     	 	@data.each do |d|
     	 		info = Producto.where("nombre=?", d["nombre"])
-          if info.first.instalacion
-            horas= horas + (info.first.instalacion * d["cantidad"].to_i)
-          end
+          #if info.first.instalacion
+          #  horas= horas + (info.first.instalacion * d["cantidad"].to_i)
+          #end
     		 	@object.push info
     		 	@cant.push d["cantidad"]
     		end

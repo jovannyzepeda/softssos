@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1 class="alert alert-danger center" >Pruductos padre</h1>
+<h1 class="alert alert-danger center" >Productos padre</h1>
 
 <table class="table table-bordered ui-responsive" data-role="table">
   <thead>
@@ -17,7 +17,7 @@
         <td><%= link_to  producto_padre.nombre, producto_padre %></td>
         <td><%= producto_padre.clave %></td>
         <td><%= link_to 'Editar', edit_producto_padre_path(producto_padre) %></td>
-        <td><%= link_to 'Eliminar', producto_padre, method: :delete, data: { confirm: 'Estas seguro?' } %></td>
+        <td><%= link_to 'Eliminar', producto_padre, method: :delete, data: { confirm: 'Estas seguro?, esto eliminara todo lo relacionado con este producto' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -25,4 +25,4 @@
 
 <br>
 
-<%= link_to 'Nueva Categoria', new_producto_padre_path, "data-role" => "button", "data-inline" => "true", "data-theme" => "b"  %>
+<%= link_to 'Crear producto padre', new_producto_padre_path, "data-role" => "button", "data-inline" => "true", "data-theme" => "b"  %>

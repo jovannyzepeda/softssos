@@ -1,7 +1,7 @@
 class AdminsController < ApplicationController
-  #before_action :autenticacion_admin!, only: [:destroy,:index,:new]
-  #before_action :auth
-  #before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :autenticacion_admin!, only: [:destroy,:index,:new]
+  before_action :auth
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /admins
   # GET /admins.json
@@ -26,12 +26,12 @@ class AdminsController < ApplicationController
   # POST /admins
   # POST /admins.json
   def create
-      @user = User.new(user_params)
+    @user = User.new(user_params)
     unless @first_user.present?
       @user.privilegio = 2
     end
     if @user.save
-      flash[:notice] = "Usuario Creado exitosamente." 
+      flash[:notice] = "Cambios guardados correctamente." 
       unless @first_user.present?
         redirect_to root_path
       end
@@ -48,15 +48,24 @@ class AdminsController < ApplicationController
   # PATCH/PUT /admins/1
   # PATCH/PUT /admins/1.json
   def update
-    respond_to do |format|
-      if @admin.update(admin_params)
-        format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
-        format.json { render :show, status: :ok, location: @admin }
-      else
-        format.html { render :edit }
-        format.json { render json: @admin.errors, status: :unprocessable_entity }
-      end
-    end
+        @user.destroy
+        @user = User.new(user_params)
+        unless @first_user.present?
+          @user.privilegio = 2
+        end
+        if @user.save
+          flash[:notice] = "Cambios guardados correctamente." 
+          unless @first_user.present?
+            redirect_to root_path
+          end
+          unless @first_user.blank?
+            redirect_to admins_path
+          end
+          
+        else
+          flash[:notice] = "Datos Erroneos o password menor a 8 caracteres"
+          render :action => 'new'
+        end
   end
 
   # DELETE /admins/1

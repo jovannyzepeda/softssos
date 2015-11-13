@@ -1,3 +1,4 @@
+<div class="col-md-8 col-md-offset-2">
 <%= form_for(@producto) do |f| %>
   <% if @producto.errors.any? %>
     <div id="error_explanation">
@@ -12,20 +13,20 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :nombre %><br>
+    <%= f.label :nombre ,"Nombre *"%><br>
     <%= f.text_field :nombre , "required"=>"required"%>
   </div>
   <div class="field">
-    <%= f.label :clave %><br>
+    <%= f.label :clave ,"Clave de Producto *"%><br>
     <%= f.text_field :clave , "required"=>"required"%>
   </div>
   <div class="field">
-    <%= f.label :precio %><br>
-    <%= f.text_field :precio, "required"=>"required" %>
+    <%= f.label :precio , "Costo proveedor *"%><br>
+    <%= f.number_field :precio, "required"=>"required" , :step => 'any'%>
   </div>
    <div class="field">
-    <%= f.label :venta %><br>
-    <%= f.text_field :venta, "required"=>"required" %>
+    <%= f.label :venta , "Precio al publico Sin IVA *"%><br>
+    <%= f.number_field :venta, "required"=>"required", :step => 'any' %>
   </div>
   <div class="field">
     <%= f.label :descripcion %><br>
@@ -33,11 +34,11 @@
   </div>
   <div class="field">
     <%= f.label :instalacion ,"Tiempo de instalacion en minutos remotamente"%><br>
-    <%= f.text_area :instalacion %>
+    <%= f.number_field :instalacion , "required"=>"required"%>
   </div>
   <div class="field">
     <%= f.label :instalacionpreencial ,"Tiempo de instalacion Presencial"%><br>
-    <%= f.text_area :instalacionpreencial %>
+    <%= f.number_field :instalacionpreencial, "required"=>"required" %>
   </div>
   <div class="field">
     <%= f.label :producto_padre_id %><br>
@@ -52,3 +53,4 @@
     <%= f.submit "Guardar" %>
   </div>
 <% end %>
+</div>
