@@ -2,15 +2,15 @@
   <h1 class="alert alert-danger center" >Proceso de Venta</h1>
   <button data-role="button" data-inline="true" onclick="cargar()">Venta Nueva</button>
   <input data-type="search" id="searchForCollapsibleSetChildren">
-  <div data-role="collapsible-set" data-filter="true" data-children="> div, > div div ul button" data-inset="true" id="collapsiblesetForFilterChildren" data-input="#searchForCollapsibleSetChildren">
+  <div data-role="collapsible-set" data-filter="true" data-children="> div, > div div ul button" data-inset="true" id="collapsiblesetForFilterChildren" data-input="#searchForCollapsibleSetChildren" data-filter-reveal="true">
     <%if @padre.present?%>
       <%@padre.each do |padre|%>
         <% @productos = Producto.where("producto_padre_id = ?", padre.id) %>
-        <div data-role="collapsible" data-filtertext="<%=padre.nombre%> <%@productos.each do |name|%> <%=name.nombre%> <%=name.clave%> <%end%>">
+        <div data-role="collapsible" data-filtertext="<%=padre.nombre%> <%@productos.each do |name|%> <%=name.nombre%> <%=name.clave%> <%=name.busqueda%> <%end%>">
             <h3><%=padre.nombre%></h3>
             <ul data-role="listview" data-inset="false">
               <%@productos.each do |name|%> 
-                <button data-filtertext="<%=name.clave%> <%=name.nombre%>" data-theme="b" onclick="enviar(<%=name.id%>, '<%=name.nombre%>', <%=name.venta%>)" class="ui-grid-a">
+                <button data-filtertext="<%=name.clave%> <%=name.nombre%> <%=name.busqueda%>" data-theme="b" onclick="enviar(<%=name.id%>, '<%=name.nombre%>', <%=name.venta%>)" class="ui-grid-a">
                   <div class="ui-block-a"><%=name.nombre%></div>
                   <div class="ui-grid-a">
                     <div class="ui-block-a">Clave: <%= name.clave%></div>
@@ -68,6 +68,8 @@
           <th>Producto/servicio</th>
           <th>Precio</th>
           <th>Cantidad</th>
+          <th>Descuento</th>
+          <th>Venta</th>
         </tr>
       </thead>
 
@@ -75,26 +77,30 @@
         <%@x = 0%>
         <%i = 0%>
         <%@object.each do |x| %>
-          <%@x = @x + (x[0].venta * @cant[i].to_i)%>
           <tr>
             <td><%=x[0].nombre%></td>
             <td><%=x[0].venta%></td>
             <td><%=@cant[i]%></td>
+            <td><%=@descuento[i]%>%</td>
+            <td><%=@venta[i]%></td>
           </tr>
           <%i = i + 1%>
         <% end %>
         <%if @tiempo_instalar.present?%>
           <tr>
             <td>Costo instalacion</td>
-            <td><%=@costo_instalar%></td>
+            <td><%=@unicoinstalar%></td>
             <td><%=@tiempo_instalar%>hrs.</td>
+            <td></td>
+            <td><%=@costo_instalar%></td>
           </tr>
-          <%@x = @x + @costo_instalar.to_i%>
         <%end%>
          <tr>
-            <td>Total</td>
-            <td>Sin iva</td>
-            <td><%=@x%></td>
+            <td>Total sin iva</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><%=@preciofinal%></td>
           </tr>
       </tbody>
     </table>

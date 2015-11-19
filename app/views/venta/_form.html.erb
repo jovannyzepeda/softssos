@@ -1,0 +1,33 @@
+<%= form_for(@ventum) do |f| %>
+  <% if @ventum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ventum.errors.count, "error") %> prohibited this ventum from being saved:</h2>
+
+      <ul>
+      <% @ventum.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :cliente %><br>
+    <%= f.text_field :cliente %>
+  </div>
+  <div class="field">
+    <%= f.label :clave, "Nombre proyecto" %><br>
+    <%= f.text_field :clave %>
+  </div>
+  <div class="field doscientos">
+    <%= f.label :fecha %><br>
+    <%= f.date_field :fecha %>
+  </div>
+  <div class="field cien">
+    <%= f.label :iva %><br>
+    <%= f.number_field :iva ,"value"=>"16"%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -8,6 +8,16 @@ ul.nav > li > a:hover {    color: gold!important;}ul.nav > li > a:active {    co
 @media(min-width: 1400px){
 	.maximo{max-width: 1200px;margin: 0 auto!important;}
 }
+
+.cien{
+	width: 100%!important;
+}
+.cien > div{
+	width: 100px;
+}
+.doscientos > div{
+	width: 200px!important;
+}
 input{
 	word-break: break-word;
 }

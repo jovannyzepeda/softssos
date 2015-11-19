@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  resources :venta
+  resources :venta
   get 'xls/subir_archivos'
   post 'xls/subir_archivos'
 
@@ -12,7 +14,6 @@ Rails.application.routes.draw do
   devise_for :users
   resources :rols
   #get 'eventos/save' 
-
 
   match '/eventos/save',    to: 'eventos#save', via: :get, :as => :eventos_save
   resources :eventos , :except => [:show, :destroy, :create, :update]

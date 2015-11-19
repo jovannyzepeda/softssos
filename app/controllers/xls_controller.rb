@@ -28,8 +28,18 @@ class XlsController < ApplicationController
 						padre = ProductoPadre.where('clave like ?',data)
 
 					end
+					@guardar = ''
+					@token = row[3]
+					@token.delete(',')
+					@token = @token.split(" ")
+					@token.each do |x|
+						@token.each do |y|
+							@guardar = @guardar + (x + " " + y + " ")
+						end
+					end
+					
 				  	if actualizar.present?
-						if actualizar.update(nombre: row[3], precio: row[4], venta: row[5], instalacion: row[6], instalacionpreencial: row[7], descripcion: row[8], producto_padre_id: padre.first.id)
+						if actualizar.update(nombre: row[3], precio: row[4], venta: row[5], instalacion: row[6], instalacionpreencial: row[7], descripcion: row[8], producto_padre_id: padre.first.id,busqueda: @guardar)
 				  		else
 				  			@active = 1
 				  			@error = @error + row[3] + "\n"
@@ -43,6 +53,7 @@ class XlsController < ApplicationController
 						guardar.instalacion = row[6]
 						guardar.instalacionpreencial = row[7]
 						guardar.descripcion = row[8]
+						guardar.busqueda = @guardar
 						guardar.producto_padre_id = padre.first.id
 						if guardar.save
 						else

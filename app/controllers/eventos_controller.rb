@@ -10,7 +10,11 @@ class EventosController < ApplicationController
   		@rols = Rol.all
   		@object = []
   		@cant = []
+      @descuento = []
+      @venta = []
+      @unicoinstalar
       horas = 0
+      @preciofinal = 0
       @activacion = params[:instalacion]
       if @activacion != "No"
         horas = params[:tiempoinstalar]
@@ -21,20 +25,28 @@ class EventosController < ApplicationController
           #end
     		 	@object.push info
     		 	@cant.push d["cantidad"]
+          @descuento.push d["descuento"]
+          @venta.push (info.first.venta * (1 - (d["descuento"].to_f/100)))
+          @preciofinal = @preciofinal + (info.first.venta * (1 - (d["descuento"].to_f/100)))
     		end
         
         @tiempo_instalar = (horas.to_f/60).round(2)
         if @activacion == "Presencialmente"
           @costo_instalar = @tiempo_instalar * 650
+          @unicoinstalar = 650
         elsif @activacion == "Remotamente"
           @costo_instalar = @tiempo_instalar * 550
+          @unicoinstalar = 550
         end
-          
+        @preciofinal = @preciofinal + @costo_instalar
       else
         @data.each do |d|
           info = Producto.where("nombre=?", d["nombre"])
           @object.push info
           @cant.push d["cantidad"]
+          @descuento.push d["descuento"]
+          @venta.push (info.first.venta * (1 - (d["descuento"].to_f/100)))
+          @preciofinal = @preciofinal + (info.first.venta * (1 - (d["descuento"].to_f/100)))
         end
       end
 
@@ -53,36 +65,29 @@ class EventosController < ApplicationController
     				pdf.text "________________________________________________________________________________"
     				pdf.text "<b><font size='24'>\nCotización\n</font></b>", :inline_format => true, :align => :center
     				t = Time.now
-    				total = 0
     				i = -1
     				pdf.text "Girada el: #{t.strftime('%d/%m/%Y')}\n\n\n\n\n ", :align => :right , :inline_format => true
 	          		
-                table_data = [['#', 'Artículo / Descripción', 'Cant', 'Unidades', 'Precio unitario', 'Impuesto', 'Total']] + 
-
-                  
+                table_data = [['#', 'Artículo / Descripción', 'Cant', 'Precio unitario', 'Impuesto', 'Descuento','Total']] +   
                   @object.map do |product|
 	          				i = i + 1
-	          				total = total + (product[0].venta * @cant[i].to_i)
-      						  [i+1, product[0].nombre, @cant[i], "",product[0].venta,"16%",product[0].venta*@cant[i].to_i]
+      						  [i+1, product[0].nombre, @cant[i],product[0].venta,"16%",@descuento[i],@venta[i]]
     						  end
-            
                 if @activacion == "Presencialmente"
-                  table_data += [[i+2, 'Instalación de Servicios Presencialmente', '1', '', @costo_instalar, '16%', @costo_instalar]]
-                  total = total + @costo_instalar
+                  table_data += [[i+2, 'Instalación de Servicios Presencialmente', @tiempo_instalar , '650', '16%', '',(@costo_instalar).round(2)]]
                 elsif @activacion == "Remotamente"
-                  table_data += [[i+2, 'Instalación de Servicios Remotamente', '1', '', @costo_instalar, '16%', @costo_instalar]]
-                  total = total + @costo_instalar
+                  table_data += [[i+2, 'Instalación de Servicios Remotamente', @tiempo_instalar, '550', '16%','', (@costo_instalar).round(2)]]
                 end
       				pdf.table(table_data,:width => 540)
-      				iva = total * 0.16
-      				pdf.text "\nSub total: #{total}\n Impuesto de ventas (16%): #{iva.round(2)}\n <b>Total: #{iva+total}</b>", :align => :right , :inline_format => true
+      				iva = (@preciofinal * 0.16).round(2)
+      				pdf.text "\nSub total: #{@preciofinal.round(2)}\n Impuesto de ventas (16%): #{iva.round(2)}\n <b>Total: #{(iva+@preciofinal).round(2)}</b>", :align => :right , :inline_format => true
 
       				pdf.text "\n\n\n\nINFORMACIÓN DE PAGO: SOS Software S.A. de C.V.\n\n
   										BANCO BANORTE: No. Cuenta: 0239431716; CLABE: 072320002394317160\n\n
   									    RFC: SOF1406233F5\n\n\n", :inline_format => true
 
   					  
-              pdf.text "\n\nEstimado cliente, es muy importante validar que cuentas con el suficiente equipo para generar la instalación de nuestros productos o servicios, para ello se recomienda consultar nustro detalle de requerimientos mínimos en el enlace: \nhttp://sos-soft.com/wp-content/uploads/2015/11/requerimientos.pdf\n\nTe invitamos a consultar los terminos y condiciones de nuestro servicio en el siguiente enlace \nhttp://sos-soft.com/wp-content/uploads/2015/11/Pol--ticas-de-Devolucion-de-productos.pdf", :inline_format => true
+              pdf.text "\n\nEstimado cliente, es muy importante validar que cuentas con el suficiente equipo para generar la instalación de nuestros productos o servicios, para ello se recomienda consultar nustro detalle de requerimientos mínimos en el enlace: \nhttp://sos-soft.com/requerimientos.pdf\n\nTe invitamos a consultar los terminos y condiciones de nuestro servicio en el siguiente enlace \nhttp://sos-soft.com/wp-content/uploads/2015/11/Pol--ticas-de-Devolucion-de-productos.pdf", :inline_format => true
              
 
              

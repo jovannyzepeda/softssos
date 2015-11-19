@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cliente: MyString
+  clave: MyString
+  fecha: 2015-11-19
+  iva: 1.5
+
+two:
+  cliente: MyString
+  clave: MyString
+  fecha: 2015-11-19
+  iva: 1.5

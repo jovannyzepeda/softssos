@@ -59,24 +59,30 @@ wb.add_worksheet(name: "Etapas_proyecto") do |sheet|
     elsif @activacion == "Remotamente"
       @costo_i =  550
     end
-
-	sheet.add_row ['Implementación','', '' ,'','',''], :style => costo
+    if @tiempo_instalar < 0.5
+    	complejidad = "Baja"
+    elsif @tiempo_instalar < 120
+    	complejidad = "Media"
+    else
+    	complejidad = "Alta"
+    end
+	sheet.add_row ['Implementación','', '' ,'','','',''], :style => costo
 	sheet.add_row ['Confirmar cita y descarga','Vendedor',@vendedor,0.33,'=SUM(C16)*SUM(D16)','',''], :style => border
-	sheet.add_row ['Realizar implementación y cierre de tarea','Soporte',@soporte,@tiempo_instalar,'=SUM(C17)*SUM(D17)','',''], :style => border
+	sheet.add_row ['Realizar implementación y cierre de tarea','Soporte',@soporte,@tiempo_instalar,'=SUM(C17)*SUM(D17)','',complejidad], :style => border
 
-	sheet.add_row ['Cierre','','','','',''], :style => costo
+	sheet.add_row ['Cierre','','','','','',''], :style => costo
 	sheet.add_row ['Validación de implementación','Soporte',@soporte,0.33,'=SUM(C19)*SUM(D19)','',''], :style => border
 	sheet.add_row ['Envió de carta de aceptación','Vendedor',@vendedor,0.05,'=SUM(C20)*SUM(D20)','',''], :style => border
 	
 
-	sheet.add_row ['Garantía','','','','',''], :style => costo
+	sheet.add_row ['Garantía','','','','','',''], :style => costo
 	sheet.add_row ['Recibir solicitud, Crear tarea y asignar responsable','Vendedor',@vendedor,0.5,'=SUM(C22)*SUM(D22)','',''], :style => border
 	sheet.add_row ['Resolver solicitud, validar con cliente y cerrar tarea','Soporte',@soporte,1.5,'=SUM(C23)*SUM(D23)','tiempo planeado para un promedio de 6 eventos',''], :style => border
 
 	sheet.add_row ['Calidad','','','','','',''], :style => costo
-	sheet.add_row ['Ejecutar auditoría y notificar no conformidades','Calidad',@calidad,1,'=SUM(C25)*SUM(D25)','',''], :style => border
-	sheet.add_row ['Resolver no conformidades','Líder de proyecto',@lider_ventas,0.5,'=SUM(C26)*SUM(D26)','',''], :style => border
-	sheet.add_row ['Dar seguimiento y cerrar no conformidades','Calidad',@calidad,0.5,'=SUM(C27)*SUM(D27)','',''], :style => border
+	sheet.add_row ['Ejecutar auditoría y notificar no conformidades','Calidad',@calidad,1.07,'=SUM(C25)*SUM(D25)','',''], :style => border
+	sheet.add_row ['Resolver no conformidades','Líder de proyecto',@lider_ventas,0.57,'=SUM(C26)*SUM(D26)','',''], :style => border
+	sheet.add_row ['Dar seguimiento y cerrar no conformidades','Calidad',@calidad,0.57,'=SUM(C27)*SUM(D27)','Se agrega adicional la cantidad correspondientes a las 2 horas mensuales planeadas para auditoria fisica, funcional, garantia y de prospectacion',''], :style => border
 
 	sheet.add_row ['Métricas y Monitoreo','','','','','',''], :style => costo
 	sheet.add_row ['Recolectar Métricas','Administración',@administracion,0.26,'=SUM(C29)*SUM(D29)','Se planean 8 horas quincenales',''], :style => border
