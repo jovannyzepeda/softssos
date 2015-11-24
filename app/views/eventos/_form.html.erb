@@ -26,7 +26,7 @@
     <%end%>
   </div>
   <%= render "adicional"%>
-  <%= form_tag({:controller => "venta", :action => "create"}, :method => "post", "id"=>"index") do %>
+  <%= form_tag({:controller => "eventos", :action => "insertar"}, :method => "post", "id"=>"index") do %>
      <h4 class="alert alert-danger clear center">Nombre de cliente * </h4>
       <div class="col-md-6">
         <input type="text" name="cliente" placeholder="Nombre(s)" id="nom" required> 
@@ -49,7 +49,7 @@
         </div>
       </div>
       <h4 class="alert alert-danger clear center">Productos Seleccionados</h4>
-    <div id="elements"></div>
+  	<div id="elements"></div>
     <fieldset class="col-md-12">
       <div data-role="fieldcontain" class="col-md-12">
         <label for="select-based-flipswitch">Requiere instalación remota:</label>

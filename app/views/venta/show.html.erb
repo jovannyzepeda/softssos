@@ -1,24 +1,71 @@
-<p id="notice"><%= notice %></p>
+<div class="col-md-8">
+	<div class="col-md-12">
+		<div class="col-md-4 col-md-offset-3">
+	    	<%= image_tag("sos") %>
+	  	</div>
+  	</div>
+	<div class="col-md-9">
+		<p>Cliente: <%=@ventum.cliente%></p>
+	</div>
+	<div class="col-md-3">
+		<p>Fecha: <%=@ventum.fecha%></p>
+	</div>
+	<div class="col-md-12">
+		<p>Clave: <%=@ventum.clave%></p>
+	</div>
+    <p class="center">Descargar documento de Estimación con los siguientes elementos:</p>
+    <table class="table table-bordered ui-responsive" data-role="table">
+      <thead>
+        <tr>
+          <th>Producto/servicio</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Descuento</th>
+          <th>Venta</th>
+        </tr>
+      </thead>
 
-<p>
-  <strong>Cliente:</strong>
-  <%= @ventum.cliente %>
-</p>
-
-<p>
-  <strong>Clave:</strong>
-  <%= @ventum.clave %>
-</p>
-
-<p>
-  <strong>Fecha:</strong>
-  <%= @ventum.fecha %>
-</p>
-
-<p>
-  <strong>Iva:</strong>
-  <%= @ventum.iva %>
-</p>
-
-<%= link_to 'Edit', edit_ventum_path(@ventum) %> |
-<%= link_to 'Back', venta_path %>
+      <tbody>
+        <%@detail.each do |x| %>
+          <tr>
+            <td><%=x.producto%></td>
+            <td><%=x.precioventa%></td>
+            <td><%=x.cantidad%></td>
+            <td>
+            	<%if x.descuento%>
+            		<%=x.descuento%>
+            	<%else%>
+            		0	
+            	<%end%>%</td>
+            <td><%=x.total%></td>
+          </tr>
+        <% end %>
+       
+         <tr>
+            <td>Subtotal</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><%=@ventum.subtotal%></td>
+          </tr>
+          <tr>
+            <td>IVA</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><%=@ventum.iva%></td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><%=@ventum.total%></td>
+          </tr>
+      </tbody>
+    </table>
+    <%= link_to ' Descargar Estimación',  ventum_path(request.parameters.merge({:format => :xlsx})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
+    <%= link_to ' Descargar Cotización',  ventum_path(request.parameters.merge({:format => :pdf})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
+    <%= link_to ' Descargar carta de aceptacion',  ventum_path(request.parameters.merge({:format => :adicional})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
+    <%= link_to "Regresar", venta_path, "data-role" => "button","data-inline"=>"true","data-theme" =>"b"%>
+  </div> 

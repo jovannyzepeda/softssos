@@ -3,7 +3,7 @@ class EventosController < ApplicationController
   def index
   	@padre = ProductoPadre.all
   	@data = params[:data]
-  	
+  	@cliente = params[:cliente]
    
   	unless @data.blank?
       @cliente = params[:cliente] + " " +params[:cliente_apellido]
@@ -130,5 +130,75 @@ class EventosController < ApplicationController
 
 	  end
   end
+  def show
 
+  end
+  def new
+    @padre = ProductoPadre.all
+  end
+  def insertar
+    @data = params[:data]
+    unless @data.blank?
+      @cliente = params[:cliente] + " " +params[:cliente_apellido]
+      @rols = Rol.all
+      @object = []
+      @cant = []
+      @descuento = []
+      @venta = []
+      @unicoinstalar
+      horas = 0
+      @preciofinal = 0
+      @activacion = params[:instalacion]
+      if @activacion != "No"
+        horas = params[:tiempoinstalar]
+        @data.each do |d|
+          info = Producto.where("nombre=?", d["nombre"])
+          #if info.first.instalacion
+          #  horas= horas + (info.first.instalacion * d["cantidad"].to_i)
+          #end
+          @object.push info
+          @cant.push d["cantidad"]
+          @descuento.push d["descuento"]
+          @venta.push (info.first.venta * (1 - (d["descuento"].to_f/100)))
+          @preciofinal = @preciofinal + (info.first.venta * (1 - (d["descuento"].to_f/100)))
+        end
+        
+        @tiempo_instalar = (horas.to_f/60).round(2)
+        if @activacion == "Presencialmente"
+          @costo_instalar = @tiempo_instalar * 650
+          @unicoinstalar = 650
+        elsif @activacion == "Remotamente"
+          @costo_instalar = @tiempo_instalar * 550
+          @unicoinstalar = 550
+        end
+        @preciofinal = @preciofinal + @costo_instalar
+      else
+        @data.each do |d|
+          info = Producto.where("nombre=?", d["nombre"])
+          @object.push info
+          @cant.push d["cantidad"]
+          @descuento.push d["descuento"]
+          @venta.push (info.first.venta * (1 - (d["descuento"].to_f/100)))
+          @preciofinal = @preciofinal + (info.first.venta * (1 - (d["descuento"].to_f/100)))
+        end
+      end
+    end
+    @fecha = params[:fecha]
+    @clave = params[:clave]
+    @iva = params[:iva]
+    @ventum = Ventum.new(cliente:@cliente, clave:@clave, fecha:@fecha, iva:@iva)
+    respond_to do |format|
+        if(@ventum.save)
+          i = 0
+          @object.each do |detalle|
+            @detalle = DetalleVentum.new(producto: detalle[0].nombre, cantidad: @cant[i] , precio: detalle[0].venta , descuento: @descuento[i]  )
+            i = i + 1
+          end
+          format.html { redirect_to @ventum, notice: 'Producto padre creado.' }
+        else
+          format.html { redirect_to eventos_path, notice: 'Fallo.' }
+        end
+       
+    end
+  end
 end

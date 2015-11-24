@@ -11,19 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151119150821) do
+ActiveRecord::Schema.define(version: 20151124152537) do
 
-  create_table "detalle_venta", force: :cascade do |t|
-    t.integer  "Venta_id"
-    t.string   "producto"
-    t.integer  "cantidad"
+  create_table "details", force: :cascade do |t|
+    t.integer  "venta_id"
+    t.text     "producto"
+    t.float    "cantidad"
     t.float    "precio"
+    t.float    "precioventa"
     t.float    "descuento"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.float    "total"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "detalle_venta", ["Venta_id"], name: "index_detalle_venta_on_Venta_id"
+  add_index "details", ["venta_id"], name: "index_details_on_venta_id"
 
   create_table "producto_padres", force: :cascade do |t|
     t.string   "nombre"
@@ -80,6 +82,8 @@ ActiveRecord::Schema.define(version: 20151119150821) do
     t.string   "clave"
     t.date     "fecha"
     t.float    "iva"
+    t.float    "subtotal"
+    t.float    "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

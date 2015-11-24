@@ -1,64 +1,7 @@
 <%if @data.blank?%>
-  <h1 class="alert alert-danger center" >Proceso de Venta</h1>
-  <button data-role="button" data-inline="true" onclick="cargar()">Venta Nueva</button>
-  <input data-type="search" id="searchForCollapsibleSetChildren">
-  <div data-role="collapsible-set" data-filter="true" data-children="> div, > div div ul button" data-inset="true" id="collapsiblesetForFilterChildren" data-input="#searchForCollapsibleSetChildren" data-filter-reveal="true">
-    <%if @padre.present?%>
-      <%@padre.each do |padre|%>
-        <% @productos = Producto.where("producto_padre_id = ?", padre.id) %>
-        <div data-role="collapsible" data-filtertext="<%=padre.nombre%> <%@productos.each do |name|%> <%=name.nombre%> <%=name.clave%> <%=name.busqueda%> <%end%>">
-            <h3><%=padre.nombre%></h3>
-            <ul data-role="listview" data-inset="false">
-              <%@productos.each do |name|%> 
-                <button data-filtertext="<%=name.clave%> <%=name.nombre%> <%=name.busqueda%>" data-theme="b" onclick="enviar(<%=name.id%>, '<%=name.nombre%>', <%=name.venta%>)" class="ui-grid-a">
-                  <div class="ui-block-a"><%=name.nombre%></div>
-                  <div class="ui-grid-a">
-                    <div class="ui-block-a">Clave: <%= name.clave%></div>
-                    <div class="ui-block-b">Venta S/IVA: <%= name.venta%></div>
-                  </div> 
-                  
-                </button>
-              <%end%> 
-            </ul>
-        </div>
-      <%end%>
-    <%else%>
-      <p class="alert alert-danger">No se han registrado productos aun</p>
-    <%end%>
-  </div>
-  <%= render "adicional"%>
-  <%= form_tag({:controller => "eventos", :action => "index"}, :method => "get", "id"=>"index") do %>
-     <h4 class="alert alert-danger clear center">Nombre de cliente * </h4>
-      <div class="col-md-6">
-        <input type="text" name="cliente" placeholder="Nombre(s)" id="nom" required> 
-      </div>
-      <div class="col-md-6">
-        <input type="text" name="cliente_apellido" placeholder="Apellido(s)"  id="ape" value=""> 
-      </div> 
-      <h4 class="alert alert-danger clear center">Productos Seleccionados</h4>
-  	<div id="elements"></div>
-    <fieldset class="col-md-12">
-      <div data-role="fieldcontain" class="col-md-12">
-        <label for="select-based-flipswitch">Requiere instalación remota:</label>
-        <select id="select-based-flipswitch" name="instalacion" onchange="validarval()" >
-          <option value="No">No</option>
-          <option value="Remotamente">Remotamente</option>
-          <option value="Presencialmente">Presencialmente</option>
-        </select>
-      </div>
-    </fieldset>
-    <div class="col-md-12 desaparecetime" id="desaparecetime">
-      <h4 class="alert alert-danger clear center">Tiempo de instalación y capacitación en minutos * </h4>
-      <div class="col-md-2">
-        <input type="number" name="tiempoinstalar" placeholder="35" id="tiempos" > 
-      </div>
-    </div>
-    <div class="col-md-12">
-     <%= submit_tag "Enviar" %>
-     </div>
-  <% end %>
-<%end%>
 
+<%end%>
+sd
 <%if @data.present?%>
   <div class="col-md-8">
     <p class="center">Descargar documento de Estimación con los siguientes elementos:</p>

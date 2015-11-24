@@ -5,7 +5,8 @@ class CreateVenta < ActiveRecord::Migration
       t.string :clave
       t.date :fecha
       t.float :iva
-
+      t.float :subtotal
+      t.float :total
       t.timestamps null: false
     end
   end

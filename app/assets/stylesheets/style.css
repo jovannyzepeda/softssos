@@ -18,6 +18,9 @@ ul.nav > li > a:hover {    color: gold!important;}ul.nav > li > a:active {    co
 .doscientos > div{
 	width: 200px!important;
 }
+.trescientos > div{
+	max-width: 400px!important;
+}
 input{
 	word-break: break-word;
 }

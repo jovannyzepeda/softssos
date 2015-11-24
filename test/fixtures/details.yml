@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  venta_id: 
+  producto,: MyString
+  cantidad: 
+  precio: 
+  descuento: 1.5
+
+two:
+  venta_id: 
+  producto,: MyString
+  cantidad: 
+  precio: 
+  descuento: 1.5
