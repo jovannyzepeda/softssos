@@ -13,14 +13,14 @@
 	<div data-role="header" class="header">
 	<%= render "parcial/nav"%>
 	</div>
-	<div class="col-md-2 small">
-		<p class="notice alert"><%= notice %></p>
-       	<p class="alert"><%= alert %></p>
-	</div>
 	<div data-role="content"  id="page-top"class="col-md-8 col-md-offset-2 contenido" >
 		<div class="maximo">
 			<%= yield %>
 		</div>
+	</div>
+	<div class="col-md-2 topcien">
+		<p class="notice alert"><%= notice %></p>
+       	<p class="alert"><%= alert %></p>
 	</div>
 	<div data-role="footer">
 		

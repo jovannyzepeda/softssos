@@ -7,8 +7,8 @@ A - proveedor * B - clave proveedor * C - clave producto * D - Nombre de product
 </a>
 
 <%= form_tag({:controller => "xls", :action => "subir_archivos"}, :method => "post","data-ajax"=>"false", :multipart => true) do %>
-   <%= file_field_tag "archivo", :required => "required" %>
-   <%= submit_tag "Subir archivo"%>
+   <%= file_field_tag "archivo", :required => "required" , "class"=>"ui-link ui-btn ui-btn-inline ui-shadow ui-corner-all"%>
+   <%= submit_tag "Subir archivo", "class"=>"ui-link ui-btn ui-btn-inline ui-shadow ui-corner-all"%>
 <% end %>
 
 <%if @error.present? %>

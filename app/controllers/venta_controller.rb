@@ -1,4 +1,5 @@
 class VentaController < ApplicationController
+  before_action :auth
   before_action :set_ventum, only: [:show, :edit, :update, :destroy]
 
   # GET /venta
@@ -86,11 +87,38 @@ class VentaController < ApplicationController
 
   # GET /venta/1/edit
   def edit
+    @padre = ProductoPadre.all
   end
 
   # POST /venta
   # POST /venta.json
   def create
+    obtener_datos()
+    @ventum = Ventum.new(cliente:@cliente, clave:@clave, fecha:@fecha, iva:@iva, subtotal:@preciofinal ,total:@totalcosto)
+    respond_to do |format|
+        if(@ventum.save)
+          salvar()
+          format.html { redirect_to @ventum, notice: 'Venta almacenada exitosamente!.' }
+        else
+          format.html { redirect_to eventos_path, notice: 'Fallo el almacenamiento de la venta.' }
+        end
+       
+    end
+  end
+  def salvar
+    i = 0
+    @object.each do |detalle|
+      totalpagar = (detalle[0].venta*@cant[i].to_i) * (1 - (@descuento[i].to_f/100))
+      @detalle = Detail.new(producto: detalle[0].nombre, cantidad: @cant[i] , precio: detalle[0].precio, precioventa: detalle[0].venta, total: totalpagar , descuento: @descuento[i], venta_id: @ventum.id )
+      @detalle.save
+      i = i + 1
+    end
+    if @tiempo_instalar.present?
+      @detalle = Detail.new(producto: @activacion, cantidad: @tiempo_instalar , precio: @unicoinstalar, precioventa: @unicoinstalar, total: @costo_instalar , venta_id: @ventum.id )
+      @detalle.save
+    end
+  end
+  def obtener_datos
     @data = params[:data]
     @fecha = params[:fecha]
     @clave = params[:clave]
@@ -141,36 +169,23 @@ class VentaController < ApplicationController
       end
       
     end
+
     @totalcosto= 0
     @totalcosto = (@preciofinal*(1+(@iva.to_f/100).round(2))).round(2)
-    @ventum = Ventum.new(cliente:@cliente, clave:@clave, fecha:@fecha, iva:@iva, subtotal:@preciofinal ,total:@totalcosto)
-    respond_to do |format|
-        if(@ventum.save)
-          i = 0
-          @object.each do |detalle|
-            totalpagar = (detalle[0].venta*@cant[i].to_i) * (1 - (@descuento[i].to_f/100))
-            @detalle = Detail.new(producto: detalle[0].nombre, cantidad: @cant[i] , precio: detalle[0].precio, precioventa: detalle[0].venta, total: totalpagar , descuento: @descuento[i], venta_id: @ventum.id )
-            @detalle.save
-            i = i + 1
-          end
-          if @tiempo_instalar.present?
-            @detalle = Detail.new(producto: @activacion, cantidad: @tiempo_instalar , precio: @unicoinstalar, precioventa: @unicoinstalar, total: @costo_instalar , venta_id: @ventum.id )
-            @detalle.save
-          end
-          format.html { redirect_to @ventum, notice: 'Producto padre creado.' }
-        else
-          format.html { redirect_to eventos_path, notice: 'Fallo.' }
-        end
-       
-    end
-  end
 
+  end
   # PATCH/PUT /venta/1
   # PATCH/PUT /venta/1.json
   def update
+    obtener_datos()
+    @cliente = params[:cliente] + " " +params[:cliente_apellido]
     respond_to do |format|
-      if @ventum.update(ventum_params)
-        format.html { redirect_to @ventum, notice: 'Ventum was successfully updated.' }
+      if @ventum.update(cliente: @cliente, clave:@clave, fecha:@fecha, iva:@iva)
+        @detail.each do |x|
+          x.destroy
+        end
+        salvar()
+        format.html { redirect_to @ventum, notice: 'Venta actualizada correctamente.' }
         format.json { render :show, status: :ok, location: @ventum }
       else
         format.html { render :edit }
@@ -184,7 +199,7 @@ class VentaController < ApplicationController
   def destroy
     @ventum.destroy
     respond_to do |format|
-      format.html { redirect_to venta_url, notice: 'Ventum was successfully destroyed.' }
+      format.html { redirect_to venta_url, notice: 'Se ha eliminado la venta exitosamente.' }
       format.json { head :no_content }
     end
   end

@@ -1,0 +1,84 @@
+<%= form_tag({:controller => "venta", :action => "update"}, :method => "PUT", "id"=>"index") do %>
+      <h4 class="alert alert-danger clear center">Nombre de cliente * </h4>
+<div class="col-md-6">
+  <input type="text" name="cliente" placeholder="Nombre(s)" id="nom" required value="<%=@ventum.cliente%>"> 
+</div>
+<div class="col-md-6">
+  <input type="text" name="cliente_apellido" placeholder="Apellido(s)"  id="ape" value=""> 
+</div> 
+<div class="col-md-12">
+  <div class="field trescientos">
+    <label for="clave">Nombre de proyecto</label>
+    <input type="text" name="clave" placeholder="P1343" value="<%=@ventum.clave%>"/>
+  </div>
+  <div class="field doscientos">
+    <label for="fecha">Fecha de arranque</label>
+    <input type="date" name="fecha" value="<%=@ventum.fecha%>"/>
+  </div>
+  <div class="field cien">
+    <label for="iva">IVA</label>
+    <input type="number" name="iva" value="<%=@ventum.iva%>"/>
+  </div>
+</div>
+<h4 class="alert alert-danger clear center">Productos Seleccionados</h4>
+<div id="elements">
+  <%@tipo="nulo"%>
+  <%@detail.each do |detalle|%>
+    <%if detalle.producto != "Remotamente" && detalle.producto != "Presencialmente"%>
+    <%else%>
+      <%@cantidad = detalle.cantidad
+        @tipo = detalle.producto
+      %>
+    <%end%>
+  <%end%>
+</div>
+<fieldset class="col-md-12">
+  <div data-role="fieldcontain" class="col-md-12">
+    <label for="select-based-flipswitch">Requiere instalación remota:</label>
+    <select id="select-based-flipswitch" name="instalacion" onchange="validarval()" >
+      <option value="No">No</option>
+      <%if @tipo == "Remotamente"%>
+        <option value="Remotamente" selected="selected">Remotamente</option>
+      <%else%>
+        <option value="Remotamente">Remotamente</option>
+      <%end%>
+      <%if @tipo == "Presencialmente"%>
+        <option value="Presencialmente" selected="selected">Presencialmente</option>
+      <%else%>
+        <option value="Presencialmente">Presencialmente</option>
+      <%end%>
+    </select>
+  </div>
+</fieldset>
+<%if @cantidad.present?%>
+  <%@cantidad = (@cantidad * 60).to_i%>
+  <div class="col-md-12" id="desaparecetime">
+    <h4 class="alert alert-danger clear center">Tiempo de instalación y capacitación en minutos * </h4>
+    <div class="col-md-2">
+      <input type="number" name="tiempoinstalar" placeholder="35" id="tiempos" value="<%=@cantidad%>"> 
+    </div>
+  </div>
+<%else%>
+  <div class="col-md-12 desaparecetime" id="desaparecetime">
+  <h4 class="alert alert-danger clear center">Tiempo de instalación y capacitación en minutos * </h4>
+  <div class="col-md-2">
+    <input type="number" name="tiempoinstalar" placeholder="35" id="tiempos" > 
+  </div>
+</div>
+<%end%>
+<div class="col-md-12">
+      <%= submit_tag "Guardar Venta" ,"class"=>"ui-link ui-btn ui-btn-inline ui-shadow ui-corner-all float_right"%>
+    </div>
+  <% end %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    <%@detail.each do |detalle|%>
+      <%@id = detalle.id+detalle.precioventa%>
+      <%if detalle.producto != "Remotamente" && detalle.producto != "Presencialmente"%>
+        enviar(<%=@id%>, '<%=detalle.producto%>', <%=detalle.precioventa%>)
+        $("#<%=@id.to_i%>descuento").val("<%=detalle.descuento%>");
+        actualizar('<%=@id.to_i%>');
+      <%end%>
+    <%end%>
+  });
+</script>

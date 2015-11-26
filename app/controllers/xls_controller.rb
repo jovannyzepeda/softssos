@@ -1,4 +1,5 @@
 class XlsController < ApplicationController
+	before_action :auth
 	Ruta_directorio_archivos = "public/";
     def subir_archivos
 	  	if request.post? 
