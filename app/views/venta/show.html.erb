@@ -1,4 +1,5 @@
-
+  <%= link_to 'Regresar', venta_path,"data-role"=>"button","data-inline"=>"true"%>
+  <%= link_to 'Editar', edit_ventum_path(@ventum),"data-role"=>"button","data-inline"=>"true"%>
 	<div class="col-md-12">
 		<div class="col-md-4 col-md-offset-3">
 	    	<%= image_tag("sos") %>
@@ -21,6 +22,9 @@
           <th>Precio</th>
           <th>Cantidad</th>
           <th>Descuento</th>
+          <%if @ventum.distribuidor == "distribuidorsi"%>
+            <th>Descuento Proveedor</th>
+          <%end%>
           <th>Venta</th>
         </tr>
       </thead>
@@ -36,7 +40,11 @@
             		<%=x.descuento%>
             	<%else%>
             		0	
-            	<%end%>%</td>
+            	<%end%>%
+            </td>
+            <%if @ventum.distribuidor == "distribuidorsi"%>
+              <td><%=x.descuentoproveedor%></td>
+            <%end%>
             <td><%=x.total%></td>
           </tr>
         <% end %>
@@ -45,6 +53,9 @@
             <td>Subtotal</td>
             <td></td>
             <td></td>
+            <%if @ventum.distribuidor == "distribuidorsi"%>
+              <td></td>
+            <%end%>
             <td></td>
             <td><%=@ventum.subtotal%></td>
           </tr>
@@ -52,13 +63,30 @@
             <td>IVA</td>
             <td></td>
             <td></td>
+            <%if @ventum.distribuidor == "distribuidorsi"%>
+              <td></td>
+            <%end%>
+            <td><%=@ventum.iva.to_i%>%</td>
+            <%@total = ((@ventum.iva.to_i*@ventum.subtotal)/100).round(2)%>
+            <td><%=@total%></td>
+          </tr>
+          <tr>
+            <td>Descuento General</td>
             <td></td>
-            <td><%=@ventum.iva%></td>
+            <%if @ventum.distribuidor == "distribuidorsi"%>
+              <td></td>
+            <%end%>
+            <td></td>
+            <td><%=@ventum.descuentogeneral.to_i%>%</td>
+            <td><%=(@ventum.descuentogeneral.to_i*(@total + @ventum.subtotal)/100).round(2)%></td>
           </tr>
           <tr>
             <td>Total</td>
             <td></td>
             <td></td>
+            <%if @ventum.distribuidor == "distribuidorsi"%>
+              <td></td>
+            <%end%>
             <td></td>
             <td><%=@ventum.total%></td>
           </tr>
@@ -67,4 +95,5 @@
     <%= link_to ' Descargar Estimación',  ventum_path(request.parameters.merge({:format => :xlsx})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
     <%= link_to ' Descargar Cotización',  ventum_path(request.parameters.merge({:format => :pdf})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
     <%= link_to ' Descargar carta de aceptacion',  ventum_path(request.parameters.merge({:format => :adicional})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
-    <%= link_to "Regresar", venta_path, "data-role" => "button","data-inline"=>"true","data-theme" =>"b","onclick"=>"reload()"%>
+    <%= link_to "Regresar", venta_path, "data-role" => "button","data-inline"=>"true","data-theme" =>"b"%>
+  <%= link_to 'Regresar', venta_path,"data-role"=>"button","data-inline"=>"true"%>

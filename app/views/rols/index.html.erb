@@ -18,7 +18,7 @@
         <td><%= rol.precio_hora %></td>
         <td><%= link_to 'Ver', rol %></td>
         <td><%= link_to 'Editar', edit_rol_path(rol) %></td>
-        <td><%= link_to 'Destruir', rol, method: :delete, data: { confirm: 'Estas seguro?' } %></td>
+        <td><%= link_to 'Eliminar', rol, method: :delete, data: { confirm: 'Estas seguro?' } %></td>
       </tr>
     <% end %>
   </tbody>

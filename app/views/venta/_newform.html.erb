@@ -1,44 +1,68 @@
 <%= form_tag({:controller => "venta", :action => "create"}, :method => "post", "id"=>"index") do %>
-      <h4 class="alert alert-danger clear center">Nombre de cliente * </h4>
-<div class="col-md-6">
-  <input type="text" name="cliente" placeholder="Nombre(s)" id="nom" required> 
-</div>
-<div class="col-md-6">
-  <input type="text" name="cliente_apellido" placeholder="Apellido(s)"  id="ape" value=""> 
-</div> 
-<div class="col-md-12">
-  <div class="field trescientos">
-    <label for="clave">Nombre de proyecto</label>
-    <input type="text" name="clave" placeholder="P1343"/>
+  <h4 class="alert alert-danger clear center">Nombre de cliente * </h4>
+  <div class="col-md-6">
+    <input type="text" name="cliente" placeholder="Nombre(s)" id="nom" required> 
   </div>
-  <div class="field doscientos">
-    <label for="fecha">Fecha de arranque</label>
-    <input type="date" name="fecha"/>
+  <div class="col-md-6">
+    <input type="text" name="cliente_apellido" placeholder="Apellido(s)"  id="ape" value=""> 
+  </div> 
+  <div class="col-md-12">
+    <div class="field trescientos">
+      <label for="clave">Nombre de proyecto</label>
+      <input type="text" name="clave" placeholder="P1343"/>
+    </div>
+    <div class="field doscientos">
+      <label for="fecha">Fecha de arranque</label>
+      <input type="date" name="fecha" required="required"/>
+    </div>
+    <div class="field cien">
+      <label for="iva">IVA</label>
+      <input type="number" name="iva" value="16" min="0"/>
+    </div>
   </div>
-  <div class="field cien">
-    <label for="iva">IVA</label>
-    <input type="number" name="iva" value="16"/>
-  </div>
-</div>
-<h4 class="alert alert-danger clear center">Productos Seleccionados</h4>
-<div id="elements"></div>
-<fieldset class="col-md-12">
-  <div data-role="fieldcontain" class="col-md-12">
-    <label for="select-based-flipswitch">Requiere instalación remota:</label>
-    <select id="select-based-flipswitch" name="instalacion" onchange="validarval()" >
-      <option value="No">No</option>
-      <option value="Remotamente">Remotamente</option>
-      <option value="Presencialmente">Presencialmente</option>
+  <div class="containing-element col-md-12">
+    <label for="flip-min">Cliente Distribuidor (Agrega campos con descuento doble):</label>
+    <select id="flip-min" data-role="slider" name="distribuidor">
+      <option value="distribuidorno">NO</option>
+      <option value="distribuidorsi">SI</option>
     </select>
   </div>
-</fieldset>
-<div class="col-md-12 desaparecetime" id="desaparecetime">
-  <h4 class="alert alert-danger clear center">Tiempo de instalación y capacitación en minutos * </h4>
-  <div class="col-md-2">
-    <input type="number" name="tiempoinstalar" placeholder="35" id="tiempos" > 
-  </div>
-</div>
-<div class="col-md-12">
-      <%= submit_tag "Guardar Venta" ,"class"=>"ui-link ui-btn ui-btn-inline ui-shadow ui-corner-all float_right"%>
+  <h4 class="alert alert-danger clear center">Productos Seleccionados</h4>
+  <div id="elements"></div>
+  <fieldset class="col-md-12">
+    <div data-role="fieldcontain" class="col-md-12">
+      <label for="select-based-flipswitch">Requiere instalación:</label>
+      <select id="select-based-flipswitch" name="instalacion" onchange="validarval()" >
+        <option value="No">No</option>
+        <option value="Remotamente">Remotamente</option>
+        <option value="Presencialmente">Presencialmente</option>
+      </select>
     </div>
-  <% end %>
+  </fieldset>
+  <div class="col-md-12 desaparecetime" id="desaparecetime">
+    <h4 class="alert alert-danger clear center">Tiempo de instalación y capacitación en minutos * </h4>
+    <div class="col-md-12">
+      <div class="col-md-4">
+      <label>Tiempo en minutos</label>
+      <input type="number" name="tiempoinstalar" placeholder="35" id="tiempos" min="0" class="instalar">
+      </div>
+      <div class="col-md-4">
+      <label>Costo por hora</label>
+      <input type="number" name="costoinstalar" id="costoinstalar" placeholder="35" id="tiempos" min="0" class="instalar" step="any">
+      </div>
+      <div class="col-md-4">
+      <label>Descuento</label>
+      <input type="number" name="descuentoinstalar" placeholder="35" id="tiempos" min="0" max="100" class="instalar" step="any">
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <label>Descuento General</label>
+    <div class="cien">
+      <input type="number" min="0" max="100" class="form-control" name="descuentogeneral" step="any">
+    </div>
+  </div>
+  <div class="col-md-12">
+    <%= submit_tag "Guardar Venta" ,"class"=>"ui-link ui-btn ui-btn-inline ui-shadow ui-corner-all float_right"%>
+  </div>
+<% end %>

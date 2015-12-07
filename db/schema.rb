@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124152537) do
+ActiveRecord::Schema.define(version: 20151203174909) do
 
   create_table "details", force: :cascade do |t|
     t.integer  "venta_id"
@@ -21,8 +21,9 @@ ActiveRecord::Schema.define(version: 20151124152537) do
     t.float    "precioventa"
     t.float    "descuento"
     t.float    "total"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.float    "descuentoproveedor"
   end
 
   add_index "details", ["venta_id"], name: "index_details_on_venta_id"
@@ -84,8 +85,10 @@ ActiveRecord::Schema.define(version: 20151124152537) do
     t.float    "iva"
     t.float    "subtotal"
     t.float    "total"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.float    "descuentogeneral"
+    t.string   "distribuidor"
   end
 
 end

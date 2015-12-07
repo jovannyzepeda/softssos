@@ -13,7 +13,8 @@
         <th>Cliente</th>
         <th>Clave</th>
         <th>Fecha</th>
-        <th>Iva</th>
+        <th>Fecha Creación</th>
+        <th>IVA</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -24,12 +25,13 @@
           <td><%= ventum.cliente %></td>
           <td><%= ventum.clave %></td>
           <td><%= ventum.fecha %></td>
+          <td><%= ventum.created_at %></td>
           <td><%= ventum.iva %></td>
-          <td><%= link_to 'Show', ventum %></td>
+          <td><%= link_to 'Ver', ventum %></td>
           <%if current_user.is_admin?%>
-            <td><%= link_to 'Edit', edit_ventum_path(ventum)%></td>
+            <td><%= link_to 'Editar', edit_ventum_path(ventum)%></td>
           <%end%>
-          <td><%= link_to 'Destroy', ventum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Eliminar', ventum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>

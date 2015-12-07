@@ -7,6 +7,21 @@ ul.nav > li > a:hover {    color: gold!important;}ul.nav > li > a:active {    co
 @media(min-width: 1400px){
 	.maximo{max-width: 1200px;margin: 0 auto!important;}
 }
+.nopadding{
+	padding: 0px;
+	margin: 0px;
+}
+@media(max-width: 400px){
+	.preguntas{
+		width: auto!important;
+	}
+}
+@media(max-width: 770px){
+	.dropdown-menu{background-color: black}
+	.contenido{
+		margin-top: 45px;
+	}
+}
 .topcien{
 	margin-top: 100px;
 }

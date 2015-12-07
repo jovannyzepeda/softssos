@@ -1,7 +1,10 @@
 <div class="col-md-10 col-md-offset-1">
-	<h1 class="alert alert-success" >Editar producto</h1>
-	<%= render 'form' %>
 	<%= link_to 'Ver', @producto, "data-role" => "button", "data-inline" => "true", "data-theme" => "b"  %> 
 	<%= link_to 'Regresar', productos_path , "data-role" => "button", "data-inline" => "true", "data-theme" => "b" %>
-
+	<h1 class="alert alert-success" >Editar producto</h1>
+	<%= render 'form' %>
+	<div class="col-md-12 nopadding">
+		<%= link_to 'Ver', @producto, "data-role" => "button", "data-inline" => "true", "data-theme" => "b"  %> 
+		<%= link_to 'Regresar', productos_path , "data-role" => "button", "data-inline" => "true", "data-theme" => "b" %>
+	</div>
 </div>

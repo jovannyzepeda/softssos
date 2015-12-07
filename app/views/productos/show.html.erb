@@ -1,4 +1,6 @@
 <p id="notice"><%= notice %></p>
+<%= link_to 'Editar', edit_producto_path(@producto), "data-role" => "button", "data-inline" => "true", "data-theme" => "b"  %> 
+<%= link_to 'Regresar', productos_path, "data-role" => "button", "data-inline" => "true", "data-theme" => "b"  %>
 
 <p>
   <strong>Nombre:</strong>
@@ -25,5 +27,3 @@
   <%= @producto.producto_padre %>
 </p>
 
-<%= link_to 'Editar', edit_producto_path(@producto), "data-role" => "button", "data-inline" => "true", "data-theme" => "b"  %> 
-<%= link_to 'Regresar', productos_path, "data-role" => "button", "data-inline" => "true", "data-theme" => "b"  %>
