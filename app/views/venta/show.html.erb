@@ -97,3 +97,19 @@
     <%= link_to ' Descargar carta de aceptacion',  ventum_path(request.parameters.merge({:format => :adicional})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
     <%= link_to "Regresar", venta_path, "data-role" => "button","data-inline"=>"true","data-theme" =>"b"%>
   <%= link_to 'Regresar', venta_path,"data-role"=>"button","data-inline"=>"true"%>
+
+  <script type="text/javascript">
+  $("document").ready(function(){
+    var pathname = window.location.pathname;
+    console.log(pathname);
+    
+    if(pathname == "/venta/new"){
+      var url      = window.location.href;
+      console.log(url);
+      url = url.substring(0,url.length - 3) + "<%=@ventum.id%>";
+
+      window.location.href = url;
+      console.log("<%=@ventum.id%>");
+    }
+  });
+  </script>
