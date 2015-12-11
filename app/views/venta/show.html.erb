@@ -96,7 +96,6 @@
     <%= link_to ' Descargar Cotización',  ventum_path(request.parameters.merge({:format => :pdf})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
     <%= link_to ' Descargar carta de aceptacion',  ventum_path(request.parameters.merge({:format => :adicional})), :onclick => "$('#index').submit()","data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
     <%= link_to "Regresar", venta_path, "data-role" => "button","data-inline"=>"true","data-theme" =>"b"%>
-  <%= link_to 'Regresar', venta_path,"data-role"=>"button","data-inline"=>"true"%>
 
   <script type="text/javascript">
   $("document").ready(function(){

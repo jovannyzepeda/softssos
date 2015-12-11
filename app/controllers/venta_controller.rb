@@ -32,7 +32,7 @@ class VentaController < ApplicationController
             pdf.text "Servicios/Productos Cotizados\n"
             @detail.each do |x|
               if x.producto == "Presencialmente" || x.producto == "Remotamente"
-                pdf.text "° Asesoría de soporte " + x.producto
+                pdf.text "° Asesoría y soporte técnico vía " + x.producto
               else
                 pdf.text "° "+x.producto
               end
@@ -82,7 +82,12 @@ class VentaController < ApplicationController
             pdf.text "________________________________________________________________________________"
             pdf.text "\n\nYo #{@ventum.cliente} confirmo que se me dio entrega de los siguientes Productos/servicios:\n\n", :inline_format => true   
             @detail.each do |x|
-              pdf.text " * #{x.producto}"
+           
+              if x.producto == "Presencialmente" || x.producto == "Remotamente"
+                pdf.text "° Asesoría y soporte técnico vía " + x.producto
+              else
+                pdf.text "° "+x.producto
+              end
             end
             pdf.text "\n\nA su vez apruebo que esta aceptación sea utilizada por SOS Software para la mejora continua en sus servicios.", :inline_format => true  
             pdf.text "________________________________________________________________________________"

@@ -68,7 +68,7 @@ wb.add_worksheet(name: "Etapas_proyecto") do |sheet|
 		    	end
 		    	@tiempo_instalar = x.cantidad
 		    end
-		  	sheet.add_row [x.producto,x.cantidad,x.precio,(x.precio*x.cantidad)], :style => border
+		  	sheet.add_row [x.producto,x.cantidad,(x.precio*(1-(x.descuento.to_f/100))),((x.precio*(1-(x.descuento.to_f/100)))*x.cantidad)], :style => border
 		end
 		sheet.add_row ['']
 	end
