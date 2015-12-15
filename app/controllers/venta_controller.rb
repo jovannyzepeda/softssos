@@ -128,88 +128,57 @@ class VentaController < ApplicationController
   #salva informacion de detalle de prouctos
   def salvar
     i = 0
-    @object.each do |detalle|
-      if  @distribuidor == "distribuidorsi"
-        totalpagar = ((detalle[0].venta*@cant[i].to_i) * (1 - (@descuento[i].to_f/100))) *  (1 - (@descuentoproveedor[i].to_f/100))
-      else
-        totalpagar = (detalle[0].venta*@cant[i].to_i) * (1 - (@descuento[i].to_f/100))
-      end
-      @detalle = Detail.new(producto: detalle[0].nombre, cantidad: @cant[i] , precio: detalle[0].precio, precioventa: detalle[0].venta, total: totalpagar , descuento: @descuento[i], descuentoproveedor: @descuentoproveedor[i], venta_id: @ventum.id )
+    @data.each do |detalle|
+      @detalle = Detail.new(producto: detalle["nombre"], cantidad: detalle["cantidad"] , precio: detalle["costo"], precioventa: detalle["precio"], total: detalle["total"] , descuento: detalle["descuento"], descuentoproveedor: detalle["descuentodistribuidor"], venta_id: @ventum.id )
       @detalle.save
       i = i + 1
     end
     if @tiempo_instalar.present?
-      @detalle = Detail.new(producto: @activacion, cantidad: @tiempo_instalar , precio: @unicoinstalar, precioventa: @unicoinstalar, total: @costo_instalar, descuento:@descuentoinstalar , venta_id: @ventum.id )
+      @detalle = Detail.new(producto: @activacion, cantidad: @tiempo_instalar , precio: @precioinstalar, precioventa: @precioinstalar, total: @costo_instalar, descuento:@descuentoinstalar , venta_id: @ventum.id )
       @detalle.save
     end
   end
   def obtener_datos
-    @data = params[:data]
-    @fecha = params[:fecha]
-    @clave = params[:clave]
-    @iva = params[:iva]
-    @descglobal  = params[:descuentogeneral].to_i
-    @global = params[:descuentogeneral].to_f
-    @global = (1-(@global/100).to_f).round(2)
-    @distribuidor = params[:distribuidor]
-    #unless @data.blank?
+    #recuperar parametros necesarios del formulario
+    @data = params[:data]  #datos productos
+    #datos deformulario base
+      @fecha = params[:fecha]
+      @clave = params[:clave]
+      @iva = params[:iva]
       @cliente = params[:cliente] + " " +params[:cliente_apellido]
-      @object = []
-      @cant = []
-      @descuento = []
-      @descuentoproveedor = []
-      @venta = []
-      @unicoinstalar
-      horas = 0
-      @descuentoinstalar
-      @preciofinal = 0
+      @descglobal  = params[:descuentogeneral].to_i
+      @global = params[:descuentogeneral].to_f
+      @global = (1-(@global/100).to_f).round(2)#descento convrtido en decimal aplicable 
+      @distribuidor = params[:distribuidor]
+    #fin datos base
+
       @activacion = params[:instalacion]
+      #variables requeridas para medir tiempos de instalacion en caso de aplicar
+      @precioinstalar = 0
+      horas = 0 
+      @descuentoinstalar = 0
+      @preciofinal = 0
+      #calcular variables en tiempo de instalacion
       if @activacion != "No"
         horas = params[:tiempoinstalar]
-        @unicoinstalar = params[:costoinstalar].to_f
+        @precioinstalar = params[:costoinstalar].to_f
         @descuentoinstalar = params[:descuentoinstalar].to_f
         adicionaldescuento = 1 - (@descuentoinstalar/100).to_f
-        unless @data.blank?
-          @data.each do |d|
-            info = Producto.where("nombre=?", d["nombre"])
-            if  @distribuidor == "distribuidorsi"
-              @descuentoproveedor.push d["descuentodistribuidor"].to_f
-            else
-              @descuentoproveedor.push 0
-            end
-            @object.push info
-            @cant.push d["cantidad"]
-            @descuento.push d["descuento"]
-            @venta.push ((info.first.venta * d["cantidad"].to_f)* (1 - (d["descuento"].to_f/100))) * (1 - (d["descuentodistribuidor"].to_f/100))
-            @preciofinal = @preciofinal + (((info.first.venta * d["cantidad"].to_f) * (1 - (d["descuento"].to_f/100))) * (1 - (d["descuentodistribuidor"].to_f/100))).round(2)
-          end
-        end
+        adicionaldescuento = 1 - (@descuentoinstalar/100).to_f#variable de descuento modificada para uso directo
         @tiempo_instalar = (horas.to_f/60).round(2)
-        @costo_instalar = (@tiempo_instalar * @unicoinstalar) * adicionaldescuento
+        @costo_instalar = (@tiempo_instalar * @precioinstalar) * adicionaldescuento
         @preciofinal = @preciofinal + @costo_instalar
-      else
-        unless @data.blank?
-          @data.each do |d|
-            info = Producto.where("nombre=?", d["nombre"])
-            @object.push info
-            @cant.push d["cantidad"]
-            @descuento.push d["descuento"]
-            if  @distribuidor == "distribuidorsi"
-              @descuentoproveedor.push d["descuentodistribuidor"].to_f
-            else
-              @descuentoproveedor.push 0
-            end
-            @venta.push ((info.first.venta * d["cantidad"].to_f)* (1 - (d["descuento"].to_f/100))) * (1 - (d["descuentodistribuidor"].to_f/100))
-            @preciofinal = @preciofinal + (((info.first.venta * d["cantidad"].to_f) * (1 - (d["descuento"].to_f/100))) * (1 - (d["descuentodistribuidor"].to_f/100))).round(2)
-          end
+      end
+      #calcular subtotal
+      unless @data.blank?
+        @data.each do |d|
+          @preciofinal = @preciofinal + d["total"].to_f
         end
       end
-      
-    #end
-
-    @totalcosto = 0
-    @totalcosto = (@preciofinal*(1+(@iva.to_f/100).round(2))).round(2)
-    @totalcosto = (@totalcosto * @global).round(2)
+      #calcular total
+      @totalcosto = 0
+      @totalcosto = (@preciofinal*(1+(@iva.to_f/100))).round(2)
+      @totalcosto = (@totalcosto * @global).round(2)
 
   end
   # PATCH/PUT /venta/1

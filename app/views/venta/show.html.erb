@@ -37,15 +37,15 @@
             <td><%=x.cantidad%></td>
             <td>
             	<%if x.descuento%>
-            		<%=x.descuento%>
+            		<%=x.descuento.to_i%>
             	<%else%>
             		0	
             	<%end%>%
             </td>
             <%if @ventum.distribuidor == "distribuidorsi"%>
-              <td><%=x.descuentoproveedor%></td>
+              <td><%=x.descuentoproveedor.to_i%>%</td>
             <%end%>
-            <td><%=x.total%></td>
+            <td><%=x.total.round(2)%></td>
           </tr>
         <% end %>
        

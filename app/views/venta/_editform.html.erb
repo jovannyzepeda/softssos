@@ -1,117 +1,133 @@
-<%= form_tag({:controller => "venta", :action => "update"}, :method => "PUT", "id"=>"index") do %>
+</div></div>
+<div class="col-md-12">
+  <%= form_tag({:controller => "venta", :action => "update"}, :method => "PUT", "id"=>"index") do %>
+    <div class="col-md-8 col-md-offset-2">
       <h4 class="alert alert-danger clear center">Nombre de cliente * </h4>
-<div class="col-md-6">
-  <input type="text" name="cliente" placeholder="Nombre(s)" id="nom" required value="<%=@ventum.cliente%>"> 
-</div>
-<div class="col-md-6">
-  <input type="text" name="cliente_apellido" placeholder="Apellido(s)"  id="ape" value=""> 
-</div> 
-<div class="col-md-12">
-  <div class="field trescientos">
-    <label for="clave">Nombre de proyecto</label>
-    <input type="text" name="clave" placeholder="P1343" value="<%=@ventum.clave%>"/>
-  </div>
-  <div class="field doscientos">
-    <label for="fecha">Fecha de arranque</label>
-    <input type="date" name="fecha" value="<%=@ventum.fecha%>"/>
-  </div>
-  <div class="field cien">
-    <label for="iva">IVA</label>
-    <input type="number" name="iva" value="<%=@ventum.iva%>"/>
-  </div>
-</div>
-<div class="containing-element col-md-12">
-  <label for="flip-min">Cliente Distribuidor (Agrega campos con descuento doble):</label>
-  <select  id="flip-min" data-role="slider" name="distribuidor">
-    <option value="distribuidorno">NO</option>
-    <% if @ventum.distribuidor == "distribuidorsi"%>
-      <option value="distribuidorsi" selected="selected">SI</option>
-    <%else%>
-      <option value="distribuidorsi">SI</option>
-    <%end%>
-  </select>
-</div>
-<h4 class="alert alert-danger clear center">Productos Seleccionados</h4>
-<div id="elements">
-  <%@tipo="nulo"%>
-  <%@detail.each do |detalle|%>
-    <%if detalle.producto != "Remotamente" && detalle.producto != "Presencialmente"%>
-    <%else%>
-      <%@cantidad = detalle.cantidad
-        @tipo = detalle.producto
-        @des = detalle.descuento
-        @precio = detalle.precioventa
-      %>
-    <%end%>
-  <%end%>
-</div>
-<fieldset class="col-md-12">
-  <div data-role="fieldcontain" class="col-md-12">
-    <label for="select-based-flipswitch">Requiere instalación:</label>
-    <select id="select-based-flipswitch" name="instalacion" onchange="validarval()" >
-      <option value="No">No</option>
-      <%if @tipo == "Remotamente"%>
-        <option value="Remotamente" selected="selected">Remotamente</option>
-      <%else%>
-        <option value="Remotamente">Remotamente</option>
+      <div class="col-md-6">
+        <input type="text" name="cliente" placeholder="Nombre(s)" id="nom" required value="<%=@ventum.cliente%>"> 
+      </div>
+      <div class="col-md-6">
+        <input type="text" name="cliente_apellido" placeholder="Apellido(s)"  id="ape" value=""> 
+      </div>  
+      <div class="col-md-12">
+        <div class="field trescientos">
+          <label for="clave">Nombre de proyecto</label>
+          <input type="text" name="clave" placeholder="P1343" value="<%=@ventum.clave%>"/>
+        </div>
+        <div class="field doscientos">
+          <label for="fecha">Fecha de arranque</label>
+          <input type="date" name="fecha" value="<%=@ventum.fecha%>"/>
+        </div>
+        <div class="field cien">
+          <label for="iva">IVA</label>
+          <input type="number" name="iva" value="<%=@ventum.iva%>"/>
+        </div>
+      </div>
+      <div class="containing-element col-md-12">
+        <label for="flip-min">Cliente Distribuidor (Agrega campos con descuento doble):</label>
+        <select  id="flip-min" data-role="slider" name="distribuidor">
+          <option value="distribuidorno">NO</option>
+          <% if @ventum.distribuidor == "distribuidorsi"%>
+            <option value="distribuidorsi" selected="selected">SI</option>
+          <%else%>
+            <option value="distribuidorsi">SI</option>
+          <%end%>
+        </select>
+      </div>
+    </div>
+    <h4 class="alert alert-danger clear center">Productos Seleccionados</h4>
+    <div class="col-md-12 mayorvisible" >
+      <div class="col-md-3"><label>Nombre</label></div>
+      <div class="col-md-2"><label>Precio Venta S/IVA</label></div>
+      <div class="col-md-2"><label>Descuento %</label></div>
+      <div class="col-md-2"><label>Total producto</label></div>
+      <div class="col-md-2"><label>Cantidad</label></div>
+      <div class="col-md-1"><label>Eliminar</label></div>
+    </div>
+    <div id="elements">
+      <%@tipo="nulo"%>
+      <%@detail.each do |detalle|%>
+        <%if detalle.producto != "Remotamente" && detalle.producto != "Presencialmente"%>
+        <%else%>
+          <%@cantidad = detalle.cantidad
+            @tipo = detalle.producto
+            @des = detalle.descuento
+            @precio = detalle.precioventa
+          %>
+        <%end%>
       <%end%>
-      <%if @tipo == "Presencialmente"%>
-        <option value="Presencialmente" selected="selected">Presencialmente</option>
-      <%else%>
-        <option value="Presencialmente">Presencialmente</option>
-      <%end%>
-    </select>
-  </div>
-</fieldset>
-<%if @cantidad.present?%>
+    </div>
+    <div class="col-md-8 col-md-offset-2">
+      <fieldset class="col-md-12">
+        <div data-role="fieldcontain" class="col-md-12">
+          <label for="select-based-flipswitch">Requiere instalación:</label>
+          <select id="select-based-flipswitch" name="instalacion" onchange="validarval()" >
+            <option value="No">No</option>
+            <%if @tipo == "Remotamente"%>
+              <option value="Remotamente" selected="selected">Remotamente</option>
+            <%else%>
+              <option value="Remotamente">Remotamente</option>
+            <%end%>
+            <%if @tipo == "Presencialmente"%>
+              <option value="Presencialmente" selected="selected">Presencialmente</option>
+            <%else%>
+              <option value="Presencialmente">Presencialmente</option>
+            <%end%>
+          </select>
+        </div>
+      </fieldset>
+      <%if @cantidad.present?%>
 
-  <%@cantidad = (@cantidad * 60).to_i%>
-  <div class="col-md-12 desaparecetime" id="desaparecetime">
-    <h4 class="alert alert-danger clear center">Instalación y capacitación * </h4>
-    <div class="col-md-12">
-      <div class="col-md-4">
-      <label>Tiempo en minutos</label>
-      <input type="number" name="tiempoinstalar" placeholder="35" id="tiempos" value="<%=@cantidad%>">
+        <%@cantidad = (@cantidad * 60).to_i%>
+        <div class="col-md-12 desaparecetime" id="desaparecetime">
+          <h4 class="alert alert-danger clear center">Instalación y capacitación * </h4>
+          <div class="col-md-12">
+            <div class="col-md-4">
+            <label>Tiempo en minutos</label>
+            <input type="number" name="tiempoinstalar" placeholder="35" id="tiempos" value="<%=@cantidad%>">
+            </div>
+            <div class="col-md-4">
+            <label>Costo por hora</label>
+            <input type="number" name="costoinstalar" id="costoinstalar" placeholder="35" id="tiempos" min="0" class="instalar" step="any" value="<%=@precio%>">
+            </div>
+            <div class="col-md-4">
+            <label>Descuento</label>
+            <input type="number" name="descuentoinstalar" placeholder="35" id="tiempos" min="0" max="100" class="instalar" step="any" value="<%=@des.to_i%>">
+            </div>
+          </div>
+        </div>
+      <%else%>
+        <div class="col-md-12 desaparecetime" id="desaparecetime">
+          <h4 class="alert alert-danger clear center">Tiempo de instalación y capacitación en minutos * </h4>
+          <div class="col-md-12">
+            <div class="col-md-4">
+            <label>Tiempo en minutos</label>
+            <input type="number" name="tiempoinstalar" placeholder="35" id="tiempos" value="<%=@cantidad%>">
+            </div>
+            <div class="col-md-4">
+            <label>Costo por hora</label>
+            <input type="number" name="costoinstalar" id="costoinstalar" placeholder="35" id="tiempos" min="0" class="instalar" step="any">
+            </div>
+            <div class="col-md-4">
+            <label>Descuento</label>
+            <input type="number" name="descuentoinstalar" placeholder="35" id="tiempos" min="0" max="100" class="instalar" step="any">
+            </div>
+          </div>
+        </div>
+      <%end%>
+      <div class="col-md-12">
+          <label>Descuento General</label>
+          <div class="cien">
+            <input type="number" min="0" max="100" class="form-control" name="descuentogeneral" value="<%=@ventum.descuentogeneral%>">
+          </div>
+        </div>
+      <div class="col-md-12">
+        <%= submit_tag "Guardar Venta" ,"class"=>"ui-link ui-btn ui-btn-inline ui-shadow ui-corner-all float_right"%>
       </div>
-      <div class="col-md-4">
-      <label>Costo por hora</label>
-      <input type="number" name="costoinstalar" id="costoinstalar" placeholder="35" id="tiempos" min="0" class="instalar" step="any" value="<%=@precio%>">
-      </div>
-      <div class="col-md-4">
-      <label>Descuento</label>
-      <input type="number" name="descuentoinstalar" placeholder="35" id="tiempos" min="0" max="100" class="instalar" step="any" value="<%=@des.to_i%>">
-      </div>
-    </div>
-  </div>
-<%else%>
-  <div class="col-md-12 desaparecetime" id="desaparecetime">
-    <h4 class="alert alert-danger clear center">Tiempo de instalación y capacitación en minutos * </h4>
-    <div class="col-md-12">
-      <div class="col-md-4">
-      <label>Tiempo en minutos</label>
-      <input type="number" name="tiempoinstalar" placeholder="35" id="tiempos" value="<%=@cantidad%>">
-      </div>
-      <div class="col-md-4">
-      <label>Costo por hora</label>
-      <input type="number" name="costoinstalar" id="costoinstalar" placeholder="35" id="tiempos" min="0" class="instalar" step="any">
-      </div>
-      <div class="col-md-4">
-      <label>Descuento</label>
-      <input type="number" name="descuentoinstalar" placeholder="35" id="tiempos" min="0" max="100" class="instalar" step="any">
-      </div>
-    </div>
-  </div>
-<%end%>
-<div class="col-md-12">
-    <label>Descuento General</label>
-    <div class="cien">
-      <input type="number" min="0" max="100" class="form-control" name="descuentogeneral" value="<%=@ventum.descuentogeneral%>">
-    </div>
-  </div>
-<div class="col-md-12">
-      <%= submit_tag "Guardar Venta" ,"class"=>"ui-link ui-btn ui-btn-inline ui-shadow ui-corner-all float_right"%>
     </div>
   <% end %>
+</div>
+<div class="col-md-8 col-md-offset-2">
 <script type="text/javascript">
   $(document).ready(function(){
     <%@detail.each do |detalle|%>
@@ -120,6 +136,8 @@
         enviar(<%=@id%>, '<%=detalle.producto%>', <%=detalle.precioventa%>);
         $("#<%=@id.to_i%>descuento").val("<%=detalle.descuento%>");
         $("#<%=@id.to_i%>num").val("<%=detalle.cantidad%>");
+        $("#real<%=@id.to_i%>").val("<%=detalle.precio%>");
+        $("#<%=@id.to_i%>descuentodistribuidor").val("<%=detalle.descuentoproveedor%>");
         actualizar('<%=@id.to_i%>');
       <%else%>
         validarval();

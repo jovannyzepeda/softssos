@@ -8,7 +8,7 @@
           <h3><%=padre.nombre%></h3>
           <ul data-role="listview" data-inset="false">
             <%@productos.each do |name|%> 
-              <button data-filtertext="<%=name.clave%> <%=name.nombre%> <%=name.busqueda%>" data-theme="b" onclick="enviar(<%=name.id%>, '<%=name.nombre%>', <%=name.venta%>)" class="ui-grid-a">
+              <button data-filtertext="<%=name.clave%> <%=name.nombre%> <%=name.busqueda%>" data-theme="b" onclick="enviar(<%=name.id%>, '<%=name.nombre%>', <%=name.venta%>,<%=name.precio%>)" class="ui-grid-a">
                 <div class="ui-block-a"><%=name.nombre%></div>
                 <div class="ui-grid-a">
                   <div class="ui-block-a">Clave: <%= name.clave%></div>

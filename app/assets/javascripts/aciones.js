@@ -1,25 +1,65 @@
-function enviar(id , nombre, costo){
+function enviar(id , nombre, costo, preciocompra){
 	var distribuidor = $("#flip-min").val();
 	if(distribuidor=="distribuidorno")
-		$('#elements').append( 	'<div class="col-md-12"><input type="hidden" value="'+costo+'" id="respaldo'+id+'">'+
-			'<div class="col-md-5">'+
-		'<input type="text"  id="'+id+'" name="data[][nombre]" value="'+nombre+'" class="alert alert-success" style="width:100%"></div>'+
-		'<div class="col-md-2"><input type="number" min="0" max="100" id="'+id+'descuento" name="data[][descuento]" step="any" placeholder="% Descuento" class="alert cien"onchange="actualizar('+id+')"></div>'+
-		'<div class="col-md-5"><input class="alert alert-info" id="cos'+id+'" style="width:40%; float:left" value="'+costo+'" disabled="disabled">'+
-		'<input type="number" id="'+id+'num" name="data[][cantidad]"  value="1" min="1" class="alert alert-danger" style="width:40%" onchange="actualizar('+id+')"">'+
-		'<button class="red float_right" onclick="eliminar('+id+')" id="'+id+'">x</button> </div></div>' );  
+		$('#elements').append( 	
+			'<div class="col-md-12" id="fiel'+id+'">'+
+				'<div class="col-md-3">'+
+					'<label class="menorvisibles">Nombre</label>'+
+					'<input type="text"  id="'+id+'" name="data[][nombre]" value="'+nombre+'" class="alert alert-success">'+
+				'</div>'+
+				'<div class="col-md-2">'+
+					'<input type="hidden" id="real'+id+'" name="data[][costo]" value="'+preciocompra+'">'+
+					'<label class="menorvisibles">Costo S/IVA</label>'+
+					'<input type="number" class="alert" name="data[][precio]" step="any" value="'+costo+'" id="respaldo'+id+'" onchange="actualizar('+id+')">'+
+				'</div>'+
+				'<div class="col-md-2">'+
+					'<label class="menorvisibles">Descuento %</label>'+
+					'<input type="number" min="0" max="100" id="'+id+'descuento" name="data[][descuento]" step="any" placeholder="% Descuento" class="alert  cien"onchange=" actualizar('+id+')">'+
+				'</div>'+
+				'<div class="col-md-2">'+
+					'<label class="menorvisibles">Total</label>'+
+					'<input class="alert alert-info" id="cos'+id+'" name="data[][total]" value="'+costo+'" >'+
+				'</div>'+
+				'<div class="col-md-2">'+
+					'<label class="menorvisibles">Cantidad</label>'+
+					'<input type="number" id="'+id+'num" name="data[][cantidad]"  value="1" min="1" class="alert alert-danger" onchange="actualizar('+id+')"">'+
+				'</div>'+
+				'<div class="col-md-1">'+
+					'<button class="red" onclick="eliminar('+id+')" id="'+id+'">x</button>'+
+				'</div>'+
+			'</div>' );  
 	else
-		$('#elements').append( 	'<div class="col-md-12"><input type="hidden" value="'+costo+'" id="respaldo'+id+'">'+
-			'<div class="col-md-3">'+
-		'<input type="text"  id="'+id+'" name="data[][nombre]" value="'+nombre+'" class="alert alert-success" style="width:100%"></div>'+
-		'<div class="col-md-2"><input type="number" min="0" max="100" id="'+id+'descuento" name="data[][descuento]" step="any" placeholder="% Descuento" class="alert cien"onchange="actualizar('+id+')"></div>'+
-		'<div class="col-md-2"><input type="number" min="0" max="100" id="'+id+'descuentodistribuidor" name="data[][descuentodistribuidor]" step="any" placeholder="% Descuento" class="alert cien"onchange="actualizar('+id+')"></div>'+
-		'<div class="col-md-5"><input class="alert alert-info" id="cos'+id+'" style="width:40%; float:left" value="'+costo+'" disabled="disabled">'+
-		'<input type="number" id="'+id+'num" name="data[][cantidad]"  value="1" min="1" class="alert alert-danger" style="width:40%" onchange="actualizar('+id+')"">'+
-		'<button class="red float_right" onclick="eliminar('+id+')" id="'+id+'">x</button> </div></div>' );  
+		$('#elements').append(
+		'<div class="col-md-12" id="fiel'+id+'">'+
+				'<div class="col-md-3">'+
+					'<label class="menorvisibles">Nombre</label>'+
+					'<input type="text"  id="'+id+'" name="data[][nombre]" value="'+nombre+'" class="alert alert-success">'+
+				'</div>'+
+				'<div class="col-md-2">'+
+					'<input type="hidden" id="real'+id+'" name="data[][costo]" value="'+preciocompra+'">'+
+					'<label class="menorvisibles">Costo S/IVA</label>'+
+					'<input type="number" class="alert" name="data[][precio]" step="any" value="'+costo+'" id="respaldo'+id+'" onchange="actualizar('+id+')">'+
+				'</div>'+
+				'<div class="col-md-2">'+
+					'<label class="menorvisibles">Descuento %</label>'+
+					'<input type="number" min="0" max="100" id="'+id+'descuento" name="data[][descuento]" step="any" placeholder="% Descuento"  style="width:50%!important; float:left" class="alert  cien"onchange=" actualizar('+id+')">'+
+					'<input type="number" min="0" max="100" id="'+id+'descuentodistribuidor" name="data[][descuentodistribuidor]" step="any" style="width:50%!important; float:left;" placeholder="% Descuento" class="alert cien"onchange="actualizar('+id+')">'+
+				'</div>'+
+				'<div class="col-md-2">'+
+					'<label class="menorvisibles">Total</label>'+
+					'<input class="alert alert-info" id="cos'+id+'" name="data[][total]" value="'+costo+'" >'+
+				'</div>'+
+				'<div class="col-md-2">'+
+					'<label class="menorvisibles">Cantidad</label>'+
+					'<input type="number" id="'+id+'num" name="data[][cantidad]"  value="1" min="1" class="alert alert-danger" onchange="actualizar('+id+')"">'+
+				'</div>'+
+				'<div class="col-md-1">'+
+					'<button class="red" onclick="eliminar('+id+')" id="'+id+'">x</button>'+
+				'</div>'+
+			'</div>'  );  
 }
 
-function eliminar(id){$("#"+id+"descuento").remove();$("#"+id+"descuentodistribuidor").remove();$("input#"+id).remove();$("#cos"+id).remove();$("button#"+id).remove(); $("#respaldo"+id).remove();$("#"+id+"num").remove();}function cargar(){$('#elements').empty();$("#tiempos").val("");$("input#nom").val("");$("input#ape").val("");$("button.ui-grid-a").removeClass("active");}
+function eliminar(id){$("#fiel"+id).remove();}function cargar(){$('#elements').empty();$("#tiempos").val("");$("input#nom").val("");$("input#ape").val("");$("button.ui-grid-a").removeClass("active");}
 
 function actualizar(id){
 	var distribuidor = $("#flip-min").val();
