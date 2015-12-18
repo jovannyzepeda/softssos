@@ -7,7 +7,7 @@ style_shout = styles.add_style :fg_color=> "00", :b => true, :bg_color => "96d6f
 costo = styles.add_style :b => true, :bg_color => "bfc2c3", :sz => 14, :border => {:style => :thin, :color => "00"}
 
 wb.add_worksheet(name: "Resumen") do |sheet|
-	sheet.add_row ['Administración de costos del proyecto "nombre de proyecto"' ,'Administrador de proyecto:   Fecha: '], :style => style_shout
+	sheet.add_row ['Administración de costos del proyecto' ,'Costos de proyecto'], :style => style_shout
 	sheet.add_row ['',''], :style => border
 	sheet.add_row ['Costo por etapas de proyecto','=Etapas_proyecto!B1'], :style => costo
 	sheet.add_row ['',''], :style => border
@@ -97,10 +97,10 @@ wb.add_worksheet(name: "Etapas_proyecto") do |sheet|
 	sheet.add_row ['Generar Reporte de Monitoreo','Calidad',@calidad,0.07,'=SUM(C30)*SUM(D30)','Estimadas 2 horas quincenales',''], :style => border
 	sheet.add_row ['Presentar y analizar reporte de monitoreo','Calidad',@calidad,0.03,'=SUM(C31)*SUM(D31)','Estimada 1 hora quincenal basado en 30 proyectos',''], :style => border
 
-	sheet.add_row ['Control de cambios','','','','','',''], :style => costo
-	sheet.add_row ['Recibir y Generar solicitud de cambios','Vendedor',@vendedor,0.41,'=SUM(C33)*SUM(D33)','',''], :style => border
-	sheet.add_row ['Analizar solicitud de cambios','CCC','',0.16,'=SUM(C34)*SUM(D34)','',''], :style => border
-	sheet.add_row ['Notificar cambios y actualizar documentos','Vendedor',@vendedor,0.5,'=SUM(C35)*SUM(D35)','',''], :style => border
+	#sheet.add_row ['Control de cambios','','','','','',''], :style => costo
+	#sheet.add_row ['Recibir y Generar solicitud de cambios','Vendedor',@vendedor,0.41,'=SUM(C33)*SUM(D33)','',''], :style => border
+	#sheet.add_row ['Analizar solicitud de cambios','CCC','',0.16,'=SUM(C34)*SUM(D34)','',''], :style => border
+	#sheet.add_row ['Notificar cambios y actualizar documentos','Vendedor',@vendedor,0.5,'=SUM(C35)*SUM(D35)','',''], :style => border
 end
 
 

@@ -17,9 +17,9 @@ gem 'therubyracer', platforms: :ruby
 gem 'flexslider', :git => 'https://github.com/constantm/Flexslider-2-Rails-Gem.git'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
- 
+ gem 'mysql'
 group :production do
-  gem 'mysql'
+  #gem 'mysql'
   gem 'rails_12factor'
 end
 
@@ -44,7 +44,7 @@ gem 'prawn-table'
 gem 'axlsx_rails'
 gem 'jquery_mobile_rails'
 group :development, :test do
-  gem 'sqlite3'
+  #gem 'sqlite3'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
