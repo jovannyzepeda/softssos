@@ -7,6 +7,8 @@ class CreateVenta < ActiveRecord::Migration
       t.float :iva
       t.float :subtotal
       t.float :total
+      t.float :descuentogeneral
+      t.string :distribuidor
       t.timestamps null: false
     end
   end

@@ -7,10 +7,11 @@
 default: &default
   adapter: mysql
   username: root
-  password: cruel1293
+  password: ddDD//99
   host: localhost
   pool: 5
   timeout: 5000
+  
 
 development:
   <<: *default

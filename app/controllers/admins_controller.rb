@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
-  before_action :autenticacion_admin!, only: [:destroy,:index,:new]
-  before_action :auth
+  #before_action :autenticacion_admin!, only: [:destroy,:index,:new]
+  #before_action :auth
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /admins
