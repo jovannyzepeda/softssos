@@ -10,6 +10,9 @@ ul.nav > li > a:hover {    color: gold!important;}ul.nav > li > a:active {    co
 .col-md-2 > input,.col-md-3 > input{
 	width: 100%; 
 }
+img{
+	height: inherit!important;
+}
 @media(max-width: 991px){
 	.mayorvisible{
 		display: none;
