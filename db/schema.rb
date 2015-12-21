@@ -11,82 +11,85 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124152537) do
+ActiveRecord::Schema.define(version: 20151203174909) do
 
-  create_table "detail", force: :cascade do |t|
-    t.text     "producto",           limit: 65535
-    t.float    "cantidad",           limit: 24
-    t.float    "precio",             limit: 24
-    t.float    "precioventa",        limit: 24
-    t.float    "descuento",          limit: 24
-    t.float    "total",              limit: 24
-    t.float    "descuentoproveedor", limit: 24
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+  create_table "details", force: :cascade do |t|
+    t.integer  "venta_id"
+    t.text     "producto"
+    t.float    "cantidad"
+    t.float    "precio"
+    t.float    "precioventa"
+    t.float    "descuento"
+    t.float    "total"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.float    "descuentoproveedor"
   end
 
+  add_index "details", ["venta_id"], name: "index_details_on_venta_id"
+
   create_table "producto_padres", force: :cascade do |t|
-    t.string   "nombre",      limit: 255
-    t.text     "descripcion", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "clave",       limit: 255
+    t.string   "nombre"
+    t.text     "descripcion"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "clave"
   end
 
   create_table "productos", force: :cascade do |t|
-    t.string   "nombre",               limit: 255
-    t.string   "clave",                limit: 255
-    t.float    "precio",               limit: 24
-    t.text     "descripcion",          limit: 65535
-    t.integer  "producto_padre_id",    limit: 4
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.float    "venta",                limit: 24
-    t.integer  "instalacion",          limit: 4
-    t.integer  "instalacionpreencial", limit: 4
-    t.text     "busqueda",             limit: 65535
+    t.string   "nombre"
+    t.string   "clave"
+    t.float    "precio"
+    t.text     "descripcion"
+    t.integer  "producto_padre_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.float    "venta"
+    t.integer  "instalacion"
+    t.integer  "instalacionpreencial"
+    t.text     "busqueda"
   end
 
-  add_index "productos", ["producto_padre_id"], name: "index_productos_on_producto_padre_id", using: :btree
+  add_index "productos", ["producto_padre_id"], name: "index_productos_on_producto_padre_id"
 
   create_table "rols", force: :cascade do |t|
-    t.string   "nombre",      limit: 255
-    t.string   "precio_hora", limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "nombre"
+    t.string   "precio_hora"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
-    t.string   "reset_password_token",   limit: 255
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-    t.integer  "privilegio",             limit: 4
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "privilegio"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "venta", force: :cascade do |t|
-    t.string   "cliente",          limit: 255
-    t.string   "clave",            limit: 255
+    t.string   "cliente"
+    t.string   "clave"
     t.date     "fecha"
-    t.float    "iva",              limit: 24
-    t.float    "subtotal",         limit: 24
-    t.float    "total",            limit: 24
-    t.float    "descuentogeneral", limit: 24
-    t.string   "distribuidor",     limit: 255
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.float    "iva"
+    t.float    "subtotal"
+    t.float    "total"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.float    "descuentogeneral"
+    t.string   "distribuidor"
+    t.float    "descuentodistribuido"
   end
 
-  add_foreign_key "productos", "producto_padres"
 end
