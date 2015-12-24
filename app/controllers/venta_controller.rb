@@ -78,7 +78,7 @@ class VentaController < ApplicationController
             pdf.text "________________________________________________________________________________"
             pdf.text "<b><font size='24'>\nCarta de aceptación de servicio\n\n</font></b>", :inline_format => true, :align => :justify
             pdf.text "Estimado/a #{@ventum.cliente}\n\nPor medio de este documento se solicita amablemente indicar si el servicio otorgado por SOS Software fue el necesario para cumplir la resolución del inconveniente presentado de una forma adecuada y a su vez generada en un tiempo correspondiente a la dificultad de la solicitud requerida.", :inline_format => true, :align => :justify
-            pdf.text "\n\nPara poder emitir su factura es necesario que nos envie un correo con asunto: Carta de aceptación y con el siguiente contenido:", :inline_format => true, :align => :justify
+            pdf.text "\n\nSe solicita amablemente enviar un correo con el asunto: Carta de aceptación y con el siguiente contenido:", :inline_format => true, :align => :justify
             pdf.text "________________________________________________________________________________"
             pdf.text "\n\nYo #{@ventum.cliente} confirmo que se me dio entrega de los siguientes Productos/servicios:\n\n", :inline_format => true   
             @detail.each do |x|
