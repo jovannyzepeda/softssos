@@ -10,6 +10,15 @@ ul.nav > li > a:hover {    color: gold!important;}ul.nav > li > a:active {    co
 .col-md-2 > input,.col-md-3 > input{
 	width: 100%; 
 }
+.red_g{
+	color: green;
+}
+.red_y{
+	color: yellow;
+}
+.red_s{
+	color: red;
+}
 img{
 	height: inherit!important;
 }

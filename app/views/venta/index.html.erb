@@ -10,6 +10,7 @@
   <table class="table table-bordered ui-responsive" data-role="table" data-filter="true" data-input="#filterTable-input">
     <thead>
       <tr>
+        <th></th>
         <th>Cliente</th>
         <th>Clave</th>
         <th>Fecha</th>
@@ -22,16 +23,27 @@
     <tbody> 
       <% @venta.each do |ventum| %>
         <tr>
+          <td>
+            <%if ventum.status.present?%>
+              <%if ventum.status == "Revisado"%>
+                <i class="fa fa-cog fa-spin red_g"></i>
+              <%elsif ventum.status == "Auditado"%>
+                 <i class="fa fa-cog fa-spin red_y"></i>
+              <%elsif ventum.status == "En proceso"%>
+                 <i class="fa fa-cog fa-spin red_s"></i>
+              <%end%>
+            <%else%>
+              <i class="fa fa-cog fa-spin red_s"></i>
+            <%end%>
+          </td>
           <td><%= ventum.cliente %></td>
           <td><%= ventum.clave %></td>
           <td><%= ventum.fecha %></td>
           <td><%= ventum.created_at %></td>
           <td><%= ventum.iva %></td>
           <td><%= link_to 'Ver', ventum %></td>
-          <%if current_user.is_admin?%>
-            <td><%= link_to 'Editar', edit_ventum_path(ventum)%></td>
-          <%end%>
-          <td><%= link_to 'Eliminar', ventum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Editar', edit_ventum_path(ventum)%></td>
+          <td><%= link_to 'Eliminar', ventum, method: :delete, data: { confirm: 'Estas seguro de eliminar este registro?' } %></td>
         </tr>
       <% end %>
     </tbody>

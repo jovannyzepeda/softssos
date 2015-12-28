@@ -14,6 +14,32 @@
           <label for="clave">Nombre de proyecto</label>
           <input type="text" name="clave" placeholder="P1343" value="<%=@ventum.clave%>"/>
         </div>
+        <%if current_user.is_admin?%>
+          <label>Estado de proyecto</label>
+          <div class="doscientos">
+            <select name="statusproyect" class="form-contro">
+              <%if @ventum.status.present?%>
+                <%if @ventum.status == "Revisado"%>
+                  <option value="En proceso">En proceso</option>
+                  <option value="Auditado">Auditado</option>
+                  <option value="Revisado" selected>Finalizado</option>
+                <%elsif @ventum.status == "Auditado"%>
+                  <option value="En proceso">En proceso</option>
+                  <option value="Auditado" selected>Auditado</option>
+                  <option value="Revisado">Finalizado</option>
+                <%elsif @ventum.status == "En proceso"%>
+                  <option value="En proceso" selected>En proceso</option>
+                  <option value="Auditado">Auditado</option>
+                  <option value="Revisado">Finalizado</option>
+                <%end%>
+              <%else%>
+                <option value="En proceso" selected>En proceso</option>
+                <option value="Auditado">Auditado</option>
+                <option value="Revisado">Finalizado</option>
+              <%end%>
+            </select>
+          </div>
+        <%end%>
         <div class="field doscientos">
           <label for="fecha">Fecha de arranque</label>
           <input type="date" name="fecha" value="<%=@ventum.fecha%>"/>

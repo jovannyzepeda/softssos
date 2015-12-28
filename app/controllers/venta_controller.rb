@@ -185,9 +185,10 @@ class VentaController < ApplicationController
   # PATCH/PUT /venta/1.json
   def update
     obtener_datos()
+    @status = params[:statusproyect]
     @cliente = params[:cliente] + " " +params[:cliente_apellido]
     respond_to do |format|
-      if @ventum.update(cliente: @cliente, clave:@clave, fecha:@fecha, iva:@iva,subtotal:@preciofinal ,total:@totalcosto, descuentogeneral: @descglobal , distribuidor: @distribuidor)
+      if @ventum.update(cliente: @cliente, clave:@clave, fecha:@fecha, iva:@iva,subtotal:@preciofinal ,total:@totalcosto, descuentogeneral: @descglobal , distribuidor: @distribuidor, status: @status)
         @detail.each do |x|
           x.destroy
         end
