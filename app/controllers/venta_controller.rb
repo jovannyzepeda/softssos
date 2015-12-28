@@ -128,10 +128,12 @@ class VentaController < ApplicationController
   #salva informacion de detalle de prouctos
   def salvar
     i = 0
-    @data.each do |detalle|
-      @detalle = Detail.new(producto: detalle["nombre"], cantidad: detalle["cantidad"] , precio: detalle["costo"], precioventa: detalle["precio"], total: detalle["total"] , descuento: detalle["descuento"], descuentoproveedor: detalle["descuentodistribuidor"], venta_id: @ventum.id )
-      @detalle.save
-      i = i + 1
+    if @data.present?
+      @data.each do |detalle|
+        @detalle = Detail.new(producto: detalle["nombre"], cantidad: detalle["cantidad"] , precio: detalle["costo"], precioventa: detalle["precio"], total: detalle["total"] , descuento: detalle["descuento"], descuentoproveedor: detalle["descuentodistribuidor"], venta_id: @ventum.id )
+        @detalle.save
+        i = i + 1
+      end
     end
     if @tiempo_instalar.present?
       @detalle = Detail.new(producto: @activacion, cantidad: @tiempo_instalar , precio: @precioinstalar, precioventa: @precioinstalar, total: @costo_instalar, descuento:@descuentoinstalar , venta_id: @ventum.id )
