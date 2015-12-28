@@ -25,6 +25,7 @@
         <tr>
           <td>
             <%if ventum.status.present?%>
+              <div class="novisible"><%= ventum.status%></div>
               <%if ventum.status == "Revisado"%>
                 <i class="fa fa-cog fa-spin red_g"></i>
               <%elsif ventum.status == "Auditado"%>
@@ -33,6 +34,7 @@
                  <i class="fa fa-cog fa-spin red_s"></i>
               <%end%>
             <%else%>
+              <div class="novisible">En proceso</div>
               <i class="fa fa-cog fa-spin red_s"></i>
             <%end%>
           </td>

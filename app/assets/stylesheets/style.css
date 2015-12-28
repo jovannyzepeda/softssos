@@ -7,6 +7,11 @@ ul.nav > li > a:hover {    color: gold!important;}ul.nav > li > a:active {    co
 @media(min-width: 1400px){
 	.maximo{max-width: 1200px;margin: 0 auto!important;}
 }
+.novisible{
+	height: 0px;
+	width: 0px;
+	visibility: hidden;
+}
 .col-md-2 > input,.col-md-3 > input{
 	width: 100%; 
 }
