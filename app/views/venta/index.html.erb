@@ -11,6 +11,7 @@
     <thead>
       <tr>
         <th></th>
+        <th>Creador</th>
         <th>Cliente</th>
         <th>Clave</th>
         <th>Fecha</th>
@@ -29,6 +30,8 @@
               <%if ventum.status == "Revisado"%>
                 <i class="fa fa-cog fa-spin red_g"></i>
               <%elsif ventum.status == "Auditado"%>
+                 <i class="fa fa-cog fa-spin red_b"></i>
+              <%elsif ventum.status == "Correccion"%>
                  <i class="fa fa-cog fa-spin red_y"></i>
               <%elsif ventum.status == "En proceso"%>
                  <i class="fa fa-cog fa-spin red_s"></i>
@@ -38,6 +41,7 @@
               <i class="fa fa-cog fa-spin red_s"></i>
             <%end%>
           </td>
+          <td><%if ventum.user%><%=ventum.user.email[0..ventum.user.email.index('@')-1]%><%end%></td>
           <td><%= ventum.cliente %></td>
           <td><%= ventum.clave %></td>
           <td><%= ventum.fecha %></td>

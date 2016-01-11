@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151228163423) do
+ActiveRecord::Schema.define(version: 20160111173843) do
 
   create_table "details", force: :cascade do |t|
     t.integer  "venta_id"
@@ -91,6 +91,9 @@ ActiveRecord::Schema.define(version: 20151228163423) do
     t.string   "distribuidor"
     t.float    "descuentodistribuido"
     t.string   "status"
+    t.integer  "user_id"
   end
+
+  add_index "venta", ["user_id"], name: "index_venta_on_user_id"
 
 end

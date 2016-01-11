@@ -22,19 +22,28 @@
                 <%if @ventum.status == "Revisado"%>
                   <option value="En proceso">En proceso</option>
                   <option value="Auditado">Auditado</option>
+                  <option value="Correccion">En corrección</option>
                   <option value="Revisado" selected>Finalizado</option>
                 <%elsif @ventum.status == "Auditado"%>
                   <option value="En proceso">En proceso</option>
                   <option value="Auditado" selected>Auditado</option>
+                  <option value="Correccion">En corrección</option>
+                  <option value="Revisado">Finalizado</option>
+                <%elsif @ventum.status == "Correccion"%>
+                  <option value="En proceso">En proceso</option>
+                  <option value="Auditado">Auditado</option>
+                  <option value="Correccion" selected>En corrección</option>
                   <option value="Revisado">Finalizado</option>
                 <%elsif @ventum.status == "En proceso"%>
                   <option value="En proceso" selected>En proceso</option>
                   <option value="Auditado">Auditado</option>
+                  <option value="Correccion">En corrección</option>
                   <option value="Revisado">Finalizado</option>
                 <%end%>
               <%else%>
                 <option value="En proceso" selected>En proceso</option>
                 <option value="Auditado">Auditado</option>
+                <option value="Correccion">En corrección</option>
                 <option value="Revisado">Finalizado</option>
               <%end%>
             </select>

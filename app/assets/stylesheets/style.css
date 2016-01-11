@@ -18,6 +18,9 @@ ul.nav > li > a:hover {    color: gold!important;}ul.nav > li > a:active {    co
 .red_g{
 	color: green;
 }
+.red_b{
+	color: blue;
+}
 .red_y{
 	color: yellow;
 }
