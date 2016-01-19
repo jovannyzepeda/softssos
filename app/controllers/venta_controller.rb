@@ -84,9 +84,9 @@ class VentaController < ApplicationController
             @detail.each do |x|
            
               if x.producto == "Presencialmente" || x.producto == "Remotamente"
-                pdf.text "° Asesoría y soporte técnico vía " + x.producto
+                pdf.text "° "+x.cantidad.to_s+ " Asesoría y soporte técnico vía " + x.producto
               else
-                pdf.text "° "+x.producto
+                pdf.text "° "+x.cantidad.to_s+" "+x.producto
               end
             end
             pdf.text "\n\nA su vez apruebo que esta aceptación sea utilizada por SOS Software para la mejora continua en sus servicios.", :inline_format => true  
