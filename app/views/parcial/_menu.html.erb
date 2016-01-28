@@ -19,6 +19,7 @@
 			<li><%= link_to "Salir", destroy_user_session_path, method: :delete, class: "page-scroll"%></li>
 			<%if current_user.is_admin?%>
 				<li><%= link_to "Registrar", admins_path, class: " page-scroll "%></li>
+				<li><%=link_to "Reporte", reports_path, "class" => "page-scroll"%></li>
 			<%end%>
         </ul>
       </li>

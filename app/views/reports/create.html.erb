@@ -1,0 +1,33 @@
+<h2 class="alert alert-danger text-center">Resumen de reporte</h2>
+<%= link_to ' Descargar Reporte',  create_report_path(request.parameters.merge({:format => :pdf})),"data-role" => "button","data-inline" => "true", "data-theme" => "b", "download"=>"fa-download", "data-ajax"=>"false"%>
+<%= link_to "Regresar", reports_path,"data-role" => "button","data-inline" => "true"%>
+<table class="table table-bordered ui-responsive" data-role="table">
+    <thead>
+      <tr>
+        <th>Nombre de Cliente</th>
+        <th>Fecha de inicio</th>
+        <th>Estado</th>
+        <th>Responsable</th>
+      </tr>
+    </thead>
+    <tbody> 
+		<%@datos.each do |x|%>
+			<tr>
+			<td>
+				<%=x.cliente%>
+			</td>
+			<td>
+				<%=x.fecha%>
+			</td>
+			<td>
+				<%=x.status%>
+			</td>
+			<%if x.user.present?%>
+				<td><%=x.user.email%></td>
+			<%else%>
+				<td>Sin registro</td>
+			<%end%>
+			</tr>
+		<%end%>
+	</tbody>
+</table>

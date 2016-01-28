@@ -114,7 +114,7 @@ class VentaController < ApplicationController
   # POST /venta.json
   def create
     obtener_datos()
-    @ventum = current_user.ventum.new(cliente:@cliente, clave:@clave, fecha:@fecha, iva:@iva, subtotal:@preciofinal ,total:@totalcosto, descuentogeneral: @descglobal, distribuidor: @distribuidor)
+    @ventum = current_user.ventum.new(cliente:@cliente, clave:@clave, fecha:@fecha, iva:@iva, subtotal:@preciofinal ,total:@totalcosto, descuentogeneral: @descglobal, distribuidor: @distribuidor, status: "En proceso")
     respond_to do |format|
         if(@ventum.save)
           salvar()
