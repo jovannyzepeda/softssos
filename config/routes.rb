@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :analitics, only: [:index,:show]
+
   resources :reports, only: [:index]
   get "/reports/create", as: :create_report
 

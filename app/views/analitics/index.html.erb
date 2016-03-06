@@ -1,0 +1,298 @@
+<%=form_tag(analitics_path, method: :get) do%>
+	<div class="field doscientos">
+	  <label for="fecha">Fecha Inicio</label>
+	  <input type="date" name="inicio" required/>
+	</div>
+	<div class="field doscientos">
+	  <label for="fecha">Fecha Fin</label>
+	  <input type="date" name="fin" required/>
+	</div>
+	<input type="submit" class="btn btn-default" 'data-no-turbolink' = "true">
+<%end%>
+
+<%if @array.present?%>
+	<button class="btn btn-default" onclick="enviar()" data-inline="true" data-ajax="false">Mostrar graficos</button>
+	<h2 class="alert alert-danger center">Ventas anuales</h2>
+	<div id="container_anio"></div>
+	<h2 class="alert alert-danger center">Ventas de producto en rango</h2>
+	<div id="container_mes"></div>
+	<h2 class="alert alert-danger center">Ventas por vendedor en rango</h2>
+	<div id="container_vendedor"></div>
+	<h2 class="alert alert-danger center">Ganancias de productos</h2>
+	<div id="container_ganancia"></div>
+	<h2 class="alert alert-danger center">Producto mas vendido</h2>
+	<div id="container_masvendido"></div>
+	<script type="text/javascript">
+		function graficar_productos(lugar) {
+	    	$('#'+lugar).highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        title: {
+	            text: 'Venta de productos'
+	        },
+	        xAxis: {
+	            type: 'category',
+	            labels: {
+	                rotation: -45,
+	                style: {
+	                    fontSize: '13px',
+	                    fontFamily: 'Verdana, sans-serif'
+	                }
+	            }
+	        },
+	        yAxis: {
+	            min: 0,
+	            title: {
+	                text: 'Prodcutos vendidos SOS'
+	            }
+	        },
+	        legend: {
+	            enabled: false
+	        },
+	        tooltip: {
+	            pointFormat: 'Cantidad vendida: <b>{point.y:.1f}</b>'
+	        },
+	        series: [{
+	            name: 'Ventas',
+	            data: [
+
+		            	<%@concentrado.each do |datos|%>
+		                	['<%=datos[0]%>: productos Vendidos: <%=datos[4]%>', <%=datos[3]%>],
+		                <%end%>
+	            ],
+	            dataLabels: {
+	                enabled: true,
+	                rotation: -90,
+	                color: '#FFFFFF',
+	                align: 'right',
+	                format: '{point.y:.1f}', // one decimal
+	                y: 10, // 10 pixels down from the top
+	                style: {
+	                    fontSize: '13px',
+	                    fontFamily: 'Verdana, sans-serif'
+	                }
+	            }
+	        }]
+		    });
+		}
+		function graficar_ganacia(lugar) {
+	    	$('#'+lugar).highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        title: {
+	            text: 'Utilidad de productos'
+	        },
+	        xAxis: {
+	            type: 'category',
+	            labels: {
+	                rotation: -45,
+	                style: {
+	                    fontSize: '13px',
+	                    fontFamily: 'Verdana, sans-serif'
+	                }
+	            }
+	        },
+	        yAxis: {
+	            min: 0,
+	            title: {
+	                text: 'Utilidad SOS'
+	            }
+	        },
+	        legend: {
+	            enabled: false
+	        },
+	        tooltip: {
+	            pointFormat: 'Ganancia Total: <b>{point.y:.1f}</b>'
+	        },
+	        series: [{
+	            name: 'Ventas',
+	            data: [
+		            	<%@concentrado.each do |datos|%>
+		                	['<%=datos[0]%>: productos Vendidos: <%=datos[4]%>', <%=datos[5]%>],
+		                <%end%>
+	            ],
+	            dataLabels: {
+	                enabled: true,
+	                rotation: -90,
+	                color: '#FFFFFF',
+	                align: 'right',
+	                format: '{point.y:.1f}', // one decimal
+	                y: 10, // 10 pixels down from the top
+	                style: {
+	                    fontSize: '13px',
+	                    fontFamily: 'Verdana, sans-serif'
+	                }
+	            }
+	        }]
+		    });
+		}
+		function graficar_masvendido(lugar) {
+	    	$('#'+lugar).highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        title: {
+	            text: 'Productos mas Vendidos'
+	        },
+	        xAxis: {
+	            type: 'category',
+	            labels: {
+	                rotation: -45,
+	                style: {
+	                    fontSize: '13px',
+	                    fontFamily: 'Verdana, sans-serif'
+	                }
+	            }
+	        },
+	        yAxis: {
+	            min: 0,
+	            title: {
+	                text: 'Venta de productos SOS'
+	            }
+	        },
+	        legend: {
+	            enabled: false
+	        },
+	        tooltip: {
+	            pointFormat: 'Productos vendidos: <b>{point.y:.1f}</b>'
+	        },
+	        series: [{
+	            name: 'Ventas',
+	            data: [
+		            	<%@concentrado.each do |datos|%>
+		                	['<%=datos[0]%>:', <%=datos[4]%>],
+		                <%end%>
+	            ],
+	            dataLabels: {
+	                enabled: true,
+	                rotation: -90,
+	                color: '#FFFFFF',
+	                align: 'right',
+	                format: '{point.y:.1f}', // one decimal
+	                y: 10, // 10 pixels down from the top
+	                style: {
+	                    fontSize: '13px',
+	                    fontFamily: 'Verdana, sans-serif'
+	                }
+	            }
+	        }]
+		    });
+		}
+		function graficar_vendedores(lugar) {
+	    	$('#'+lugar).highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        title: {
+	            text: 'Ventas por usuario'
+	        },
+	        xAxis: {
+	            type: 'category',
+	            labels: {
+	                rotation: -45,
+	                style: {
+	                    fontSize: '13px',
+	                    fontFamily: 'Verdana, sans-serif'
+	                }
+	            }
+	        },
+	        yAxis: {
+	            min: 0,
+	            title: {
+	                text: 'Ventas por usuarios SOS'
+	            }
+	        },
+	        legend: {
+	            enabled: false
+	        },
+	        tooltip: {
+	            pointFormat: 'Ventas registradas: <b>{point.y:.1f}</b>'
+	        },
+	        series: [{
+	            name: 'Ventas por usuario',
+	            data: [
+		            	<%@arrayfinal.each do |datos|%>
+		                	['<%=datos[0]%>:', <%=datos[1]%>],
+		                <%end%>
+	            ],
+	            dataLabels: {
+	                enabled: true,
+	                rotation: -90,
+	                color: '#FFFFFF',
+	                align: 'right',
+	                format: '{point.y:.1f}', // one decimal
+	                y: 10, // 10 pixels down from the top
+	                style: {
+	                    fontSize: '13px',
+	                    fontFamily: 'Verdana, sans-serif'
+	                }
+	            }
+	        }]
+		    });
+		}
+		function graficar_anio(lugar) {
+	    	$('#'+lugar).highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        title: {
+	            text: 'Ventas Anuales <%=@datanio%>'
+	        },
+	        xAxis: {
+	            type: 'category',
+	            labels: {
+	                rotation: -45,
+	                style: {
+	                    fontSize: '13px',
+	                    fontFamily: 'Verdana, sans-serif'
+	                }
+	            }
+	        },
+	        yAxis: {
+	            min: 0,
+	            title: {
+	                text: 'Venta anual SOS'
+	            }
+	        },
+	        legend: {
+	            enabled: false
+	        },
+	        tooltip: {
+	            pointFormat: 'Venta: <b>{point.y:.1f}</b>'
+	        },
+	        series: [{
+	            name: 'Venta anual',
+	            data: [
+		            	<%@anio.each do |datos|%>
+		                	['<%=datos[0]%>:', <%=datos[1]%>],
+		                <%end%>
+	            ],
+	            dataLabels: {
+	                enabled: true,
+	                rotation: -90,
+	                color: '#FFFFFF',
+	                align: 'right',
+	                format: '{point.y:.1f}', // one decimal
+	                y: 10, // 10 pixels down from the top
+	                style: {
+	                    fontSize: '13px',
+	                    fontFamily: 'Verdana, sans-serif'
+	                }
+	            }
+	        }]
+		    });
+		}
+		$(document).ready(function(){
+			graficar_productos('container_mes');
+			graficar_ganacia('container_ganancia');
+			graficar_masvendido('container_masvendido');
+			graficar_vendedores('container_vendedor');
+			graficar_anio('container_anio');
+		});
+		function enviar(){
+			location.reload()
+		}
+	</script>
+<%end%>

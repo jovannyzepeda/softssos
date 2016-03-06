@@ -76,11 +76,11 @@ class VentaController < ApplicationController
             pdf.draw_text "Teléfono: (0133) 3617-2968", :at => [300,660]
             pdf.draw_text "E-mail: info@sos-soft.com", :at => [300,640]
             pdf.text "________________________________________________________________________________"
-            pdf.text "<b><font size='24'>\nCarta de aceptación de servicio\n\n</font></b>", :inline_format => true, :align => :justify
-            pdf.text "Estimado/a #{@ventum.cliente}\n\nPor medio de este documento se solicita amablemente indicar si el servicio otorgado por SOS Software fue el necesario para cumplir la resolución del inconveniente presentado de una forma adecuada y a su vez generada en un tiempo correspondiente a la dificultad de la solicitud requerida.", :inline_format => true, :align => :justify
+            pdf.text "<b><font size='24'>\nCarta de agradecimiento\n\n</font></b>", :inline_format => true, :align => :justify
+            pdf.text "Estimado/a #{@ventum.cliente}\n\nSOS Software se complace en dirigirse hacia usted para saludarlo y aprovechar la oportunidad para agradecerle profundamente la preferencia que ha mostrado por nuestros productos y servicio. Su apoyo nos hace cada día mejores personas y aumenta nuestro compromiso con su satisfacción a través de lo que le ofrecemos.\n\nEsperamos que su confianza en nosotros se incremente con cada adquisición de nuestros productos.\n\nQueremos comunicarle también que estamos complacidos de servirlo y ofrecerle productos de mejor calidad cada vez.\nEsperamos satisfacer sus necesidades con productos de primera calidad y a través del mejor servicio en el mercado.", :inline_format => true, :align => :justify
             pdf.text "\n\nSe solicita amablemente enviar un correo con el asunto: Carta de aceptación y con el siguiente contenido:", :inline_format => true, :align => :justify
             pdf.text "________________________________________________________________________________"
-            pdf.text "\n\nYo #{@ventum.cliente} confirmo que se me dio entrega de los siguientes Productos/servicios:\n\n", :inline_format => true   
+            pdf.text "\n\nSOS Software confirma haber entregado los siguientes productos/servicios:\n\n", :inline_format => true   
             @detail.each do |x|
            
               if x.producto == "Presencialmente" || x.producto == "Remotamente"
@@ -89,8 +89,6 @@ class VentaController < ApplicationController
                 pdf.text "° "+x.cantidad.to_s+" "+x.producto
               end
             end
-            pdf.text "\n\nA su vez apruebo que esta aceptación sea utilizada por SOS Software para la mejora continua en sus servicios.", :inline_format => true  
-            pdf.text "________________________________________________________________________________"
             pdf.text "\n\nMuchas gracias por tu tiempo y recuerda que nuestra misión es ayudarte a administrar y controlar mejor tu negocio de una manera automatizada.", :inline_format => true , :align => :justify
             pdf.text "\n\nSOS Software SA de CV", :inline_format => :true, :align =>:justify 
             pdf.text "\nDesarrollamos tus ideas", :inline_format => :true, :align =>:justify 
@@ -130,7 +128,7 @@ class VentaController < ApplicationController
     i = 0
     if @data.present?
       @data.each do |detalle|
-        @detalle = Detail.new(producto: detalle["nombre"], cantidad: detalle["cantidad"] , precio: detalle["costo"], precioventa: detalle["precio"], total: detalle["total"] , descuento: detalle["descuento"], descuentoproveedor: detalle["descuentodistribuidor"], venta_id: @ventum.id )
+        @detalle = Detail.new(producto: detalle["nombre"], cantidad: detalle["cantidad"] , precio: detalle["costo"], precioventa: detalle["precio"], total: detalle["total"] , descuento: detalle["descuento"], descuentoproveedor: detalle["descuentodistribuidor"], ventum_id: @ventum.id )
         @detalle.save
         i = i + 1
       end
@@ -218,7 +216,7 @@ class VentaController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_ventum
       @ventum = Ventum.find(params[:id])
-      @detail = Detail.where("venta_id = ?",@ventum.id)
+      @detail = Detail.where("ventum_id = ?",@ventum.id)
       @rols = Rol.all
     end
 
